@@ -1,0 +1,527 @@
+<modelos>
+<modelo nome="[agenda] Escritura Aquisição direta">
+<campos>
+            <campo tipo="input" id="nome-Cliente"/>
+            <campo tipo="datetime-local" id="agenda-Tabelionato"/>
+            <campo tipo="datetime-local" id="agenda-Agencia"/>
+            <campo tipo="input" id="Obs-Tab"/>
+
+            <campo tipo="input" id="Obs-Caixa"/>
+            <campo tipo="select" id="Agencia"/>
+            <campo tipo="input" id="Tratar-Agencia"/>
+            <campo tipo="input" id="Tratar-Tabelionato"/>
+            <campo tipo="input" id="Taxas-CAIXA"/>
+            <campo tipo="input" id="Taxas-TABELIONATO"/>
+        </campos>
+        <places>
+	<Agencia>Selecione</Agencia>
+        <Agencia>[Canoas] 4429 - Rio Branco ;CAIXA AG 4429 - Av. Guilherme Schell, 1596 - Rio Branco, Canoas - RS, 92200-004</Agencia>
+        <Agencia>[Canoas] 0440 - V-COMAR; CAIXA AG 0440 - Av. Guilherme Schell, 3950 - Rio Branco, Canoas - RS, 92200-004</Agencia>
+        <Agencia>[Canoas] 0433 - Vila Fernandes ;CAIXA AG 0433 - R. Venâncio Aires, 1041 - Niterói, Canoas - RS, 92110-000</Agencia>
+        <Agencia>[Canoas] 0463 - Canoas Centro;CAIXA AG 0463 - R. Fioravante Milanês, 147 - Centro, Canoas - RS, 92010-240</Agencia>
+        <Agencia>[Canoas] 2182 - Coronel Vicente ;CAIXA AG 2182 - R. Coronel Vicente, 583 - Harmonia, Canoas - RS, 92310-430</Agencia>
+        <Agencia>[Canoas] 3142 - Igara ;CAIXA AG 3142 - Av. Boqueirão, NUM 401 - Igara, Canoas - RS, 92410-350</Agencia>
+        <Agencia>[Canoas] 3240 - Canoas Shopping ;CAIXA AG 3240 - Av. Guilherme Schell, NUM 6750 - Centro, Canoas - RS, 92310-564</Agencia>
+        <Agencia>[Canoas] 3452 - Mathias Velho ;CAIXA AG 3452 - Av. Rio Grande do Sul, 1451/1453 - Mathias Velho, Canoas - RS, 92330-000</Agencia>
+        <Agencia>[Canoas] 3454 - Santos Ferreira ;CAIXA AG 3454 - Av. Santos Ferreira, 1685 - Mal. Rondon, Canoas - RS, 92020-478</Agencia>
+        <Agencia>[Canoas] 3973 - Justica do Trabalho ;CAIXA AG 3973 - Av. Victor Barreto, 3530 - 3 ANDAR - Centro, Canoas - RS, 92010-000</Agencia>
+        <Agencia>[Nova Santa Rita] 3714 - NSR ;CAIXA AG 3714 - R. Dr. Lourênço Záccaro, NUM 1564 - CENTRO, Nova Santa Rita - RS, 92480-000</Agencia>
+        <Agencia>[Capão da Canoa] 2266 - Capão ;CAIXA AG 2266 - Av. Paraguassu, 1725 - Centro, Capão da Canoa - RS, 95555-000</Agencia>
+        <!--  
+        <Local>Nome do Local 2; Endereço do Local 2</Local> -->
+        <!-- Adicione mais lugares conforme necessário -->
+      </places>
+<texto>
+ASSINATURA DE ESCRITURA - *[nome-Cliente]*
+[Obs-Tab]
+*Horários*
+[agenda-Tabelionato]
+Endereço.:`R. Gonçalves Dias, 67 - Centro, Canoas - RS, 92010-050` 
+Tratar com *[Tratar-Tabelionato]* 
+
+FINALIZAÇÃO DE TRAMITES DA CAIXA.:
+[Obs-Caixa]
+*Horários*
+[agenda-Agencia]
+Endereço.:`[Agencia]`
+Tratar com [Tratar-Agencia]
+
+A(s) parte(s) deve(m) comparecer com os docs abaixo.
+*VENDEDOR*
+Levar documentos originais atualizados.
+   - IDENTIDADE
+   - ENDEREÇO (ATUALIZADO)
+   - CERTIDÃO CIVIL ATUALIZADA VALIDADE ATÉ 60dias. (Via original)
+
+*COMPRADOR*
+Levar documentos originais atualizados.
+   - IDENTIDADE
+   - ENDEREÇO ATUALIZADO 
+   - VALOR DAS TAXAS CAIXA(📎) R$ [Taxas-CAIXA]`
+   - VALOR DAS TAXAS TABELIONATO(📎) `R$ [Taxas-TABELIONATO]`
+   - VALOR DESPACHANTE `R$ 1.000,00` - PIX 014.127.350-09
+   - CERTIDÃO CIVIL ATUALIZADA VALIDADE ATÉ 60dias. (Via original)
+
+OBS.
+Os valores das taxas (📎)referente a caixa, se o comprador não possuir conta na caixa, recomendamos que leve em dinheiro, não é aceito débito de outros bancos, o pagamento das taxas será efetuado por débito na conta caixa com o valor já previamente depositado ou em espécie.
+</texto>
+</modelo>
+<modelo nome="[agenda] Entrevista">
+<texto>
+Entrevista - *[nome]*
+_*Horários*_
+📆`[agenda]`
+LOCAL.: `[Local]`
+Tratar com .: [tratar]
+
+Evento exclusivo ao(s) comprador(es).
+*COMPRADOR*
+Levar documentos originais atualizados.
+- *IDENTIDADE*
+- *RENDA _ATUALIZADA_*
+- *ENDEREÇO _ATUALIZADO_*
+- (complementar documento se necessário)
+
+ℹ️*OBS*.
+A entrevista é o evento que antecede a assinatura, serve para validar a abertura da conta e demais ajustes para qualificar o.
+        </texto>
+        <campos>
+            <campo tipo="input" id="nome"/>
+            <campo tipo="datetime-local" id="agenda"/>
+            <campo tipo="select" id="Local"/>
+            <campo tipo="input" id="tratar"/>
+        </campos>
+        <places>
+	<Local>Selecione</Local>
+        <Local>[Canoas] 4429 - Rio Branco ;CAIXA AG 4429 - Av. Guilherme Schell, 1596 - Rio Branco, Canoas - RS, 92200-004</Local>
+        <Local>[Canoas] 0433 - Vila Fernandes ;CAIXA AG 0433 - R. Venâncio Aires, 1041 - Niterói, Canoas - RS, 92110-000</Local>
+        <Local>[Canoas] 0440 - V-COMAR; CAIXA AG 0440 - Av. Guilherme Schell, 3950 - Rio Branco, Canoas - RS, 92200-004</Local>
+        <Local>[Canoas] 0463 - Canoas Centro;CAIXA AG 0463 - R. Fioravante Milanês, 147 - Centro, Canoas - RS, 92010-240</Local>
+        <Local>[Canoas] 2182 - Coronel Vicente ;CAIXA AG 2182 - R. Coronel Vicente, 583 - Harmonia, Canoas - RS, 92310-430</Local>
+        <Local>[Canoas] 3142 - Igara ;CAIXA AG 3142 - Av. Boqueirão, NUM 401 - Igara, Canoas - RS, 92410-350</Local>
+        <Local>[Canoas] 3240 - Canoas Shopping ;CAIXA AG 3240 - Av. Guilherme Schell, NUM 6750 - Centro, Canoas - RS, 92310-564</Local>
+        <Local>[Canoas] 3452 - Mathias Velho ;CAIXA AG 3452 - Av. Rio Grande do Sul, 1451/1453 - Mathias Velho, Canoas - RS, 92330-000</Local>
+        <Local>[Canoas] 3454 - Santos Ferreira ;CAIXA AG 3454 - Av. Santos Ferreira, 1685 - Mal. Rondon, Canoas - RS, 92020-478</Local>
+        <Local>[Canoas] 3973 - Justica do Trabalho ;CAIXA AG 3973 - Av. Victor Barreto, 3530 - 3 ANDAR - Centro, Canoas - RS, 92010-000</Local>
+        <Local>[Nova Santa Rita] 3714 - NSR ;CAIXA AG 3714 - R. Dr. Lourênço Záccaro, NUM 1564 - CENTRO, Nova Santa Rita - RS, 92480-000</Local>
+        <Local>[Capão da Canoa] 2266 - Capão ;CAIXA AG 2266 - Av. Paraguassu, 1725 - Centro, Capão da Canoa - RS, 95555-000</Local>
+        <!--  
+        <Local>Nome do Local 2; Endereço do Local 2</Local> -->
+        <!-- Adicione mais lugares conforme necessário -->
+      </places>
+    </modelo>
+<modelo nome="[agenda] Assinatura de Contrato">
+<texto>
+✍️ ASSINATURA DE CONTRATO - *[nome]*
+_*Horários*_
+📆`[agenda]`
+LOCAL.: `[Local]`
+Tratar com .: [tratar]
+
+A(s) parte(s) deve(m) comparecer com os docs abaixo.
+*VENDEDOR*
+Levar documentos originais atualizados.
+- *IDENTIDADE*
+- *ENDEREÇO* (ATUALIZADO)
+
+*COMPRADOR*
+Levar documentos originais atualizados.
+- *IDENTIDADE*
+- *RENDA _ATUALIZADA_*
+- *ENDEREÇO _ATUALIZADO_*
+- (complementar documento se necessário)
+- *VALOR DAS TAXAS (📎)* `R$ [taxas]`
+- *VALOR DESPACHANTE* `R$ [despachante]`
+
+ℹ️*OBS*.
+Os valores das taxas (📎)_*referente a CAIXA*_,Para assinar o contrato, é necessário pagar as taxas correspondentes ao contrato. Não é possível quitar essas taxas com boleto, nem usar débito de outros bancos. Recomendamos que você faça o pagamento em dinheiro. As taxas serão cobradas diretamente da sua conta na CAIXA, utilizando o valor que você já depositou previamente via Pix ou em espécie. Caso opte pelo pix, avalie a possibilidade de dificuldade técnica e questões de sinal para efetivar a transferência, esteja precavido. ;)
+💪
+        </texto>
+        <campos>
+            <campo tipo="input" id="nome"/>
+            <campo tipo="datetime-local" id="agenda"/>
+            <campo tipo="select" id="Local"/>
+            <campo tipo="input" id="tratar"/>
+            <campo tipo="input" id="taxas"/>
+            <campo tipo="input" id="despachante"/>
+        </campos>
+        <places>
+	<Local>Selecione</Local>
+	<Local>[Canoas] 2º Tabelionato - Segundo Tabelionato Canoas; 2º Tabelionato Canoas - Av. Guilherme Schell, 1596 - Rio Branco, Canoas - RS, 92200-004</Local>
+        <Local>[Canoas] 4429 - Rio Branco ;CAIXA AG 4429 - Av. Guilherme Schell, 1596 - Rio Branco, Canoas - RS, 92200-004</Local>
+        <Local>[Canoas] 0440 - V-Comar ;CAIXA AG 0440 - Av. Guilherme Schell, 3950 - Rio Branco, Canoas - RS</Local>
+        <Local>[Canoas] 0433 - Vila Fernandes ;CAIXA AG 0433 - R. Venâncio Aires, 1041 - Niterói, Canoas - RS, 92110-000</Local>
+        <Local>[Canoas] 0463 - Canoas Centro;CAIXA AG 0463 - R. Fioravante Milanês, 147 - Centro, Canoas - RS, 92010-240</Local>
+        <Local>[Canoas] 2182 - Coronel Vicente ;CAIXA AG 2182 - R. Coronel Vicente, 583 - Harmonia, Canoas - RS, 92310-430</Local>
+        <Local>[Canoas] 3142 - Igara ;CAIXA AG 3142 - Av. Boqueirão, NUM 401 - Igara, Canoas - RS, 92410-350</Local>
+        <Local>[Canoas] 3240 - Canoas Shopping ;CAIXA AG 3240 - Av. Guilherme Schell, NUM 6750 - Centro, Canoas - RS, 92310-564</Local>
+        <Local>[Canoas] 3452 - Mathias Velho ;CAIXA AG 3452 - Av. Rio Grande do Sul, 1451/1453 - Mathias Velho, Canoas - RS, 92330-000</Local>
+        <Local>[Canoas] 3454 - Santos Ferreira ;CAIXA AG 3454 - Av. Santos Ferreira, 1685 - Mal. Rondon, Canoas - RS, 92020-478</Local>
+        <Local>[Canoas] 3973 - Justica do Trabalho ;CAIXA AG 3973 - Av. Victor Barreto, 3530 - 3 ANDAR - Centro, Canoas - RS, 92010-000</Local>
+        <Local>[Nova Santa Rita] 3714 - NSR ;CAIXA AG 3714 - R. Dr. Lourênço Záccaro, NUM 1564 - CENTRO, Nova Santa Rita - RS, 92480-000</Local>
+        <Local>[Capão da Canoa] 2266 - Capão ;CAIXA AG 2266 - Av. Paraguassu, 1725 - Centro, Capão da Canoa - RS, 95555-000</Local>
+        <!--  
+        <Local>Nome do Local 2; Endereço do Local 2</Local> -->
+        <!-- Adicione mais lugares conforme necessário -->
+      </places>
+    </modelo>
+    <!-- Outros modelos serão adicionados conforme necessário -->
+    
+    
+<modelo nome="[Modelo] Procuração Modelo CAIXA">
+<texto>
+*PROCURAÇÃO MODELO CAIXA*
+Segue a procuração com os itens necessários para o financiamento.:
+
+*Link do modelo homologado.:*
+https://drive.google.com/open?id=1Qg2hc-Ijs4LoMzhhkhUZyCPZEwbY7iua
+
+ℹ️*Observação.:*
+O outorgado deverá LAVRAR em cartório o DOCUMENTO POR PROCURAÇÃO PÚBLICA.
+LER ATENTAMENTE AS INSTRUÇÕES DA PÁGINA 2 DO NOSSO MODELO.
+
+*Validade.:* 
+Procuração possui caráter jurídico com validade de *06 meses*, e pode ser renovada através de uma nova carta retificada, em cartório.;
+
+*DOCUMENTOS ADICIONAIS PROCURADOR.:*
+Deverá ser fornecido ao correspondente a seguinte lista de *documentos* referente ao *procurador*.:
+• IDENTIDADE. 
+• PROCURAÇÃO.
+• CERTIDÃO ESTADO CIVIL (conforme necessário)
+• ENDEREÇO (conforme necessário)
+</texto>
+</modelo>    
+    
+<modelo nome="[Modelo] Cancelamento Avaliação Ativa">
+<texto>
+*Sugestão de solicitação de cancelamento avaliação ativa*.:
+
+*Obs* .: Pode ser feito a próprio punho e enviado por foto.
+
+eu ___ de cpf ___, solicito cancelamento da minha proposta ativa, pois não darei andamento na proposta anterior.
+
+Data.:                      Ass.:
+</texto>
+</modelo>      
+<modelo nome="[Modelo] Simulação">
+<campos>
+ <campo tipo="select" id="Modalidade"/>
+</campos>
+<texto>
+Quanto mais detalhes melhor!
+1.1• Modalidade  - [Modalidade]
+1.2• Cidade do imóvel pretendido -
+1.3• Valor do imóvel -
+1.4• Financiado (pretendido) -
+1.5• Valor de entrada -
+
+2.1• Renda bruta -
+2.2• Um dos participantes é servidor público ? (s/n)
+2.3• Nascimento - dd/mm/aaaa
+2.4• CPF -
+2.5• Dependente /Participante ? (s/n)
+2.6• Pretende usar FGTS ? (s/n)
+2.7• Possui 3anos de carteira assinada? (s/n)
+2.8• Possui imóvel no nome ? (s/n)
+</texto>
+<places>
+<Modalidade>Selecione</Modalidade>
+<Modalidade>Aq+Construção;Aq+Construção</Modalidade>
+<Modalidade>Construção em terreno próprio;Construção em terreno próprio</Modalidade>
+<Modalidade>Imóvel Novo;Imóvel Novo</Modalidade>
+<Modalidade>Imóvel Usado;Imóvel Usado</Modalidade>
+<Modalidade>Imóvel Leilão;Imóvel Leilão</Modalidade>
+<Modalidade>Imóvel Empreendimento;Imóvel Empreendimento</Modalidade>
+<Modalidade>Terreno;Terreno</Modalidade>
+<Modalidade>Imóvel Comercial;Imóvel Comercial</Modalidade>
+<Modalidade>Emprésitimo de imóvel em garantia;Emprésitimo de imóvel em garantia</Modalidade>
+</places>
+</modelo>
+
+<modelo nome="[Modelo] - Reprovado por RATING">
+<texto>
+*SEGUE ALGUMAS ORIENTAÇÕES IMPORTANTES.;*
+Cliente reprovou por RATING aqui estão algumas instruções que devem ser seguidas, para contornar o resultado negativo.;
+
+O cliente precisa abrir uma conta corrente na CAIXA e, se possível, contratar um seguro. Recomendo um seguro de vida taxa única valor aproximado de *R$ 718,00* ;
+O cliente deve seguir rigorosamente as seguintes condições:
+    • `Abrir a conta corrente e transferir o salário ‘FOLHA DE PAGAMENTO’ para essa conta da CAIXA; [CRUCIAL]`
+    • `Solicitar notas fiscais em compras (para que seu perfil de consumo seja registrado no CPF);`
+    • `Contratar um seguro de vida (demonstrando ser previdente e cauteloso);`
+    • `Evitar restrições cadastrais.`
+    • `Evitar consumo de cartão de crédito ou empréstimos. (consumo resulta em redução da margem de crédito );`
+
+Assim que essas condições forem confirmadas, por favor, me avise para que eu possa gerar o seguro. A taxa única será a mesma que ele pagaria para assinar o contrato.
+
+Ressalto que os procedimentos não garantem efetividade, contudo, a mudança de comportamento e os indicadores fazem com que o banco entenda quem é o cliente, tornando-o seu cliente, e reconhecendo que consome produtos que demonstram organização e prudência. Se seguidas à risca, a chance de aprovação em 30 a 60 dias é alta. Tudo dependerá do cliente seguir as recomendações.
+</texto>
+</modelo>
+
+<modelo nome="[Modelo] - Registrato SCR">
+<texto>
+Segue o nosso guia rápido para emissão do *relatório SCR no Registrato*
+
+https://drive.google.com/file/d/1GuVuyL8z-KJE_-WHLC--XOEjqVmlc1TK/view
+</texto>
+</modelo>
+
+<modelo nome="[Modelo] Simulação [ATC]">
+<campos>
+ <campo tipo="select" id="Modalidade"/>
+</campos>
+<texto>
+Quanto mais detalhes melhor!
+1.1• Modalidade  - `[Modalidade]`
+1.2• Cidade do imóvel pretendido -
+1.3• Valor do Terreno -
+1.4• Valor da Obra -
+1.5• Financiado (pretendido) -
+1.6• Valor de entrada -
+1.6• Prestação máxima pretendida -
+
+2.1• Renda bruta -
+2.2• Um dos participantes é servidor público ? (s/n)
+2.3• Nascimento - dd/mm/aaaa
+2.4• CPF -
+2.5• Dependente /Participante ? (s/n)
+2.6• Pretende usar FGTS ? (s/n)
+2.7• Possui 3anos de carteira assinada? (s/n)
+2.8• Possui imóvel no nome ? (s/n)
+</texto>
+<places>
+<Modalidade>Selecione</Modalidade>
+<Modalidade>Aq+Construção;Aq+Construção</Modalidade>
+<Modalidade>Construção em terreno próprio;Construção em terreno próprio</Modalidade>
+</places>
+</modelo>
+
+<modelo nome="[Modelo] Simulação Construção fin">
+<campos>
+ <campo tipo="select" id="Modalidade"/>
+</campos>
+<texto>
+Quanto mais detalhes melhor!
+1.1• Modalidade  - [Modalidade]
+1.2• Cidade do imóvel pretendido -
+1.3• Valor do terreno - 
+1.4• Valor da Obra - 
+1.5• Financiado (pretendido) -
+1.6• Valor de entrada -
+
+2.1• Renda bruta -
+2.2• Um dos participantes é servidor público ? (s/n)
+2.3• Nascimento - dd/mm/aaaa
+2.4• CPF -
+2.5• Dependente /Participante ? (s/n)
+2.6• Pretende usar FGTS ? (s/n)
+2.7• Possui 3anos de carteira assinada? (s/n)
+2.8• Possui imóvel no nome ? (s/n)
+</texto>
+<places>
+<Modalidade>Selecione</Modalidade>
+<Modalidade>Aq+Construção;Aq+Construção</Modalidade>
+<Modalidade>Construção em terreno próprio;Construção em terreno próprio</Modalidade>
+</places>
+</modelo>
+
+<modelo nome="[Info] Regra FGTS">
+<texto>
+Regra do FGTS.
+
+Importante considerar.: O FGTS só pode ser utilizado para fins de moradia própria, para isso, o titular precisa Morar OU Trabalhar dentro da região limitrofe do imóvel que deseja comprar.
+a região limítrofe do imóvel é 100Km em linha reta.
+
+• Possuir 3 anos de carteira assinada.
+• Não possuir financiamento habitacional ativo em qualquer parte do país.
+• NÃO POSSUIR IMÓVEL NO NOME
+  (Exceto.)
+  •• SE POSSUI IMÓVEL NO NOME (dentro do raio de 100km)
+  •• Não pode ter cota de propriedade imóbiliária (casa/apto) maior de 40%.
+  •• Não ser usufrutuário de imóvel.
+  •• Não ter utilizado FGTS em outra operação imobiliária inferior a 3 anos.
+  
+  Sendo possuidor de imóvel quitado, mais distante de 100Km da região onde está comprando, pode utilizar o FGTS.
+
+Não é impeditivo também.:
+• Possuir terreno financiado ou quitado, sem construção.
+• Possuir loja comercial, quitada ou financiada.
+
+</texto>
+</modelo>
+    
+<modelo nome="[Info] Endereço ASPEN CANOAS">
+<texto>
+Endereço.:
+Av. Inconfidência, 680 - sala 701 - Mal. Rondon, Canoas - RS, 92020-392
+</texto>
+</modelo>    
+
+<modelo nome="[Pré-Analise] - Lista Documentos (simples)">
+<texto>
+*Lista de documentos para análise.*
+Lembrando que quantos mais detalhes tivermos maior a probabilidade dos financiamento ser aprovado
+
+1️⃣ *Primeira etapa: 🗃️Documentação*
+▪️Identidade
+▪️Contato do cliente
+▪️Certidão de estado cívil
+▪️Certidão de nascimento do dependente (se houver)
+▪️Comprovante de endereço
+▪️Comprovante de renda atualizado sem férias
+▪️Carteira de Trabalho
+▪️Imposto de renda e recibo (se declarado)
+▪️Autorização de uso do FGTS (verifique o passo-a-passO para quem for usar o FGTS)
+
+2️⃣ *Segunda etapa: 🔄 Procedimento de autorização do FTGS*
+▪️Autorização - Consulta de saldo
+▪️Autorização - FGTS vinculado a processo de aquisição de imóvel.
+
+Lembrete ⚠️ Assim que concluir o procedimento, será necessário envio do print de tela contendo a atutorização. (Enviar junto da documentação)
+
+🤔Ficou com dúvidas ➡️ Link da cartilha com passo a passo para autorizar utilização do FGTS:
+https://drive.google.com/file/d/1c5HoKixZt0gfRdc-hoVbIrVXNIYMrZYT/view?usp=sharing
+</texto>
+</modelo>
+
+<modelo nome="[Pré-Analise] - Lista documentos PJ [sócio]">
+<texto>
+Lista de documentos renda _*empresário*_ *Sócio PJ* - *ME / LTDA / EIRELI*
+ _*OBS.:* `Renda de sócio que não declarou imposto de renda Pessoa física`._
+■ *Demonstrativo de faturamento* da PJ (_dos últimos 12 meses_)
+■ *Extrato bancário pessoa física* (_dos últimos 06 meses corridos_)
+■ *Contrato social* (_Com a última alteração do quadro de sócios_)
+■ ECF - "*imposto de renda da PJ*" - Seção Y600 (_Constando a distribuição rendimento aos sócios_)
+■ *Pró-Labore* 02 últimos emitidos com DARF paga (_a darf precisa ser paga dentro da data do respectivo mês do pró-labore_)
+</texto>
+</modelo>
+
+<modelo nome="[Engenharia] AQ+Const - MCMV/PŕoCotista - Lista Documentos (simples)">
+<texto>
+*Documentos para solicitar engenharia*
+`Modalidade MCMV / Pró-Cotista - Aquisição de terreno e construção`
+
+https://drive.google.com/file/d/1yqjb3QqWEC8cXDEoepm44Oj5MF4dWer0/view
+</texto>
+</modelo> 
+
+<modelo nome="[Engenharia] USADO - MCMV/PŕoCotista - Lista Documentos (simples)">
+<texto>
+*Documentos para solicitar engenharia*
+`Modalidade MCMV / Pró-Cotista - Imóvel USADO`
+
+https://drive.google.com/file/d/1sChNrVxuxgqXtAaGJWQVQGmDX1ip0GpG/view?usp=share_link
+</texto>
+</modelo>
+
+<modelo nome="[AQUISIÇÃO DIRETA] - Lista Documentos AQUISIÇÃO DIRETA">
+        <campos>
+            <campo tipo="input" id="NomeCliente"/>
+            <campo tipo="input" id="ValorCompra"/>
+            <campo tipo="input" id="ValorFGTS"/>
+            <campo tipo="input" id="ValorENTRADA"/>
+            <campo tipo="input" id="cidade"/>
+   
+        </campos>
+<texto>
+ASPEN - AQUISIÇÃO DIRETA - [NomeCliente]
+
+Olá
+Segue os pré-requisitos necessários para encaminhar a solicitação de compra através de aquisição direta com os recursos do FGTS.
+PRIMEIRAMENTE, É FATOR IMPEDITIVO PARA UTILIZAÇÃO DO FGTS QUANDO O COMPRADOR POSSUIR IMÓVEL EM SEU NOME NESTE ESTADO (RS), E TAMBÉM É IMPEDIDO CASO ESTE(S) COMPRADOR(ES) POSSUA(M) ALGUM IMÓVEL COM FINANCIAMENTO ATIVO EM QUALQUER OUTRO ESTADO DA FEDERAÇÃO, RESSALVO QUANDO QUITADO FORA DO ESTADO DO RS
+
+As demais regras que regulamentam o uso do FGTS, podem ser consultadas nesta cartilha para consulta. https://drive.google.com/open?id=1RT2Qr8XaVcU9MWF_hMmnG8coBftRoqn6
+
+Se assim adequar-se segue documentação que deverá ser entregue escaneada IMAGEM OU PDF, o mais legível possível, sem cortes no documento.
+A manutenção do prazo quanto a execução do serviço será impactada na qualidade das informações prestadas, desde os documentos completos conforme a relação apresentada.
+
+💵
+DADOS DA PROPOSTA VALORES.:
+0.1 -  VALOR DE COMPRA E VENDA.: R$ [ValorCompra]
+0.2 -  VALOR DE FGTS A SER UTILIZADO NA OPERAÇÃO.: R$[ValorFGTS]
+0.3 -  VALOR DA DIFERENÇA, INFORMAR ORIGEM DO RECURSO.: R$ [ValorENTRADA]
+0.4 -  CIDADE DO IMÓVEL  .: [cidade]
+
+👥
+DOCUMENTOS DO(S) COMPRADOR(ES).;
+1.1 - COMPROVANTE DEPÓSITO TAXA DE DESPACHANTE NO VALOR DE 1.000,00 - (VIDE - TAXAS DE ENCAMINHAMENTO )
+1.2 - IDENTIDADE ou CNH VÁLIDA (Cópia ou pdf documento do físico) 
+1.3 - CONTATO DO(s) COMPRADORES.  (Telefone + Email) 
+1.4 - CERTIDÃO DE ESTADO CIVIL (nascimento, casamento, divórcio)  - Documento atualizado até 60 dias;
+Obs. Quanto a certidão de estado civil, não é o mesmo que certidão de união estável. se  possuir união estável, apresentar o documento acompanhado com a certidão de estado civil ( nascimento, casamento, divórcio); 
+1.5 - COMPROVANTE ENDEREÇO (água/ luz /telefone) ATUALIZADO 
+1.6 - CARTEIRA DE TRABALHO. 
+1.7 - IMPOSTO DE RENDA + RECIBO ( obrigatório )
+1.8 - AUTORIZAÇÃO DE USO DO FGTS  
+Link da cartilha com passo a passo para autorizar utilização do FGTS.:
+https://drive.google.com/file/d/1c5HoKixZt0gfRdc-hoVbIrVXNIYMrZYT/view?usp=sharing
+Obs.: Assim que concluir o procedimento, será necessário envio do print de tela contendo a autorização. _(Enviar junto da documentação)_
+1.9 - EXTRATO DO FGTS
+1.10 - SE FOI POSSUIDOR DE IMÓVEL, MÁS JÁ VENDEU, É OBRIGATÓRIO APRESENTAÇÃO DA MATRÍCULA INTEIRO TEOR DESTE IMÓVEL, COMPROVANDO A VENDA / TRANSMISSÃO LEGAL. (Para cada imóvel que tenha sido de propriedade, OBRIGATÓRIO) [Pendente]
+
+DADOS COMPLEMENTARES DO(S) COMPRADOR(ES).:
+1.0.1 -  PROFISSÃO ?
+
+1.0.2 -  CIDADE ONDE TRABALHA ?
+1.0.3 -  CIDADE ONDE MORA ?
+1.0.4 -  QUANTO TEMPO MORA NESTA CIDADE ?
+1.0.5 -  POSSUI IMÓVEL NO NOME ?
+             Se sim ONDE ?                 ( enviar matrícula do imóvel )
+🏠
+DOCUMENTOS DO IMÓVEL.;
+2.1 - MATRÍCULA DO IMÓVEL atualizada
+2.2 - NEGATIVA DE CONDOMÍNIO; 
+2.3 - CERTIDÃO NEGATIVA DE ÔNUS. (atualizada) 
+2.4 - CARNÊ DO IPTU DO IMÓVEL 
+2.5 - BCI das unidades transacionadas (ex. APT, BOX ); Obs. BCI - boletim de cadastro imobiliário, nele consta informações averbadas do imóvel na prefeitura.
+2.6 - SE O IMÓVEL POSSUIR FINANCIAMENTO ATIVO
+2.6.1 - EXTRATO DA DÍVIDA ( posição de dívida do imóvel CASO POSSUA FINANCIAMENTO ATIVO) 
+2.6.2 - Email e telefone do gerente da agência responsável pelo contrato em nome do vendedor.
+👥
+DOCUMENTOS DO VENDEDOR.; (Pessoa Física)
+3.1 - IDENTIDADE ou CNH VÁLIDA (Cópia ou pdf documento do físico)
+3.2 - CERTIDÃO CIVIL (nascimento, casamento, divórcio)  - Obs. não é o mesmo que certidão de união estável.
+3.3 - COMPROVANTE DE ENDEREÇO  (água/ luz /telefone) ATUALIZADO
+3.4 - DADOS BANCÁRIOS PARA PAGAMENTO ( FOTO DO CARTÃO DA CONTA ou FOTO TALAO CHEQUE ) 
+3.5 - CONTATO DO VENDEDOR. (Telefone + Email)
+DADOS COMPLEMENTARES DO(S) VENDEDOR(ES).:
+3.6.1 -  PROFISSÃO ? 
+
+🏤
+DOCUMENTOS DO VENDEDOR.; (Pessoa Jurídica)
+3.1 - CONTRATO SOCIAL (Cópia ou pdf documento do físico)
+3.2 - FICHA DE BREVE RELATO
+3.3 - CERTIDÃO DA JUNTA COMERCIAL COM A ÚLTIMA ALTERAÇÃO. 
+3.4 - DOCUMENTO DOS SÓCIOS 
+         - IDENTIDADE
+         - ENDEREÇO
+         - CERTIDÃO CIVIL
+3.5 - DADOS BANCÁRIOS PARA CRÉDITO. ( FOTO DO CARTÃO DA CONTA ou FOTO TALAO CHEQUE ) 
+3.6 - CONTATO DO VENDEDOR. (Telefone + Email)
+
+ℹ️
+OBSERVAÇÕES GERAIS
+
+TAXAS DE ENCAMINHAMENTO
+💵
+TAXA DE DESPACHANTE - taxa de 2.000,00 sendo necessário o pagamento inicial de 1.000,00 na apresentação da documentação, o restante do valor fica para o dia da assinatura do contrato de escritura pública.
+O serviço contempla,: Tramites com a CAIXA, ESCRITURA, ITBI, REGISTRO, E LIBERAÇÃO DO VALOR AO VENDEDOR. 
+DADOS DA CONTA PARA DEPÓSITO.
+pix : 014.127.350-09 - Roberto de Paula Fettuccia
+💵
+TAXA DA CAIXA - ( taxas )
+SE Imóvel acima de 210.000,01 - Taxa de 3.560,00 a ser pago para a CAIXA.
+SE Imóvel até 210.000,00          - Taxa de 2.280,00, a ser pago para a CAIXA.
+
+IMPORTANTE 
+Gostaríamos de informar que, como parte das taxas da Caixa, optamos pelo formato de reciprocidade. Essa escolha visa proporcionar maior celeridade ao processo. Nesse contexto, o valor de R$ 1.000,00 referente a um seguro residencial taxa única, está incluído nas taxas da CAIXA acima.  A Caixa valoriza o relacionamento com seus clientes, e por isso, utilizamos o bom senso para tornar essa operação atrativa para ambas as partes, o banco e o cliente que deseja utilizar o FGTS. Por ser de livre e espontânea vontade, caso não tenha interesse em adquirir o produto, recomendamos que o cliente procure o seu banco de relacionamento. Dessa forma, será possível requerer o processo de aquisição direta, e neste caso abriremos mão da condução de seu processo. Entendemos que há situações em que prazos e procedimentos específicos demandam atenção, e estamos à disposição para esclarecer qualquer dúvida.
+É importante ressaltar que a escolha de fazer o relacionamento é totalmente voluntária e espontânea. Quando você der o OK, estará concordando com os termos que serão discutidos e pautados até o final da condução, pois aqui estamos informando as condições de forma prévia.
+Estamos à disposição para garantir que sua experiência seja a melhor possível, sem surpresa.
+💵
+TAXAS DE ESCRITURA
+Taxas de ITBI - (imposto municipal de transmissão imóvel) Será calculado 3% do valor total do imóvel.
+Taxa de escritura pública - geralmente fica em torno de 1% do valor do imóvel.
+Registro de imóveis - as taxas ficam em torno de 1% do valor do imóvel.
+</texto>
+</modelo>   
+</modelos>
+

@@ -1,0 +1,24 @@
+            // Obtendo valores dos inputs e garantindo que os valores numéricos sejam extraídos corretamente
+            valLoteTotal = extrairValorNumerico(document.getElementById('Val.Lote.Total').value);
+            valObraTotal = extrairValorNumerico(document.getElementById('Val.Obra.Total').value);
+            valLoteFGTS = extrairValorNumerico(document.getElementById('Val.Lote.FGTS').value);
+            valLoteFinanciado = extrairValorNumerico(document.getElementById('Val.Lote.Financiado').value);
+            valTotalSubsidio = extrairValorNumerico(document.getElementById('Val.Total.Subsidio').value);
+            valTotalFGTS = extrairValorNumerico(document.getElementById('Val.Total.FGTS').value);
+            valTotalFinanciado = extrairValorNumerico(document.getElementById('Val.Total.Financiado').value);
+
+            // Realizando os cálculos
+            const valComposicao = valLoteTotal + valObraTotal;
+            const valLoteTotalBancoFin = valLoteFGTS + valLoteFinanciado;
+            //const valObraSubsidio = valTotalSubsidiado;
+            const valObraFinanciado = valTotalFinanciado - valLoteFinanciado;
+            const valObraTotalBancoFin = valObraFinanciado + valObraFGTS + valTotalSubsidio;
+            //const valObraCash = ((((valObraTotal) - valObraFinanciado) - valObraFGTS) - valObraSubsidio);
+            // Atualizando os inputs com os resultados formatados como moeda
+            document.getElementById('Val.Composicao').value = formatarMoeda(valComposicao);
+            document.getElementById('Val.Lote.Total.BancoFin').value = formatarMoeda(valLoteTotalBancoFin);
+            document.getElementById('Val.Obra.Subsidio').value = formatarMoeda(valTotalSubsidio);
+            document.getElementById('Val.Obra.FGTS').value = formatarMoeda(valTotalFGTS - valLoteFGTS);
+            document.getElementById('Val.Obra.Financiado').value = formatarMoeda(valObraFinanciado);
+            document.getElementById('Val.Obra.Cash').value = formatarMoeda(((((valObraTotal) - valObraFinanciado) - valObraFGTS) - valTotalSubsidio));
+            document.getElementById('Val.Obra.Total.BancoFin').value = formatarMoeda(valObraTotalBancoFin);

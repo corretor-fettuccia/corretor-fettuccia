@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Corretor Roberto Fettuccia</title>
+    <link rel="stylesheet" href="./progress-loader.css">
+    <link rel="stylesheet" href="styles.index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+    <style>
+    .noto-color-emoji-regular {
+       font-family: "Noto Color Emoji", sans-serif;
+       font-weight: 400;
+       font-style: normal;
+    }
+        #loginForm {
+            display: none;
+            text-align: center;
+        }
+
+        #errorMessage {
+            display: none;
+            color: red;
+        }
+
+        #protectedContent {
+            display: none;
+          
+        }
+           </style>
+             <script>
+        // Função para verificar se o usuário está autenticado
+        function is_authenticated() {
+            return document.cookie.includes('auth_token');
+        }
+
+        // Função para exibir o menu de autenticação
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        // Função para exibir conteúdo protegido
+        function showContent() {
+            document.getElementById('loginForm').style.display = 'none'; //'none' Esconde o formulário de login
+            document.getElementById('protectedContent').style.display = 'block'; // Exibe o conteúdo protegido
+        }
+
+        // Função para processar o envio do formulário de login
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Verifica as credenciais (substitua por suas próprias verificações)
+            if (username === 'Aspen' && password === 'Aspen3031') {
+                // Define um cookie de autenticação com duração de 1 dia
+                var expiration = new Date();
+                expiration.setTime(expiration.getTime() + (5 * 24 * 60 * 60 * 1000)); // 5 dias em milissegundos
+                document.cookie = 'auth_token=your_auth_token_value; expires=' + expiration.toUTCString() + '; path=/';
+
+                // Exibe o conteúdo protegido
+                showContent();
+            } else {
+                // Exibe uma mensagem de erro
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+
+            return false; // Impede o envio padrão do formulário
+        }
+
+        // Função para inicializar a página
+        function init() {
+            if (is_authenticated()) {
+                // Se o usuário estiver autenticado, exibe o conteúdo protegido
+                showContent();
+            } else {
+                // Se o usuário não estiver autenticado, exibe o menu de autenticação
+                showLoginForm();
+            }
+        }
+
+        // Chama a função de inicialização quando a página carrega
+        window.onload = init;
+    </script>
+</head>
+<body>
+    <!-- Menu de autenticação -->
+    <div id="loginForm">
+        <h2>Login</h2>
+        <div id="errorMessage">Credenciais incorretas. Por favor, tente novamente.</div>
+        <form onsubmit="return login()">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password"><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <!-- Conteúdo protegido -->
+    <div id="protectedContent">
+    <header>
+        
+    </header><!--
+    <table>
+    <tr>
+      <td class="cell-1">
+      
+   
+    </ul></td>
+      <td class="cell-2">
+        
+</td>
+    </tr>
+
+  </table> -->
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td colspan="2"><form action="https://www.google.com/search" method="GET">
+	    <input type="hidden" value="" name="sitesearch">
+	    <input type="text" size="30%" style="background: yellow;" name="q" value="Busca Google...">
+	    <input type="submit" value="Procurar">
+	</form>
+    </td>
+    </tr>
+    <tr>
+      <td width="50%"> 
+         <!-- Os itens do menu serão inseridos aqui dinamicamente -->
+        <ul id="menu" class="menu"></td>
+      <td width="50%">
+      <iframe
+  src="https://www.roberto-fettuccia.com.br/adm"
+  width="100%"
+  height="600"
+  style="border:1px solid #ccc;">
+</iframe>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" width="50%">
+        <!-- <iframe src="https://web.whatsapp.com" style="border-width:0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe> -->
+      </td>
+    </tr>
+  </table>
+        <!-- Adicione aqui o conteúdo que deseja exibir quando autenticado -->
+    </div>
+    <script src="script.index.js" defer></script>
+    <script>
+        // Função para desativar o menu de contexto (botão direito)
+        window.oncontextmenu = function () {
+            return false;
+        };
+
+        // Função para desativar a tecla F12
+        window.onkeydown = function (event) {
+            if (event.keyCode === 123) {
+                return false;
+            }
+        };
+
+        // Função para desativar o clique do botão direito
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('mousedown', function (event) {
+                if (event.button === 2) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+    <script src="./progress-loader.js"></script>
+    <script>
+        // Inicializa o plugin de carregamento
+        ProgressLoader.init();
+    </script>
+</body>
+<!-- Hosted by www.Geocities.ws -->
+</html>
+

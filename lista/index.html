@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Checklist</title>
+  <style>
+    textarea {
+      width: 80%;
+      height: 389px;
+
+    }
+  
+  .field-checkbox2 .field:checked + .description::before {
+    content: "✔";
+    width: 10px;
+    height: 10px;
+    border: 2px solid #000;
+    color: #FFF;  
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.alert {
+  display: none;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  background-color: yellow;
+  border: 1px solid black;
+}
+
+input {
+  text-transform: uppercase;
+}
+
+.alert.hide {
+  opacity: 0;
+}
+  </style>
+</head>
+<body>
+  <div id="customAlert" hidden class="alert">Este é um alerta personalizado</div>
+
+  <h2>Detalhamento de perfil</h2>
+  <label for="modalidade">Modalidade:</label>
+  <!--<input type="text" id="modalidade"><br>-->
+  <select id="modalidade">
+    <option selected value=" "> </option>
+    <optgroup label="CONSTRUCAO FINANCIADA - Hab">
+      <option value="Aquisicao+Construcao">Aquisicao + Const</option>
+      <option value="Construcao em terr Proprio">Construcao Terr proprio</option>
+    </optgroup>
+    <optgroup label="AVULSO - Hab">
+      <option value="Hab - Novo Avulso">Hab.Novo avulso</option>
+      <option value="Hab - Usado">Usado</option>
+      <option value="CRF">Credito Real Facil</option>
+      <option value="LOTE">Lote urbano</option>
+    </optgroup>
+    <optgroup label="EMPREENDIMENTO">
+      <option value="Novo na Planta">Novo na planta</option>
+    </optgroup>
+  </select>
+  </select><br>
+  <label for="cidade">Cidade do imóvel pretendido:</label>
+  <input type="text" id="cidade"><br>
+  <label for="valorimovel">Valor do imóvel:</label>
+  <input type="text" id="valorimovel"><br>
+  <input type="checkbox" id="servidorPublico"><label for="servidorPublico">Um dos participantes é servidor público?</label>
+  <br>
+  <input type="checkbox" id="dependente"><label for="dependente">Mais de um comprador ou dependente?</label>
+  <br>
+  <input type="checkbox" id="fgts"><label for="fgts">Pretende usar FGTS?</label>
+  <br>
+  <input type="checkbox" id="carteiraAssinada"><label for="carteiraAssinada">Possui 3 anos de carteira assinada?</label>
+  <br>
+  <input type="checkbox" id="imovelNome"><label for="imovelNome">Possui imóvel no nome?</label>
+  <br>
+
+  <h2>Lista de documentos para análise</h2>
+  <input type="checkbox" id="identidade">
+  <label for="identidade">IDENTIDADE:</label>
+  <br>
+  <input type="checkbox" id="certCiv">
+  <label for="certCiv">CERTIDÃO CIVIL:</label>
+  <br>
+  <input type="checkbox" id="certNasc">
+  <label for="certNasc">CERTIDÃO DE NASCIMENTO DO DEPENDENTE (SE HOUVER):</label>
+  <br>
+  <input type="checkbox" id="compEndereco">
+  <label for="compEndereco">COMPROVANTE DE ENDEREÇO:</label>
+  <br>
+  <input type="checkbox" id="compRenda">
+  <label for="compRenda">COMPROVANTE DE RENDA ATUALIZADO SEM FÉRIAS:</label>
+  <br>
+  <input type="checkbox" id="carteiraTrabalho">
+  <label for="carteiraTrabalho">CARTEIRA DE TRABALHO:</label>
+  <br>
+  <input type="checkbox" id="impostoRenda">
+  <label for="impostoRenda">IMPOSTO DE RENDA E RECIBO (SE DECLARADO):</label>
+  <br>
+  <input type="checkbox" id="autUsoFgts">
+  <label for="autUsoFgts">AUTORIZAÇÃO DE USO DO FGTS (VERIFIQUE O PASSO-A-PASSO PARA QUEM FOR USAR O FGTS):</label>
+  <br>
+  <br>
+  <button onclick="copiarTexto()">Copiar</button>
+  <br>
+
+  <textarea id="documentos"></textarea><br>
+  Telefone <input type="text" id="phone" value="+5551"> 
+  <a id="whatsappLink" target="_blank">Enviar via WhatsApp</a>
+  <script>
+    function copiarTexto() {
+    var textarea = document.getElementById("documentos");
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    exibirAlertaComTimeout("Texto copiado com sucesso", 3000);
+  }
+
+  function exibirAlertaComTimeout(mensagem, tempo) {
+  var alerta = document.getElementById("customAlert");
+  alerta.textContent = mensagem;
+  alerta.style.display = "block";
+
+  setTimeout(function() {
+    alerta.style.display = "none";
+  }, tempo);
+}
+
+
+    function updateDocumentList() {
+      const checkboxChecked = '✅'; //\u{2705}  \u2714  %F0%9F%94%B2
+      const checkboxUnchecked = '🔲'; //\u{1F539}
+
+      const modalidade = document.getElementById('modalidade').value;
+      const cidade = document.getElementById('cidade').value; 
+      const valorImovel = document.getElementById('valorimovel').value;
+      const servidorPublico = document.getElementById('servidorPublico').checked;
+      const dependente = document.getElementById('dependente').checked;
+      const fgts = document.getElementById('fgts').checked;
+      const carteiraAssinada = document.getElementById('carteiraAssinada').checked;
+      const imovelNome = document.getElementById('imovelNome').checked;
+      
+
+      const documentos = [
+        { label: 'IDENTIDADE:', checked: document.getElementById('identidade').checked },
+        { label: 'CERTIDÃO CIVIL:', checked: document.getElementById('certCiv').checked },
+        { label: 'CERTIDÃO DE NASCIMENTO DO DEPENDENTE (SE HOUVER):', checked: document.getElementById('certNasc').checked },
+        { label: 'COMPROVANTE DE ENDEREÇO:', checked: document.getElementById('compEndereco').checked },
+        { label: 'COMPROVANTE DE RENDA ATUALIZADO SEM FÉRIAS:', checked: document.getElementById('compRenda').checked },
+        { label: 'CARTEIRA DE TRABALHO:', checked: document.getElementById('carteiraTrabalho').checked },
+        { label: 'IMPOSTO DE RENDA E RECIBO (SE DECLARADO):', checked: document.getElementById('impostoRenda').checked },
+        { label: 'AUTORIZAÇÃO DE USO DO FGTS (VERIFIQUE O PASSO-A-PASSO PARA QUEM FOR USAR O FGTS):\nhttps://drive.google.com/file/d/1c5HoKixZt0gfRdc-hoVbIrVXNIYMrZYT/view?usp=sharing', checked: document.getElementById('autUsoFgts').checked }
+      ];
+      const listaDocumentos = documentos.map(item => `${(item.checked ? checkboxChecked : checkboxUnchecked)} ${item.label}`).join('\n');
+      const detalhamentoPerfil = `*Detalhamento de perfil*\nModalidade -*${modalidade}*\n Cidade do imóvel pretendido - ${cidade}\n Valor do imóvel - ${valorImovel}\n${(servidorPublico ? checkboxChecked : checkboxUnchecked)} Um dos participantes é servidor público? \n${(dependente ? checkboxChecked : checkboxUnchecked)} Mais de um comprador ou dependente? \n${(fgts ? checkboxChecked : checkboxUnchecked)} Pretende usar FGTS? \n${(carteiraAssinada ? checkboxChecked : checkboxUnchecked)} Possui 3 anos de carteira assinada? \n${(imovelNome ? checkboxChecked : checkboxUnchecked)} Possui imóvel no nome?\n\n`;
+      const checklist = detalhamentoPerfil + '*Lista de documentos necessários para análise.*\n' + listaDocumentos;
+      document.getElementById('documentos').value = checklist;
+      WhatsappLink(checklist);
+    }
+    function WhatsappLink(checklist){
+    const phone = document.getElementById('phone').value;
+    var formattedChecklist = checklist.replace(/\n/g, "%0A").replace(/ /g, "%20").replace(/✅/g,"*[X]*").replace(/🔲/g,"*[%20%20]*"); //ao enviar o whasvia url muda a codificacaoda msg
+    var whatsappNumber = phone; // Substitua pelo número do WhatsApp
+    var whatsappLink = "https://wa.me/" + whatsappNumber + "?text=" + formattedChecklist;
+    var linkElement = document.getElementById("whatsappLink");
+    linkElement.href = whatsappLink;
+    }
+    
+
+    // Atualiza a lista de documentos quando houver alterações nos campos
+    const inputs = document.querySelectorAll('input[type="text"], input[type="checkbox"],select');
+    inputs.forEach(input => input.addEventListener('change', updateDocumentList));
+
+    // Atualiza a lista de documentos inicialmente
+    updateDocumentList();
+  </script>
+
+</body>
+</html>
+<script>
+
+</script>
+

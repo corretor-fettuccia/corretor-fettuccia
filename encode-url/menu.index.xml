@@ -1,0 +1,186 @@
+<!-- Direitos reservados - Aspen informações cadastrais e cobrança ltda  -->
+
+<!-- Versao 04.1 - data 28/06/24  -->
+<!-- 
+INSTRUÇÕES 
+ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE NO CONSTRUTOR. 
+
+-->
+<!-- Fonte Emoji https://fonts.google.com/noto/specimen/Noto+Color+Emoji/glyphs -->
+<Menu>
+<Item name="🪙 ITI.GOV.BR">
+   <SubItem name=" ✒️ ASSINADOR de DOCUMENTOS" link="https://assinador.registrodeimoveis.org.br/private" target="_blank" alt="Aassinatura de arquivos com certificado ICP-br / GOV"/>
+   <SubItem name=" 🛃 VERIFICADOR ASSINATURA ITI" link="https://validar.iti.gov.br/" target="_blank" alt="Aassinatura de arquivos com certificado ICP-br / GOV"/>
+</Item>
+<Item name="📐 Calculadora OBRA Aspen" link="./calcObra" target="_blank"/>
+  <Item name="🔒 SISTEMAS CAIXA" target="_self" alt="Sistemas Internos CAIXA"> 
+    <SubItem name=" 🔒 CAIXA-AQUI" link="https://caixaaqui.caixa.gov.br/caixaaqui/CaixaAquiController" target="_blank" alt="Caixa aqui, Cadastro, Avaliação, pesquisa, demais"/>
+    <SubItem name=" 🔒 SIOPI" link="https://habitacao.caixa.gov.br/" target="_blank"/>
+    <SubItem name=" 🔒 SIWEB" link="https://www.ciweb.caixa.gov.br/sso/" target="_blank"/> 
+    <SubItem name=" 🔒 PORTAL EMP." link="https://www.portaldeempreendimentos.caixa.gov.br/" target="_blank" />
+    <SubItem name=" 👷 EXPRESSO PARCEIRO" link="https://www.parceiros.caixa.gov.br/" target="_blank"/>
+    <SubItem name=" 📡 DIGITALIZAR" link="http://digitalizar.caixa.gov.br/" target="_blank"/> 
+    <SubItem name="  "/> <!--ESPAÇO-->
+    <SubItem name=" 🎓 UNIVERSIDADE CAIXA" link="https://universidadeparceiros.caixa.gov.br" target="_blank"/> 
+    <SubItem name=" 👤 CADASTRO DE USUÁRIO" link="https://cadastrodeusuario.caixa.gov.br" target="_blank"/>
+    <SubItem name=" 🔦 CADMUT" link="https://www.cadastromutuarios.caixa.gov.br/sicdm/" target="_blank"/> 
+    <SubItem name=" "/> <!--ESPAÇO-->
+    <SubItem name=" 🛒 SEGURIDADE" link="http://seguridade.redeparceira.caixa.gov.br/" target="_blank"/>
+    <SubItem name=" 🛒 GECAL" link="https://www.caixaseguradora.com.br/lotericos" target="_blank"/>
+    <SubItem name=" "/> <!--ESPAÇO-->
+    <SubItem name=" 🔒 Consorcio Area Cliente" link="https://arealogada.caixaconsorcio.com.br/login" target="_blank"/>
+  </Item>
+  <Item name="💸 RECEITA FEDERAL SISTEMAS" >
+    <SubItem name=" 👤 NEGATIVA CNDRF CPF" link="https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/Emitir" target="_blank"/>
+    <SubItem name=" 👤 CONSULTA REG. CPF" link="https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp" target="_blank"/>
+    <SubItem name=" "/> <!--ESPAÇO-->
+    <SubItem name=" 🧾 CONSULTA REST. IR PF" link="https://www.restituicao.receita.fazenda.gov.br/#/" target="_blank"/>
+    <SubItem name=" "/> <!--ESPAÇO-->
+    <SubItem name=" 🏭 CONSULTA CARTÃO CNPJ" link="https://solucoes.receita.fazenda.gov.br/Servicos/cnpjreva/Cnpjreva_Solicitacao.asp" target="_blank"/>
+    <SubItem name=" 🏭 NEGATIVA CNDRF CNPJ" link="https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PJ/Emitir" target="_blank"/>
+    <SubItem name=" 🚦 MEI ?" link="https://www8.receita.fazenda.gov.br/SimplesNacional/aplicacoes.aspx?id=21" target="_blank"/>
+  </Item>
+  <Item name="📚 Registradores ORG" >
+      <SubItem name=" 🌍Portal ONR" link="https://registradores.onr.org.br/" target="_blank"/>
+      <SubItem name=" 🌍Pedido Matricula/Consulta" link="https://registradores.onr.org.br/CertidaoDigital/frmPedidosCertidao.aspx?from=menudigital=1" target="_blank"/>
+      <SubItem name=" 🌍E-Protocolo reg elet" link="https://registradores.onr.org.br/eProtocolo/DefaultAC.aspx" />
+</Item>
+  <Item name="🏫 PREFEITURA / ITBI e REGISTRO">
+    <SubItem name="🏠 Canoas">  
+      <SubSubItem name=" 🆕 ITBI" link="https://sistemas.canoas.rs.gov.br/e-agata" target="_blank"/>
+      <SubSubItem name=" 🆕 Agata /ITBI - Alteracao Senha" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwtalterasenhaeagata" target="_blank"/>
+      <SubSubItem name=" 🆗 Negativa itbi" link="https://sistemas.canoas.rs.gov.br/portaldafazenda/servlet/wmportalservicosemca?..%2F..%2Fe-agata%2Fservlet%2Fhwsguiapagitbiportal" target="_blank"/>
+      
+      <SubSubItem name=" 🧾 DAM ITBI" link="http://sistemas.canoas.rs.gov.br/portaldafazenda/servlet/wmportalservicosemca?..%2F..%2Fe-agata%2Fservlet%2Fhwloginusuario%3F44" target="_blank"/>
+      <SubSubItem name=" 📖 Manual do ITBI" link="https://drive.google.com/file/d/1q5vlGP1f7VfmTlNZrPLzFf-stEFp7wKs/view " target="_blank"/>
+      <SubSubItem name=""  />
+      <SubSubItem name=" 🆕 Auto atendimento prefeitura" link="https://sistemas.canoas.rs.gov.br/demandas/publico" target="_blank"/>     
+      <SubSubItem name=" 🌍 BCI" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwsemissaobci" target="_blank"/>
+      <SubSubItem name=" 🌍 CND do Imóvel" link="https://sistemas.canoas.rs.gov.br/e-agata/servlet/hwscertidaonegativadebito?1" target="_blank"/>
+      <SubSubItem name=""  />
+      <SubSubItem name=" 📚 Registro de imóveis" link="./canoas-ri" target="_blank"/>
+    </SubItem>
+    <SubItem name="🏠 Nova Santa Rita">
+      <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://novasantarita.atende.net/autoatendimento/servicos/e-itbi-online" target="_blank"/>
+      <SubSubItem name=" 🆗 Negativa itbi" link="https://novasantarita.atende.net/autoatendimento/servicos/declaracao-de-quitacao-de-itbi" target="_blank"/>
+      <SubSubItem name=" 🌍 Portal" link="https://novasantarita.atende.net/?pg=autoatendimento#!/tipo/servico/valor/47/padrao/1/load/1" target="_blank"/>
+      <SubSubItem name=" 🆗 CND do imóvel" link="https://novasantarita.atende.net/autoatendimento/servicos/certidao-negativa-de-debitos" target="_blank"/>
+      <SubSubItem name=""  />
+      <SubSubItem name=" 📚 Registro de imóveis" link="http://www.canoasri.com.br/consulta-nota-de-entrega/" target="_blank"/>
+    </SubItem>
+    <SubItem name="🏠 Porto alegre">
+      <SubSubItem name=" 📡 itbi" link="https://servicos.procempa.com.br/servicedesk/customer/portal/12/user/login?destination=portal%2F12" target="_blank"/>
+      <SubSubItem name=" 🆗 Negativa itbi" link="https://siat.procempa.com.br/siat/ItbEmitirDeclaracaoOnline_Internet.do" target="_blank"/>
+      <SubSubItem name=""  />
+      <SubSubItem name=" 📚 Registro de imóveis">
+        <SubSubSubItem name="  🟥 1 zona" link="https://www.1ripoa.com.br/" target="_blank"/>
+        <SubSubSubItem name="  🟪 2 zona" link="https://www.risegundazonapoa.com/" target="_blank"/>
+        <SubSubSubItem name="  ⬛ 3 zona" link="https://www.ri3.com.br/" target="_blank"/>
+        <SubSubSubItem name="  🟦 4 zona" link="https://www.quartazona.com.br/" target="_blank"/>
+        <SubSubSubItem name="  🟩 5 zona" link="https://www.5ri.com.br/" target="_blank"/>
+        <SubSubSubItem name="  ⬜ 6 zona" link="https://www.registro6zona.com.br/" target="_blank"/>
+      </SubSubItem>
+    </SubItem>
+    <SubItem name="🏠 Esteio">
+      <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://www.esteio.rs.gov.br/conteudo/3701/1181?titulo=IPTU%2FITBI" target="_blank"/>
+      <SubSubItem name=" 🧾 DAM ITBI" link="https://grp.esteio.rs.gov.br/grp/acessoexterno/programaAcessoExterno.faces?codigo=669924" target="_blank"/>
+      <SubSubItem name=" 🆗 Negativa itbi" link="http://www.esteio.rs.gov.br/servico/689125/1070?titulo=ITBI+-+Certid%C3%A3o+de+Quita%C3%A7%C3%A3o" target="_blank"/>
+      <SubSubItem name=""  />
+      <SubSubItem name=" 📚 Registro de imóveis" link="https://www.cartorioesteio.com.br/servicos-online/consulta-de-atos-do-imoveis" target="_blank"/>
+    </SubItem>
+    <SubItem name="🏠 Sapucaia">
+      <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://sapucaiadosul.atende.net/autoatendimento/servicos/e-servicos-online-itbi" target="_blank"/>
+    </SubItem>
+    <SubItem name="🏠 Novo Hamburgo">
+      <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://www.novohamburgo.rs.gov.br/semfaz/itbi-imposto-transmissao-bens-imoveis" target="_blank"/>
+      <SubSubItem name=" 🧾 DAM ITBI" link="https://www.novohamburgo.rs.gov.br/servicos/emissao-guia-itbi" target="_blank"/>
+      <SubSubItem name=" 🆗 Negativa itbi" link="https://www.novohamburgo.rs.gov.br/servicos/declaracao-quitacao-itbi" target="_blank"/>
+      <SubSubItem name=""  />
+      <SubSubItem name=" 📚 Registro de imóveis" link="http://registrodeimoveisnh.com.br/" target="_blank"/>
+    </SubItem>
+    <SubItem name="🏠 São Leopoldo">
+      <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://grp.saoleopoldo.rs.gov.br/erp/acessoexterno/programaAcessoExterno.faces?codigo=670113" target="_blank"/>
+      <SubSubItem name=" 🧾 DAM ITBI" link="https://grp.saoleopoldo.rs.gov.br/erp/acessoexterno/programaAcessoExterno.faces?codigo=670209" target="_blank"/>
+      <SubSubItem name=" 🆗 Negativa itbi" link="http://www.saoleopoldo.rs.gov.br/servico/671185/407/1927?titulo=Certid%C3%A3o+Negativa+ITBI" target="_blank"/>
+      <SubSubItem name=" 🌍 Portal fazenda" link="https://www.saoleopoldo.rs.gov.br/conteudo/1927/407?titulo=ITBI" target="_blank"/>
+      <SubSubItem name=""  />
+      <SubSubItem name=" 📚 Registro de imóveis" link="https://risl.com.br/" target="_blank"/>
+    </SubItem>
+
+<SubItem name="🏠 Campo Bom">
+  <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://campobom.1doc.com.br/b.php?pg=wp/wp&amp;passo=1&amp;itd=5&amp;is=" target="_blank"/>
+  <SubSubItem name=" 🧾 ITBI/ acesso GOV" link="https://campobom.1doc.com.br/b.php?pg=o/social&amp;provider=gov.br&amp;modo=2&amp;itd=5" target="_blank"/>
+  <SubSubItem name=" 🆗 Geral" link="https://campobom.1doc.com.br/b.php?pg=o/wp&amp;s=campobom" target="_blank"/>
+  <SubSubItem name=" 🌍 Portal fazenda" link="https://www.saoleopoldo.rs.gov.br/conteudo/1927/407?titulo=ITBI" target="_blank"/>
+  <SubSubItem name=" 📚 Registro de imóveis" link="https://especiais.gazetadopovo.com.br/cartorios/campo-bom-rs/cartorio-cns-09.715-4" target="_blank"/>
+</SubItem>
+
+
+    <SubItem name="🏠 Cachoeirinha">
+      <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://cachoeirinha.atende.net/autoatendimento/servicos/itbi-online" target="_blank"/>
+      <SubSubItem name=" 🧾 DAM ITBI" link="https://cachoeirinha.atende.net/autoatendimento/servicos/guias-itbi/detalhar/1" target="_blank"/>
+      <SubSubItem name=" 🌍 Manual ITBI" link="https://cachoeirinha.atende.net/autoatendimento/servicos/e-manual-itbi-online" target="_blank"/>
+    </SubItem>
+    <SubItem name="🏠 Capão da Canoa">
+      <SubSubItem name=" 🆕 itbi / Auto atendimento" link="https://capaodacanoa.1doc.com.br/b.php?pg=wp/wpitd=5" target="_blank"/>
+
+      <SubSubItem name=" 📚 Registro de Imoveis - Consulta" link="https://www.servicoregistralcapaocanoa.com.br/servicos-online/consulta-de-atos-do-registro-de-imoveis" target="_blank"/>
+    </SubItem>
+  </Item>
+  <Item name="🌐 RCPM" link="https://aliaseguros.com.br/cotacao-rcpm/" target="_blank"/>
+  <Item name="🧰 Ferramentas" >
+    <SubItem name=" 📝 APROVAÇÃO" link="./aprovacao" target="_blank"/>
+    <SubItem name=" 🌍 QR-Code Gerador" link="./qr-code" target="_blank"/>
+    <SubItem name=" 🔂 RESPOSTA RÁPIDA" link="./fast" target="_blank"/>
+    <SubItem name=" 🆎 Conversor Texto" link="./text-convert" target="_blank"/>
+    <SubItem name=" 🍒 LISTA PROCESSOS" link="./processos" target="_blank"/>
+    <SubItem name=" 📲 Zap Tool" link="./zap"/>
+    <SubItem name=" 🏛️ REGISTRATO" link="https://registrato.bcb.gov.br/registrato/login/" target="_blank"/>
+    <SubItem name=" 📱 CALCULADORAS" >
+      <SubSubItem name="  💡 3 anos CTPS" link="./calc.datas.html" target="_blank"/>
+      <SubSubItem name="  💡 120 dias CTPS" link="./calc.dias.html" target="_blank"/>
+      <SubSubItem name="  📈 MEDIA RENDA" link="./media" target="_blank"/>
+    </SubItem>
+  </Item>
+  
+  <Item name="💾 Outros Sistemas" >
+    <SubItem name=" 🛂 CRF Caixa" link="https://consulta-crf.caixa.gov.br/consultacrf/pages/listaEmpregadores.jsf" target="_blank"/> 
+    <SubItem name=" 🏗️ CNO Obra" link="https://www.gov.br/pt-br/servicos/consultar-cadastro-de-obra-de-construcao-civil" target="_blank"/>
+    <SubItem name=" 🌐 AVE-PDF" link="https://avepdf.com/pt/convert-to-pdfa" target="_blank"/>
+    <SubItem name=" 🌐 I Love PDF" link="https://www.ilovepdf.com/pt/comprimir_pdf" target="_blank"/>
+    <SubItem name=" 🌐 Alterar dados Receita" link="https://servicos.receita.fazenda.gov.br/servicos/cpf/alterar/default.asp" target="_blank"/>
+    <SubItem name=" 🤖 IA" >
+      <SubSubItem name="  🤖 CHAT GPT" link="https://chat.openai.com/" target="_blank"/>
+      <SubSubItem name="  🤖 COMPILOT" link="https://copilot.microsoft.com/" target="_blank"/>
+      <SubSubItem name="  🤖 ADOBE" link="https://podcast.adobe.com/enhance" target="_blank"/>
+    </SubItem>
+    <SubItem name="🧩 Renderisação" >
+      <SubSubItem name=" 📽️ Adobe Express" link="https://express.adobe.com/pt-BR/sp" target="_blank"/>
+      <SubSubItem name=" 📽️ Cap Cut" link="https://www.capcut.com/my-edit" target="_blank"/>
+      <SubSubItem name=" 🧩 Canva" link="https://www.canva.com" target="_blank"/>
+      <SubSubItem name=" 🎧 TTS Maker" link="https://ttsmaker.com/br" target="_blank"/>
+    </SubItem>
+  </Item>
+  <Item name="🤠 PDF UNIR" link="./pdf" target="_blank"/>
+  <Item name="📆 Agenda" link="https://calendar.google.com/" target="_blank"/>
+  <Item name="📬 E-Mail" link="https://mail.google.com" target="_blank"/>
+  <Item name="📺 Google Meet" link="https://meet.google.com/" target="_blank"/>
+  <Item name="💡 Google Keep" link="https://keep.google.com/#home" target="_blank"/>
+  <Item name="🏜️ Google Lens" link="https://lens.google.com/" target="_blank"/>
+  <Item name="💾 Google Drive" link="https://drive.google.com" target="_blank"/>
+  <Item name="💬 whatsapp" link="https://web.whatsapp.com/" target="_blank"/>
+<Item name="💎 Simuladores" >
+      <SubItem name=" 🌐 WWW8 CAIXA" link="https://www8.caixa.gov.br" target="_blank"/>
+      <SubItem name=" 🌐 PORTAL EMPREENDIMENTOS" link="https://www.portaldeempreendimentos.caixa.gov.br/simulador/simuladores" target="_blank"/>
+      <SubItem name=" 🌐 SIOPI" link="https://habitacao.caixa.gov.br/siopiweb-web/simulaOperacaoInternet.do?method=inicializarCasoUso" target="_blank"/>
+</Item>
+</Menu>
+
+
+
+<!--  
+icones
+
+📩 🔖 🧰 🌍
+📌 🔒
+ -->

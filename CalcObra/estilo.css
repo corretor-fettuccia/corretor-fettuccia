@@ -1,0 +1,111 @@
+
+
+
+body {
+            display: flex;              /* Ativa o flexbox */
+            justify-content: center;    /* Centraliza horizontalmente */
+            align-items: center;        /* Centraliza verticalmente */
+            height: 100vh;             /* Altura da tela */
+            margin: 0;                 /* Remove margens padrão */
+            background-color: #e0e0e0; /* Cor de fundo da página */
+        }  
+
+/* Estilo global para todos os inputs */
+input {
+    background-color: transparent; /* Fundo transparente */
+    border: none; /* Sem borda */
+    border-bottom: 2px solid #000; /* Apenas uma linha underline */
+    outline: none; /* Remove o contorno ao clicar no campo */
+    width: 100%; /* Ajusta o input para ocupar 100% do espaço disponível */
+    box-sizing: border-box; /* Inclui o padding no tamanho total do input */
+    transition: border-color 0.3s ease-in-out; /* Efeito suave ao focar */
+}
+
+.Text {
+    font-size: 18px;
+    color: blue;
+    font-family: Arial, sans-serif;
+    align-items: center;
+}
+  
+
+/* Estilo para os inputs com IDs Val.Lote.Total.BancoFin e Val.Obra.Total.BancoFin */
+.Negrito {
+    font-weight: bold; /* Aplica negrito */
+    font-size: 18px;
+}
+
+input:disabled {
+    color: #000; /* Cor da fonte preto */
+    background-color: rgba(141, 141, 141, 0.363); /* Mantém o fundo transparente */
+    
+    opacity: 1; /* Garante que a cor da fonte não fique esmaecida */
+}
+
+    table { border-collapse:collapse; border-spacing:0; empty-cells:show }
+    td, th { vertical-align:top; font-size:10pt;}
+    h1, h2, h3, h4, h5, h6 { clear:both;}
+    p { white-space: nowrap; }
+    ol, ul { margin:0; padding:0;}
+    li { list-style: none; margin:0; padding:0;}
+    span.footnodeNumber { padding-right:1em; }
+    span.annotation_style_by_filter { font-size:95%; font-family:Arial; background-color:#fff000;  margin:0; border:0; padding:0;  }
+    span.heading_numbering { margin-right: 0.8rem; }* { margin:0;}
+    .ta1 { writing-mode:horizontal-tb; direction:ltr; }
+    .Default { font-size:10pt; font-family:'Liberation Sans'; }
+    .ce1 { font-size:10pt; font-family:'Liberation Sans'; background-color:#000000; vertical-align:middle; text-align:center ! important; }
+    .ce10 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#729fcf; vertical-align:middle; text-align:center ! important; color:#ffffff; font-weight:bold; }
+    .ce11 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:transparent; vertical-align:middle; text-align:left ! important; margin-left:0cm; }
+    .ce12 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#ff8000; vertical-align:middle; text-align:center ! important; }
+    .ce14 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#ffb66c; }
+    .ce17 { font-size:10pt; font-family:'Liberation Sans'; vertical-align:middle; text-align:left ! important; margin-left:0cm; }
+    .ce18 { font-size:9pt; font-family:Arial; border-left-style:none; border-right-style:none; border-top-style:none; }
+    .ce2 { font-size:10pt; font-family:'Liberation Sans'; background-color:#eeeeee; vertical-align:middle; text-align:center ! important; font-style:italic; }
+    .ce21 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; }
+    .ce23 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:transparent; }
+    .ce24 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#ffdbb6; }
+    .ce25 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#ffdbb6; font-weight:bold; }
+    .ce26 { font-size:9pt; font-family:Arial; background-color:#ffdbb6; border-left-style:none; border-right-style:none; border-top-style:none; font-weight:bold; }
+    .ce27 { font-size:18pt; font-family:Arial; background-color:#ffff00; vertical-align:middle; text-align:center ! important; }
+    .ce28 { font-size:9pt; font-family:Arial; border-bottom-style:solid; background-color:#ffdbb6; border-left-style:none; border-right-style:none; border-top-style:none; }
+    .ce3 { font-size:10pt; font-family:'Liberation Sans'; background-color:transparent; vertical-align:middle; text-align:center ! important; font-style:italic; }
+    .ce30 { font-size:9pt; font-family:Arial; background-color:#ffff00; }
+    .ce32 { font-size:9pt; font-family:Arial; background-color:#ea7500; vertical-align:middle; text-align:center ! important; margin-left:0cm; color:#ffffff; font-weight:bold; }
+    .ce33 { font-size:10pt; font-family:'Liberation Sans'; vertical-align:top; text-align:left ! important; margin-left:0cm; }
+    .ce36 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-right-style:none; text-align:left ! important; margin-left:0cm; }
+    .ce38 { font-size:9pt; font-family:Arial; background-color:#158466; vertical-align:middle; text-align:center ! important; margin-left:0cm; color:#ffffff; font-weight:bold; }
+    .ce4 { font-size:10pt; font-family:'Liberation Sans'; vertical-align:middle; text-align:left ! important; margin-left:0cm; font-weight:bold; }
+    .ce42 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-right-style:none; background-color:#ffdbb6; }
+    .ce45 { font-size:9pt; font-family:Arial; background-color:#158466; vertical-align:middle; text-align:center ! important; margin-left:0cm; color:#ffffff; font-weight:bold; }
+    .ce46 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#ffdbb6; vertical-align:middle; text-align:center ! important; }
+    .ce47 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; vertical-align:middle; text-align:center ! important; margin-left:0cm; }
+    .ce48 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#00a933; vertical-align:middle; text-align:center ! important; }
+    .ce49 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#afd095; }
+    .ce5 { font-size:9pt; font-family:Arial; background-color:#000000; vertical-align:middle; text-align:center ! important; }
+    .ce50 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#afd095; font-style:normal; text-shadow:none; text-decoration:none ! important; font-weight:normal; }
+    .ce52 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#dde8cb; }
+    .ce53 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#dde8cb; font-weight:bold; }
+    .ce54 { font-size:9pt; font-family:Arial; border-top-style:none; border-left-style:none; border-bottom-style:none; border-right-style:none; background-color:#dde8cb; }
+    .ce55 { font-size:9pt; font-family:Arial; background-color:#dde8cb; border-left-style:none; border-right-style:none; border-top-style:none; }
+    .ce56 { font-size:9pt; font-family:Arial; background-color:#dde8cb; border-left-style:none; border-right-style:none; border-top-style:none; }
+    .ce6 { font-size:9pt; font-family:Arial; }
+    .ce64 { font-size:9pt; font-family:Arial; background-color:#ffff00; vertical-align:middle; text-align:center ! important; }
+    .ce65 { font-size:9pt; font-family:Arial; background-color:#ffff00; vertical-align:middle; text-align:center ! important; }
+    .ce7 { font-size:9pt; font-family:Arial; background-color:#ea7500; vertical-align:middle; text-align:center ! important; margin-left:0cm; color:#ffffff; font-weight:bold; }
+    .co1 { width:0.136cm; }
+    .co2 { width:3.403cm; }
+    .co3 { width:4.06cm; }
+    .co4 { width:0.203cm; }
+    .co5 { width:3.438cm; }
+    .co6 { width:4.265cm; }
+    .co7 { width:2.258cm; }
+    .ro1 { height:0.145cm; }
+    .ro2 { height:0.452cm; }
+    .ro3 { height:0.788cm; }
+    .ro4 { height:0.219cm; }
+    .ro5 { height:0.838cm; }
+    .ro6 { height:0.478cm; }
+    .T1 { color:#ffffff; font-family:Arial; font-size:9pt; font-weight:bold; text-decoration:none ! important; font-style:normal; text-shadow:none; }
+    .T2 { font-weight:bold; }
+    /* ODF styles with no properties representable as CSS:
+     { } */

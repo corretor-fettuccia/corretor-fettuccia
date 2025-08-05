@@ -1,0 +1,28 @@
+Val.Composicao=Val.Lote.Total +Val.Obra.Total
+Val.Lote.Total.BancoFin=Val.Lote.FGTS+Val.Lote.Financiado
+Val.Obra.Subsidio=Val.Total.Subsidio
+Val.Obra.Financiado=Val.Total.Financiado-Val.Lote.Financiado
+Val.Obra.Cash=Val.Obra.Total-Val.Obra.Financiado-Val.Obra.FGTS-Val.Obra.Subsidio
+Val.Obra.Total.BancoFin=Val.Obra.Subsidio+Val.Obra.Financiado+Val.Obra.FGTS
+
+
+
+<input type="text" id="Val.Total.Subsidio">
+<input type="text" id="Val.Total.FGTS">
+<input type="text" id="Val.Total.Financiado">
+
+<input type="text" id="Val.Composicao" disabled>
+
+<input type="text" id="Val.Lote.Total">
+<input type="text" id="Val.Lote.Financiado">
+<input type="text" id="Val.Lote.Cash" disabled>
+<input type="text" id="Val.Lote.FGTS">
+<input type="text" id="Val.Lote.JaPago">
+<input type="text" id="Val.Lote.Total.BancoFin" disabled>
+
+<input type="text" id="Val.Obra.Total" disabled>
+<input type="text" id="Val.Obra.Financiado" disabled>
+<input type="text" id="Val.Obra.Cash" disabled>
+<input type="text" id="Val.Obra.FGTS" disabled>
+<input type="text" id="Val.Obra.Subsidio" disabled>
+<input type="text" id="Val.Obra.Total.BancoFin" disabled>

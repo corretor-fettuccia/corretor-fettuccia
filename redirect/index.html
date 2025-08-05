@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="loading-container">
+        <div class="logo-background">
+            <img src="logo.jpg" alt="Logo" class="logo">
+        </div>
+        <div class="loading-message">
+            <div class="pie-chart">
+                <div class="pie" id="pie"></div>
+                <div class="percentage" id="percentage">0%</div>
+            </div>
+            <p>Carregando... Aguarde o redirecionamento.</p>
+        </div>
+    </div>
+
+    <script>
+        // Função para carregar o arquivo XML e encontrar o link original baseado no ID encurtado
+        function buscarLinkOriginal(linkEncurtado) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "links.xml", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const xml = xhr.responseXML;
+                    const links = xml.getElementsByTagName('link');
+                    
+                    // Itera pelos links do XML para encontrar o link encurtado
+                    for (let i = 0; i < links.length; i++) {
+                        const encurtado = links[i].getElementsByTagName('encurtado')[0].textContent;
+                        const original = links[i].getElementsByTagName('original')[0].textContent;
+                        
+                        if (encurtado === linkEncurtado) {
+                            // Simula o carregamento com gráfico de pizza
+                            let progress = 0;
+                            const pie = document.getElementById('pie');
+                            const percentage = document.getElementById('percentage');
+
+                            const interval = setInterval(() => {
+                                progress += 1;
+                                pie.style.setProperty('--percentage', `${progress}%`);
+                                percentage.textContent = `${progress}%`;
+                                if (progress >= 100) {
+                                    clearInterval(interval);
+                                    // Redireciona para o link original quando o carregamento atinge 100%
+                                    window.location.href = original;
+                                }
+                            }, 30); // Incrementa a cada 30ms para simular o carregamento
+
+                            return;
+                        }
+                    }
+                    // Caso o link encurtado não seja encontrado
+                    document.body.innerHTML = '<h1>Link encurtado não encontrado!</h1>';
+                }
+            };
+            xhr.send();
+        }
+
+        // Captura o parâmetro "id" da URL
+        const params = new URLSearchParams(window.location.search);
+        const linkEncurtado = params.get('id');
+
+        // Se o parâmetro "id" estiver presente, busca o link no XML e inicia a animação de carregamento
+        if (linkEncurtado) {
+            buscarLinkOriginal(linkEncurtado);
+        } else {
+            document.body.innerHTML = '<h1>Nenhum link encurtado fornecido!</h1>';
+        }
+    </script>
+    
+</body>
+</html>
+

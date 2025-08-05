@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramenta de Resposta Rápida para WhatsApp</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="../progress-loader.css">
+
+
+    
+</head>
+<body>
+
+    <h1>Ferramenta de Resposta Rápida para WhatsApp</h1>
+    <div class="container">
+        <select id="modelo-select">
+            <option value="">Selecione um modelo</option>
+        </select>
+        <div id="campos-dinamicos"></div>
+        <br>
+        <textarea id="texto-fixado" rows="10%" cols="50%"></textarea>
+        <button id="copiar-texto">Copiar Texto</button>
+    </div>
+
+    <script src="script.js"></script>
+   
+    <script src="../progress-loader.js"></script>
+    <script>
+        // Inicializa o plugin de carregamento
+        ProgressLoader.init();
+    </script>
+</body>
+
+
+</html>
+

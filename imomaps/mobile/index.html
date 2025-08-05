@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mobile Mapper - PDF Fiel</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Bibliotecas para PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background-color: #4285f4;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Área de anotações - 15% */
+        .notes-container {
+            padding: 10px;
+            height: 15%;
+        }
+        
+        .notes {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            font-size: 1rem;
+        }
+        
+        /* Área da foto - 35% */
+        .photo-container {
+            height: 35%;
+            position: relative;
+            border: 2px dashed #ccc;
+            margin: 0 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            overflow: hidden;
+        }
+        
+        #photo {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+        
+        .photo-placeholder {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .photo-placeholder i {
+            font-size: 2.5rem;
+            color: #4285f4;
+            margin-bottom: 10px;
+        }
+        
+        /* Mapa - 35% */
+        .map-container {
+            height: 35%;
+            margin: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Controles - 15% */
+        .controls {
+            height: 15%;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            gap: 8px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #4285f4;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #34a853;
+            color: white;
+        }
+        
+        .status {
+            padding: 0 10px 10px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+        
+        .error {
+            color: #ea4335;
+        }
+        
+        .success {
+            color: #34a853;
+        }
+        
+        .gps-icon {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        /* Esconde input file padrão */
+        #camera-input {
+            display: none;
+        }
+        
+        /* Modal de PDF */
+        .pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .pdf-modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 90%;
+        }
+        
+        .pdf-modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .pdf-modal-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .pdf-modal-btn-primary {
+            background-color: #4285f4;
+            color: white;
+        }
+        
+        /* Elemento clone para PDF */
+        .pdf-clone {
+            position: fixed;
+            top: -10000px;
+            left: -10000px;
+            width: 210mm; /* Tamanho A4 */
+            height: 297mm;
+            padding: 15mm;
+            background-color: white;
+            z-index: 10000;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Mobile Mapper - PDF Fiel</h1>
+    </div>
+    
+    <div class="container" id="container-to-print">
+        <!-- Área de anotações -->
+        <div class="notes-container">
+            <textarea class="notes" id="notes" placeholder="Digite suas observações..."></textarea>
+        </div>
+        
+        <!-- Área da foto -->
+        <div class="photo-container" id="photo-container">
+            <div class="photo-placeholder">
+                <i class="fas fa-camera"></i>
+                <p>Toque para tirar uma foto</p>
+            </div>
+            <img id="photo" alt="Foto capturada">
+        </div>
+        
+        <!-- Mapa -->
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <!-- Status -->
+        <div class="status" id="status">
+            Aguardando localização...
+        </div>
+        
+        <!-- Controles -->
+        <div class="controls">
+            <button class="btn btn-primary" id="gps-btn">
+                <i class="fas fa-map-marker-alt gps-icon"></i> Atualizar Localização
+            </button>
+            <button class="btn btn-secondary" id="save-btn">
+                <i class="fas fa-file-pdf"></i> Gerar PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de PDF -->
+    <div class="pdf-modal" id="pdf-modal">
+        <div class="pdf-modal-content">
+            <h3>PDF Gerado com Sucesso!</h3>
+            <p>O que você deseja fazer agora?</p>
+            <div class="pdf-modal-buttons">
+                <button class="pdf-modal-btn pdf-modal-btn-primary" id="download-pdf">
+                    <i class="fas fa-download"></i> Baixar PDF
+                </button>
+                <button class="pdf-modal-btn" id="close-pdf-modal">
+                    <i class="fas fa-times"></i> Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Input para câmera -->
+    <input type="file" id="camera-input" accept="image/*" capture="environment">
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Inicializa jsPDF
+        const { jsPDF } = window.jspdf;
+        
+        // Variáveis globais
+        let map;
+        let marker;
+        let currentPhoto = null;
+        let currentLocation = null;
+        let generatedPdf = null;
+        
+        // Elementos DOM
+        const containerToPrint = document.getElementById('container-to-print');
+        const photoContainer = document.getElementById('photo-container');
+        const photoElement = document.getElementById('photo');
+        const cameraInput = document.getElementById('camera-input');
+        const statusElement = document.getElementById('status');
+        const gpsBtn = document.getElementById('gps-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const notesElement = document.getElementById('notes');
+        const pdfModal = document.getElementById('pdf-modal');
+        const downloadPdfBtn = document.getElementById('download-pdf');
+        const closePdfModalBtn = document.getElementById('close-pdf-modal');
+        
+        // Inicializa o mapa
+        function initMap(lat, lng) {
+            if (!map) {
+                map = L.map('map').setView([lat || -23.5505, lng || -46.6333], 16);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+            }
+            
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            
+            marker = L.marker([lat, lng]).addTo(map);
+            map.setView([lat, lng], 16);
+            
+            updateStatus(`Localização atual: ${lat.toFixed(6)}, ${lng.toFixed(6)}`, 'success');
+        }
+        
+        // Atualiza status
+        function updateStatus(message, type = '') {
+            statusElement.textContent = message;
+            statusElement.className = `status ${type}`;
+        }
+        
+        // Obtém localização via GPS
+        function getLocation() {
+            updateStatus('Obtendo localização...');
+            gpsBtn.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> Buscando...';
+            
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        currentLocation = { lat, lng };
+                        initMap(lat, lng);
+                        gpsBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i> Atualizar Localização';
+                    },
+                    (error) => {
+                        let errorMessage;
+                        switch(error.code) {
+                            case error.PERMISSION_DENIED:
+                                errorMessage = "Permissão de localização negada.";
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                errorMessage = "Informação de localização indisponível.";
+                                break;
+                            case error.TIMEOUT:
+                                errorMessage = "Tempo de busca pela localização expirado.";
+                                break;
+                            default:
+                                errorMessage = "Erro desconhecido ao obter localização.";
+                        }
+                        updateStatus(errorMessage, 'error');
+                        gpsBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i> Tentar Novamente';
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                updateStatus("Geolocalização não suportada pelo navegador.", 'error');
+            }
+        }
+        
+        // Tirar foto
+        photoContainer.addEventListener('click', () => {
+            cameraInput.click();
+        });
+        
+        cameraInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    photoElement.src = event.target.result;
+                    photoElement.style.display = 'block';
+                    photoContainer.querySelector('.photo-placeholder').style.display = 'none';
+                    currentPhoto = event.target.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+        
+        // Gera o PDF fiel à tela
+        async function generatePDF() {
+            if (!currentLocation) {
+                updateStatus('Obtenha a localização primeiro', 'error');
+                return;
+            }
+            
+            updateStatus('Gerando PDF...', 'success');
+            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando...';
+            
+            try {
+                // 1. Criar um clone do container para impressão
+                const clone = containerToPrint.cloneNode(true);
+                clone.id = 'pdf-clone';
+                clone.classList.add('pdf-clone');
+                document.body.appendChild(clone);
+                
+                // 2. Remover elementos que não devem aparecer no PDF
+                const elementsToRemove = clone.querySelectorAll('.controls, .status, .photo-placeholder');
+                elementsToRemove.forEach(el => el.remove());
+                
+                // 3. Ajustar estilos para impressão
+                clone.style.position = 'absolute';
+                clone.style.top = '0';
+                clone.style.left = '0';
+                clone.style.width = '210mm';
+                clone.style.height = '297mm';
+                clone.style.padding = '15mm';
+                clone.style.backgroundColor = 'white';
+                clone.style.zIndex = '10000';
+                
+                // 4. Capturar como imagem usando html2canvas
+                const canvas = await html2canvas(clone, {
+                    scale: 2, // Melhora a qualidade
+                    logging: false,
+                    useCORS: true,
+                    allowTaint: true
+                });
+                
+                // 5. Criar PDF
+                const doc = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                // Adiciona a imagem ao PDF
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                
+                doc.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+                
+                // Remove o clone
+                document.body.removeChild(clone);
+                
+                generatedPdf = doc;
+                
+                // Mostra o modal de PDF
+                pdfModal.style.display = 'flex';
+                updateStatus('PDF gerado com sucesso!', 'success');
+                saveBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Gerar PDF';
+                
+            } catch (error) {
+                console.error('Erro ao gerar PDF:', error);
+                updateStatus('Erro ao gerar PDF', 'error');
+                saveBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Gerar PDF';
+                
+                // Remove o clone se existir
+                const clone = document.getElementById('pdf-clone');
+                if (clone) {
+                    document.body.removeChild(clone);
+                }
+            }
+        }
+        
+        // Download do PDF
+        downloadPdfBtn.addEventListener('click', () => {
+            if (generatedPdf) {
+                generatedPdf.save(`relatorio-localizacao-${new Date().toISOString()}.pdf`);
+                pdfModal.style.display = 'none';
+            }
+        });
+        
+        // Fechar modal
+        closePdfModalBtn.addEventListener('click', () => {
+            pdfModal.style.display = 'none';
+        });
+        
+        // Inicializa o app
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tenta obter localização automaticamente
+            getLocation();
+            
+            // Configura o botão de GPS
+            gpsBtn.addEventListener('click', getLocation);
+            
+            // Configura o botão de salvar PDF
+            saveBtn.addEventListener('click', generatePDF);
+        });
+    </script>
+</body>
+</html>

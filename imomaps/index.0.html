@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento para Impressão A4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .print-area {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                page-break-after: always;
+            }
+        }
+        
+        .print-container {
+            display: flex;
+            flex-direction: column;
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            padding: 15mm;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #e9e9e9;
+            border-radius: 5px;
+        }
+        
+        /* Área de anotações - 10% da altura */
+        .notes-container {
+            height: 10%;
+            margin-bottom: 10px;
+        }
+        
+        .notes {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        /* Street View - 45% da altura */
+        .streetview-container {
+            height: 45%;
+            margin-bottom: 10px;
+        }
+        
+        #streetview {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+        }
+        
+        /* Mapa - 45% da altura */
+        .map-container {
+            height: 45%;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+        }
+        
+        .url-input {
+            width: 70%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .load-btn {
+            padding: 8px 15px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .load-btn:hover {
+            background-color: #3367d6;
+        }
+        
+        h1 {
+            font-size: 18px;
+            margin-top: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .print-btn {
+            padding: 10px 20px;
+            background-color: #34a853;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        
+        .print-btn:hover {
+            background-color: #2d8e47;
+        }
+        
+        .api-key-container {
+            margin-top: 10px;
+        }
+        
+        .api-key-input {
+            width: 300px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print input-container">
+        <h1>Configuração para Impressão</h1>
+        <div class="api-key-container">
+            <label for="api-key">Chave da API Google Maps:</label>
+            <input type="text" id="api-key" value="AIzaSyDGehuj9i5C8cgJGugM5EN251plV2wTki0" class="api-key-input" placeholder="Insira sua chave da API">
+        </div>
+        <label for="maps-url">URL do Google Maps:</label>
+        <input type="text" id="maps-url" class="url-input" placeholder="Cole a URL do Google Maps aqui" value="https://www.google.com/maps/@-29.9343956,-51.1646169,3a,75y,94.14h,89.17t/data=!3m7!1e1!3m5!1sNnpA_JXpCaAJVf4IvhFzpQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0.8330798364710432%26panoid%3DNnpA_JXpCaAJVf4IvhFzpQ%26yaw%3D94.13933402290135!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D">
+        <button id="load-btn" class="load-btn">Carregar</button>
+        <button id="print-btn" class="print-btn">Imprimir</button>
+        <p>Exemplo de URL válida: https://www.google.com/maps/@LATITUDE,LONGITUDE,...</p>
+    </div>
+    
+    <div class="print-container print-area">
+        <!-- Div de anotações (10% da altura) -->
+        <div class="notes-container">
+            <label for="notes">Anotações:</label>
+            <textarea id="notes" class="notes" placeholder="Digite suas anotações aqui..."></textarea>
+        </div>
+        
+        <!-- Div do Street View (45% da altura) -->
+        <div class="streetview-container">
+            <label>Street View:</label>
+            <div id="streetview"></div>
+        </div>
+        
+        <!-- Div do Mapa (45% da altura) -->
+        <div class="map-container">
+            <label>Mapa:</label>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script>
+        let map, panorama, marker;
+        let mapsApiLoaded = false;
+        
+        // Função para carregar a API do Google Maps
+        function loadGoogleMapsAPI() {
+            const apiKey = document.getElementById('api-key').value.trim();
+            if (!apiKey) {
+                alert("Por favor, insira uma chave válida da API Google Maps");
+                return;
+            }
+            
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&loading=async&callback=initMap&libraries=marker&v=beta`;
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+            
+            mapsApiLoaded = true;
+        }
+        
+        // Função principal de inicialização
+        function initMap() {
+            // Inicializa mapas vazios
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -29.9343956, lng: -51.1646169 },
+                zoom: 18,
+                mapId: "DEMO_MAP_ID" // Opcional: pode usar um Map ID personalizado
+            });
+            
+            panorama = new google.maps.StreetViewPanorama(
+                document.getElementById("streetview"), {
+                    position: { lat: -29.9343956, lng: -51.1646169 },
+                    pov: { heading: 94.14, pitch: 89.17 },
+                    zoom: 1,
+                }
+            );
+            
+            // Configura os botões
+            document.getElementById('load-btn').addEventListener('click', loadFromUrl);
+            document.getElementById('print-btn').addEventListener('click', printPage);
+            
+            // Permite carregar com Enter
+            document.getElementById('maps-url').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loadFromUrl();
+                }
+            });
+            
+            // Carrega automaticamente a URL padrão
+            loadFromUrl();
+        }
+        
+        // Função para carregar dados da URL
+        function loadFromUrl() {
+            if (!mapsApiLoaded) {
+                loadGoogleMapsAPI();
+                return;
+            }
+            
+            const url = document.getElementById('maps-url').value.trim();
+            if (!url) return;
+            
+            try {
+                // Extrai coordenadas da URL - formato @lat,lng
+                const coordMatch = url.match(/@([-0-9.]+),([-0-9.]+)/);
+                if (!coordMatch || coordMatch.length < 3) {
+                    throw new Error("Formato de URL inválido - não encontrou coordenadas");
+                }
+                
+                const lat = parseFloat(coordMatch[1]);
+                const lng = parseFloat(coordMatch[2]);
+                
+                // Extrai parâmetros de visualização
+                const paramsMatch = url.match(/@[-0-9.]+,[-0-9.]+,[^/]+y,([-0-9.]+)h,([-0-9.]+)t/);
+                let heading = 34;
+                let pitch = 10;
+                
+                if (paramsMatch && paramsMatch.length >= 3) {
+                    heading = parseFloat(paramsMatch[1]);
+                    pitch = parseFloat(paramsMatch[2]);
+                }
+                
+                const position = { lat, lng };
+                
+                // Atualiza o mapa
+                map.setCenter(position);
+                map.setZoom(18);
+                
+                // Remove o marcador anterior se existir
+                if (marker) {
+                    marker.setMap(null);
+                }
+                
+                // Cria novo marcador usando AdvancedMarkerElement
+                marker = new google.maps.marker.AdvancedMarkerElement({
+                    position: position,
+                    map: map,
+                    title: "Local selecionado"
+                });
+                
+                // Tenta extrair o panoid da URL
+                const panoidMatch = url.match(/1s([^!]+)/);
+                if (panoidMatch && panoidMatch[1]) {
+                    // Usa o panoid específico se encontrado
+                    panorama.setPano(panoidMatch[1]);
+                    panorama.setPov({
+                        heading: heading,
+                        pitch: pitch
+                    });
+                    panorama.setVisible(true);
+                } else {
+                    // Procura Street View nas proximidades
+                    panorama.setPosition(position);
+                    panorama.setPov({
+                        heading: heading,
+                        pitch: pitch
+                    });
+                    
+                    const streetViewService = new google.maps.StreetViewService();
+                    streetViewService.getPanorama({
+                        location: position,
+                        radius: 50
+                    }, function(data, status) {
+                        if (status === 'OK') {
+                            panorama.setPano(data.location.pano);
+                        } else {
+                            console.warn("Street View não disponível para esta localização");
+                        }
+                    });
+                }
+                
+            } catch (error) {
+                alert("Erro ao processar URL: " + error.message);
+                console.error(error);
+            }
+        }
+        
+        function printPage() {
+            window.print();
+        }
+        
+        // Configura o botão de carregar para carregar a API quando clicado
+        document.getElementById('load-btn').addEventListener('click', function() {
+            if (!mapsApiLoaded) {
+                loadGoogleMapsAPI();
+            }
+        });
+    </script>
+</body>
+</html>

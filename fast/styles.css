@@ -1,0 +1,92 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="datetime-local"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+/* Campos em caixa alta */
+#nome,
+#tratar {
+  text-transform: uppercase;
+}
+
+/* Campos numéricos */
+#taxas,
+#despachante {
+  width: calc(100% - 45px); /* Reduzir um pouco a largura para acomodar os botões de incremento e decremento */
+}
+
+#taxas[type="number"],
+#despachante[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+#taxas[type="number"]::-webkit-inner-spin-button,
+#despachante[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* Remover botão de incremento e decremento do Chrome */
+}
+
+#taxas[type="number"]::-webkit-outer-spin-button,
+#despachante[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remover botão de incremento e decremento do Chrome */
+  margin-right: -15px; /* Alinhar à direita */
+}
+
+input[type="datetime-local"] {
+  width: auto;
+}
+
+#campos-dinamicos {
+  margin-top: 16px;
+}
+
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+

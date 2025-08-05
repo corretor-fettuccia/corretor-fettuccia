@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compressor de Imagens em Lote</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .preview-item {
+            width: 150px;
+            position: relative;
+        }
+        .preview-image {
+            max-width: 100%;
+            max-height: 150px;
+        }
+        .preview-info {
+            font-size: 12px;
+            margin-top: 5px;
+            word-break: break-all;
+        }
+        #downloadAllBtn {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .slider-container {
+            margin: 20px 0;
+        }
+        .quality-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .progress-container {
+            margin-top: 20px;
+            display: none;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .progress {
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Compressor de Imagens em Lote</h1>
+    <p>Comprima várias imagens JPG ou PNG para JPEG com qualidade reduzida, similar ao WhatsApp</p>
+    
+    <div class="container">
+        <input type="file" id="fileInput" accept="image/jpeg, image/png" multiple />
+        <p>Arraste e solte imagens aqui ou clique para selecionar (múltiplas imagens)</p>
+        
+        <div class="slider-container">
+            <label for="quality">Qualidade da compressão:</label>
+            <input type="range" id="quality" min="10" max="90" value="75">
+            <span id="qualityValue">75%</span>
+            <p class="quality-info">Qualidade mais baixa = arquivos menores (WhatsApp usa ~75%)</p>
+        </div>
+    </div>
+    
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar">
+            <div class="progress" id="progressBar"></div>
+        </div>
+        <div id="progressText">Processando 0 de 0 imagens...</div>
+    </div>
+    
+    <div id="preview-container"></div>
+    <button id="downloadAllBtn">Baixar Todas as Imagens Comprimidas (ZIP)</button>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('fileInput');
+            const previewContainer = document.getElementById('preview-container');
+            const downloadAllBtn = document.getElementById('downloadAllBtn');
+            const qualitySlider = document.getElementById('quality');
+            const qualityValue = document.getElementById('qualityValue');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            let compressedImages = [];
+            
+            // Atualizar valor do slider de qualidade
+            qualitySlider.addEventListener('input', function() {
+                qualityValue.textContent = this.value + '%';
+            });
+            
+            // Manipular seleção de arquivo
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files.length > 0) {
+                    processFiles(e.target.files);
+                }
+            });
+            
+            // Manipular drag and drop
+            const container = document.querySelector('.container');
+            
+            container.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                container.style.borderColor = '#4CAF50';
+                container.style.backgroundColor = '#f8f8f8';
+            });
+            
+            container.addEventListener('dragleave', function() {
+                container.style.borderColor = '#ccc';
+                container.style.backgroundColor = '';
+            });
+            
+            container.addEventListener('drop', function(e) {
+                e.preventDefault();
+                container.style.borderColor = '#ccc';
+                container.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                    const files = Array.from(e.dataTransfer.files).filter(file => 
+                        file.type.match('image.*')
+                    );
+                    
+                    if (files.length > 0) {
+                        fileInput.files = e.dataTransfer.files;
+                        processFiles(files);
+                    } else {
+                        alert('Por favor, selecione apenas arquivos de imagem (JPG ou PNG).');
+                    }
+                }
+            });
+            
+            // Processar múltiplos arquivos
+            function processFiles(files) {
+                previewContainer.innerHTML = '';
+                compressedImages = [];
+                progressContainer.style.display = 'block';
+                progressBar.style.width = '0%';
+                progressText.textContent = `Processando 0 de ${files.length} imagens...`;
+                
+                let processedCount = 0;
+                
+                Array.from(files).forEach((file, index) => {
+                    if (file.type.match('image.*')) {
+                        compressImage(file, index, files.length).then(() => {
+                            processedCount++;
+                            const progress = Math.round((processedCount / files.length) * 100);
+                            progressBar.style.width = progress + '%';
+                            progressText.textContent = `Processando ${processedCount} de ${files.length} imagens...`;
+                            
+                            if (processedCount === files.length) {
+                                progressText.textContent = 'Processamento concluído!';
+                                downloadAllBtn.style.display = 'inline-block';
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // Função para comprimir imagem
+            function compressImage(file, index, total) {
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        const img = new Image();
+                        
+                        img.onload = function() {
+                            // Criar canvas
+                            const canvas = document.createElement('canvas');
+                            const ctx = canvas.getContext('2d');
+                            
+                            // Definir tamanho máximo (opcional, similar ao WhatsApp)
+                            const MAX_WIDTH = 1600;
+                            const MAX_HEIGHT = 1600;
+                            let width = img.width;
+                            let height = img.height;
+                            
+                            // Redimensionar se necessário
+                            if (width > height) {
+                                if (width > MAX_WIDTH) {
+                                    height *= MAX_WIDTH / width;
+                                    width = MAX_WIDTH;
+                                }
+                            } else {
+                                if (height > MAX_HEIGHT) {
+                                    width *= MAX_HEIGHT / height;
+                                    height = MAX_HEIGHT;
+                                }
+                            }
+                            
+                            canvas.width = width;
+                            canvas.height = height;
+                            
+                            // Desenhar imagem no canvas com qualidade reduzida
+                            ctx.drawImage(img, 0, 0, width, height);
+                            
+                            // Converter para JPEG
+                            const quality = qualitySlider.value / 100;
+                            canvas.toBlob((blob) => {
+                                const compressedUrl = URL.createObjectURL(blob);
+                                
+                                // Adicionar à lista de imagens comprimidas
+                                compressedImages.push({
+                                    originalName: file.name,
+                                    blob: blob,
+                                    url: compressedUrl
+                                });
+                                
+                                // Mostrar preview
+                                const previewItem = document.createElement('div');
+                                previewItem.className = 'preview-item';
+                                
+                                const previewImage = document.createElement('img');
+                                previewImage.className = 'preview-image';
+                                previewImage.src = compressedUrl;
+                                
+                                const removeBtn = document.createElement('button');
+                                removeBtn.className = 'remove-btn';
+                                removeBtn.innerHTML = '×';
+                                removeBtn.onclick = () => {
+                                    previewItem.remove();
+                                    compressedImages = compressedImages.filter(img => img.url !== compressedUrl);
+                                    if (compressedImages.length === 0) {
+                                        downloadAllBtn.style.display = 'none';
+                                    }
+                                };
+                                
+                                const previewInfo = document.createElement('div');
+                                previewInfo.className = 'preview-info';
+                                previewInfo.textContent = `${file.name.substring(0, 20)}... (${(blob.size / 1024).toFixed(1)}KB)`;
+                                
+                                previewItem.appendChild(removeBtn);
+                                previewItem.appendChild(previewImage);
+                                previewItem.appendChild(previewInfo);
+                                previewContainer.appendChild(previewItem);
+                                
+                                resolve();
+                            }, 'image/jpeg', quality);
+                        };
+                        
+                        img.src = event.target.result;
+                    };
+                    
+                    reader.readAsDataURL(file);
+                });
+            }
+            
+            // Baixar todas as imagens como ZIP
+            downloadAllBtn.addEventListener('click', function() {
+                if (compressedImages.length === 0) return;
+                
+                const zip = new JSZip();
+                const folder = zip.folder("imagens_comprimidas");
+                
+                compressedImages.forEach((image, index) => {
+                    const extension = image.originalName.split('.').pop().toLowerCase();
+                    const newName = image.originalName.replace(`.${extension}`, '') + '.jpg';
+                    folder.file(newName, image.blob);
+                });
+                
+                zip.generateAsync({type: "blob"}).then(function(content) {
+                    saveAs(content, "imagens_comprimidas.zip");
+                });
+            });
+        });
+    </script>
+</body>
+</html>

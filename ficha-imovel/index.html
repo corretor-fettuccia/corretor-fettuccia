@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha de Imóvel Compacta</title>
+  <!--<link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="estilo-Forms.css">-->
+  <style>
+/* INICIO ESTILOS */
+body { 
+  font-family: Arial, sans-serif; 
+  font-size: 12px; 
+  margin: 0; 
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+#DIVexclusividade {
+  display: none;
+}
+
+/* TEXTAREA AUTOEXPANSÍVEL */
+textarea {
+  min-height: 40px;
+  resize: none; /* Remove o redimensionamento manual */
+  overflow-y: hidden; /* Remove a barra de rolagem */
+  line-height: 1.2;
+  padding: 2px;
+  margin: 2px 0;
+  font-size: 9px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-compact { 
+  max-width: 800px; 
+  margin: 0 auto; 
+  background: white;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.header { 
+  text-align: center; 
+  margin-bottom: 10px;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.section { 
+  margin-bottom: 1px; 
+  padding-bottom: 1px;
+  border-bottom: 1px solid #eee;
+}
+
+.section-title { 
+  font-weight: bold; 
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 0.3px;
+  background: silver;
+  padding: 3px;
+}
+.grid-0 { 
+  display: grid; 
+  grid-template-columns: repeat(1, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+.grid-1 { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+
+.grid-2 { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+
+.grid-3 { 
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+
+.grid-4 { 
+  display: grid; 
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+.grid-5 { 
+  display: grid; 
+  grid-template-columns: repeat(6, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+.grid-6 { 
+  display: grid; 
+  grid-template-columns: repeat(7, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+.grid-8 { 
+  display: grid; 
+  grid-template-columns: repeat(8, 1fr); 
+  gap: 0.5px;
+  margin-bottom: 0.3px;
+}
+.checkbox-group { 
+  display: flex; 
+  align-items: center; 
+  gap: 0.5px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.checkbox-group input { 
+  margin-right: 3px;
+}
+
+.controls { 
+  display: flex; 
+  gap: 0.5px; 
+  margin-bottom: 0.3px;
+}
+
+.btn { 
+  padding: 5px 10px; 
+  background: #4a6da7; 
+  color: white; 
+  border: none; 
+  border-radius: 3px; 
+  cursor: pointer; 
+  font-size: 11px;
+}
+
+.btn:hover { 
+  background: #3a5a8f; 
+}
+
+.btn.remove { 
+  background: #a74a4a; 
+}
+
+.btn.remove:hover { 
+  background: #8f3a3a; 
+}
+
+.hidden { 
+  display: none; 
+}
+
+.more-items { 
+  margin-top: 1px;
+}
+
+.more-items-btn { 
+  font-size: 10px; 
+  padding: 2px 1px;
+}
+
+.item-row { 
+  margin-bottom: 0.3px;
+  padding: 1px;
+  background: #f9f9f9;
+  border-radius: 3px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+@media print {
+  body { 
+    background: none; 
+    padding: 0;
+  }
+  
+  .form-compact {
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .btn, .controls {
+    display: none !important;
+  }
+}
+/* FIM ESTILOS */
+/* INICIO ESTILOS FORMS */
+
+:root {
+  --primary: #303030;
+  --secondary: #495057;
+  --formFieldColorFont: #13293d;
+  --colorFont: #272727;
+}
+
+.form__group {
+  font-size: 12px;
+  position: relative;
+  padding: 8px 0 0;
+  margin-top: 1px;
+  width: 100%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid var(--colorFont);
+  outline: 0;
+  font-size: 12px;
+  color: var(--formFieldColorFont);
+  padding: 3px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+.form__field-noSize {
+  font-family: inherit;
+  border: 0;
+  border-bottom: 2px solid var(--colorFont);
+  outline: 0;
+  font-size: 12px;
+  color: var(--formFieldColorFont);
+  padding: 3px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+.form__field::placeholder {
+  color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+  font-size: 12px;
+  cursor: text;
+  top: 16px;
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 11px;
+  color: var(--colorFont);
+}
+
+.form__field:focus ~ .form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;    
+}
+
+.form__field:focus {
+  padding-bottom: 0px;  
+  font-weight: 600;
+  border-width: 2px;
+  border-image: linear-gradient(to right, var(--primary), var(--secondary);
+  border-image-slice: 1;
+}
+
+/* reset input */
+.form__field:required, 
+.form__field:invalid { 
+  box-shadow: none; 
+}
+
+textarea.form__field {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.small-input {
+  width: 50px !important;
+}
+
+
+/* FIM ESTILOS FORMS */
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+  <script src="https://plentz.github.io/jquery-maskmoney/javascripts/jquery.maskMoney.min.js"
+    type="text/javascript"></script>
+
+</head>
+
+<body>
+  <div class="form-compact" id="formContainer">
+    <div class="controls">
+      <button class="btn" onclick="saveForm()">Salvar</button>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Carregar</button>
+      <input type="file" id="fileInput" class="hidden" accept=".json">
+      <button class="btn" onclick="window.print()">Imprimir</button>
+      <button class="btn" onclick="addMoreItems()">+ Itens</button>
+    </div>
+
+    <div class="header">
+      <h3>CORRETOR FETTUCCIA - FICHA CADASTRO DE IMÓVEL | CRECI 83599-F</h3>
+    </div>
+
+    <!-- Dados do Proprietário -->
+    <div class="section">
+      <div class="section-title">DADOS DO PROPRIETÁRIO</div>
+      <div class="grid-0">
+        <div class="form__group">
+          <input type="text" class="form__field" id="proprietarioNome" placeholder=" ">
+          <label class="form__label">Nome</label>
+        </div>
+      </div>
+      <div class="grid-1">
+        <div class="form__group">
+          <input type="text" class="form__field" id="proprietarioCelular" onkeyup="formatarTelefone(this)"
+            maxlength="15" placeholder=" ">
+          <label class="form__label">Celular</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field" id="proprietarioTelefone" onkeyup="formatarTelefone(this)"
+            maxlength="15" placeholder=" ">
+          <label class="form__label">Telefone</label>
+        </div>
+      </div>
+      <div class="grid-0">
+        <div class="form__group">
+          <input type="text" class="form__field" id="proprietarioEndereco" placeholder=" ">
+          <label class="form__label">Endereço</label>
+        </div>
+
+        <div class="form__group">
+          <input type="text" class="form__field" id="proprietarioEmail" placeholder=" ">
+          <label class="form__label">E-mail</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dados do Imóvel -->
+    <div class="section">
+      <div class="section-title">DADOS DO IMÓVEL</div>
+      <div class="grid-1">
+        <div class="form__group">
+          <input type="text" class="form__field" id="imovelEndereco" placeholder=" ">
+          <label class="form__label">Endereço</label>
+        </div>
+        <div class="grid-1">
+          <div class="form__group">
+            <input type="text" class="form__field" id="imovelNumero" placeholder=" ">
+            <label class="form__label">Nº</label>
+          </div>
+          <div class="form__group">
+            <input type="text" class="form__field" id="imovelComplemento" placeholder=" ">
+            <label class="form__label">Complemento</label>
+          </div>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field" id="imovelBairro" placeholder=" ">
+          <label class="form__label">Bairro</label>
+        </div>
+        <div class="grid-1">
+          <div class="form__group">
+            <input type="text" class="form__field" id="imovelCidade" placeholder=" ">
+            <label class="form__label">Cidade</label>
+          </div>
+          <div class="form__group">
+            <input type="text" class="form__field small-input" id="imovelUF" placeholder=" ">
+            <label class="form__label">UF</label>
+          </div>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field" id="imovelCEP" placeholder=" ">
+          <label class="form__label">CEP</label>
+        </div>
+        <div class="form__group">
+          <select class="form__field" id="imovelTipo" onchange="toggleTipoImovel(this)">
+            <option value="" selected>---</option>
+            <option value="TP-CASA.RUA">CASA</option>
+            <option value="TP-CASA.COND">CASA EM CONDOMÍNIO</option>
+            <option value="TP-SOBRADO">SOBRADO</option>
+            <option value="TP-SOBRADO.COND">SOBRADO EM CONDOMÍNIO</option>
+            <option value="TP-APTO">APARTAMENTO</option>
+            <option value="TP-ESTUDIO">ESTÚDIO</option>
+            <option value="TP-LOTE.COND">LOTE COND. FECHADO</option>
+            <option value="TP-LOTE.RUA">LOTE DE RUA</option>
+
+            <option value="TP-LOJA-COMERC">LOJA COMERCIAL</option>
+            <option value="TP-AREARURAL">ÁREA RURAL</option>
+            <option value="TP-AREA-COMERC">ÁREA COMERCIAL</option>
+            <option value="TP-AREA-INDUS">ÁREA INDUSTRIAL</option>
+          </select>
+          <label class="form__label">Tipo</label>
+        </div>
+        <div class="form__group">
+          <select class="form__field" id="imovelOcupacao" onchange="toggleDesocupacao(this)">
+            <option value="Ocupado">OCUPADO</option>
+            <option value="Desocupado">DESOCUPADO</option>
+
+          </select>
+          <label class="form__label">Ocupação</label>
+        </div>
+        <div id="prazoDesocupacao" class="form__group">
+          <input type="text" class="form__field" id="imovelPrazoDesocupacao" placeholder=" ">
+          <label class="form__label">Prazo desocupação</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field" id="imovelMatricula" placeholder=" ">
+          <label class="form__label">Nº Matrícula</label>
+        </div>
+      </div>
+      <div class="form__group full-width">
+        <textarea class="form__field" id="imovelDescricao" placeholder=" "></textarea>
+        <label class="form__label">Descrição</label>
+      </div>
+    </div>
+
+    <!-- Características -->
+    <div class="section">
+      <div class="section-title">CARACTERÍSTICAS DO IMÓVEL</div>
+      <div class="grid-1">
+        <div class="grid-2">
+          <div class="form__group">
+            <input type="number" class="form__field" id="caractDorms" placeholder=" ">
+            <label class="form__label">Dormitórios</label>
+          </div>
+          <div class="form__group">
+            <input type="number" class="form__field" id="caractBanheiros" placeholder=" ">
+            <label class="form__label">Banheiros</label>
+          </div>
+          <div class="form__group">
+            <input type="number" class="form__field" id="caractSuite" placeholder=" ">
+            <label class="form__label">Suíte</label>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="form__group">
+            <input type="number" class="form__field" id="caractArea" placeholder=" ">
+            <label class="form__label">Área m²</label>
+          </div>
+          <div class="form__group">
+            <input type="text" class="form__field" id="caractDimensaoTerreno" placeholder=" ">
+            <label class="form__label">Dimensão do terreno</label>
+          </div>
+          <div class="form__group">
+            <input type="number" class="form__field" id="caractAnoConstrucao" placeholder=" ">
+            <label class="form__label">Ano construção</label>
+          </div>
+        </div>
+        <div id="vagas" class="grid-1">
+          <div class="form__group imv-cond cond-comerc">
+            <input type="number" class="form__field" id="caractVagasCoberta" value="0" placeholder="">
+            <label class="form__label">Vaga(s) Coberta(s)</label>
+          </div>
+          <div class="form__group imv-cond cond-comerc">
+            <input type="number" class="form__field" id="caractVagasCoberta" placeholder="">
+            <label class="form__label">Vaga(s) Descoberta(s)</label>
+          </div>
+        </div>
+        <div id="pavimento" class="form__group imv-cond cond-comerc">
+          <input type="number" class="form__field" id="caracPav" placeholder=" ">
+          <label class="form__label">Nº Pavimento</label>
+        </div>
+      </div>
+      <div id="moreItemsContainer" class="more-items"></div>
+      <button class="btn more-items-btn" onclick="addMoreItems()">+ Adicionar mais itens</button>
+      <div class="grid-6">
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-ArC" class="form-checkbox"> Ar Central.
+        </div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Ar" class="form-checkbox"> Ar Cond.</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Acerv" class="form-checkbox"> Area Serv.
+        </div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-AguaQG" class="form-checkbox"> Agua Quente
+          Gás</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-AguaQS" class="form-checkbox"> Agua Quente
+          Solar</div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-BanhoS" class="form-checkbox"> Banho
+          Social</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Calef" class="form-checkbox"> Calefação
+        </div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-Churrasq" class="form-checkbox">
+          Churrasqueira</div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-CozinhaMont" class="form-checkbox">
+          Cozinha Montada</div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-PainelSol" class="form-checkbox"> Camera
+          seg.</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Deposit" class="form-checkbox"> Depósito
+        </div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Dispensa" class="form-checkbox"> Dispensa
+        </div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Deck" class="form-checkbox"> Deck</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Esc" class="form-checkbox"> Escritorio</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Edic" class="form-checkbox"> Edicula</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Grad" class="form-checkbox"> Gradil</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Hall" class="form-checkbox"> Hall</div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-Hidro" class="form-checkbox"> Hidro
+        </div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Lavabo" class="form-checkbox"> Lavabo</div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-Lareira" class="form-checkbox"> Lareira
+        </div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Mob" class="form-checkbox"> Mobiliado</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-PainelSol" class="form-checkbox"> Painel
+          Solar</div>
+        <div class="checkbox-group"><input type="checkbox" id="im-carac-Patio" class="form-checkbox"> Pátio</div>
+        <div class="checkbox-group"><input type="checkbox" id="im-carac-Piscina" class="form-checkbox"> Piscina</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-PersianaElet" class="form-checkbox">
+          Persiana Elétr.</div>
+        <div class="checkbox-group"><input type="checkbox" id="im-carac-PiscAQ" class="form-checkbox"> Piscina Aquecida
+        </div>
+        <div class="checkbox-group"><input type="checkbox" id="im-carac-PiscAQ" class="form-checkbox"> Piso Aquecido
+        </div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-PortaoElet" class="form-checkbox"> Portão
+          eletronico</div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-SalaEst" class="form-checkbox"> Sala
+          Jantar</div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-Sacada" class="form-checkbox"> Sacada
+        </div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-SemiMob" class="form-checkbox">
+          Semi-Mobiliado </div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-Suite" class="form-checkbox"> Suíte
+        </div>
+        <div class="checkbox-group imv-res"><input type="checkbox" id="im-carac-SuiteMast" class="form-checkbox"> Suite
+          Master</div>
+        <div class="checkbox-group imv"><input type="checkbox" id="im-carac-Terraco" class="form-checkbox"> Terraço
+        </div>
+        <div class="checkbox-group"><input type="checkbox" id="im-carac-VistaSolar" class="form-checkbox"> Vista
+          Panoramica</div>
+      </div>
+
+
+      <div class="section-title">CARACTERÍSTICAS DO CONDOMÍNIO</div>
+      <div class="grid-8">
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondAreaverde" class="form-checkbox"> Area
+          Verde</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondAntenaTV" class="form-checkbox">
+          Antena TV</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondBrinquedoteca" class="form-checkbox">
+          Brinquedoteca</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondCFTV"
+            class="form-checkbox"> Câmera Vigilância</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondCercaElet"
+            class="form-checkbox"> Cerca Elétrica</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondCircuitoTV"
+            class="form-checkbox"> Circuito TV</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondChurrasqCol" class="form-checkbox">
+          Churrasq. Colet.</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondDeposito"
+            class="form-checkbox"> Depósito</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondGourmetArea" class="form-checkbox">
+          Espaço Gourmet</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondPetPlace" class="form-checkbox">
+          Espaço Pets</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondElevServ"
+            class="form-checkbox"> Elevador Serv.</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondFornoPizza"
+            class="form-checkbox"> Forno Pizza</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondGasCentral"
+            class="form-checkbox"> Gás Central</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondGradil"
+            class="form-checkbox"> Gradil</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondHidro" class="form-checkbox">
+          Hidromassagem</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondInferfone"
+            class="form-checkbox"> Interfone</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondJardim" class="form-checkbox"> Jardim
+        </div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondLavanderia" class="form-checkbox">
+          Lavanderia</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondPort24h"
+            class="form-checkbox"> Portaria 24h</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondPort12h"
+            class="form-checkbox"> Portaria 12h</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondPortVirt"
+            class="form-checkbox"> Portaria Virtual</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondPiscinaNorm" class="form-checkbox">
+          Piscina Colet.</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondPiscinaAq" class="form-checkbox">
+          Piscina Aquecida</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondPlayground" class="form-checkbox">
+          Playground</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondQuadra" class="form-checkbox"> Quadra
+          Esportes</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondQuiosque" class="form-checkbox">
+          Quiosque</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondSalaJogos" class="form-checkbox"> Sala
+          Jogos</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondSauna" class="form-checkbox"> Sauna
+          Colet</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondSalFesta"
+            class="form-checkbox"> Salão Festas</div>
+        <div class="checkbox-group imv-cond"><input type="checkbox" id="caractCondSalaFitness" class="form-checkbox">
+          Sala Fitness</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondSeguranca"
+            class="form-checkbox"> Segurança</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondSubsolo"
+            class="form-checkbox"> Subsolo</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondTerracoColet"
+            class="form-checkbox"> Terraço colet.</div>
+        <div class="checkbox-group imv-cond cond-comerc"><input type="checkbox" id="caractCondZelador"
+            class="form-checkbox"> Zelador</div>
+
+
+      </div>
+    </div>
+
+    <!-- Documentação -->
+    <div class="section">
+      <div class="section-title">DOCUMENTAÇÃO</div>
+      <div class="grid-8">
+        <div class="checkbox-group"><input type="checkbox" id="docSemFin" class="form-checkbox"> Contrato Particular
+        </div>
+        <div class="checkbox-group"><input type="checkbox" id="docFinanciavel" class="form-checkbox"> Financiável</div>
+        <div class="checkbox-group"><input type="checkbox" id="docFGTS" class="form-checkbox"> Aceita FGTS</div>
+        <div class="checkbox-group"><input type="checkbox" id="docConstATC" class="form-checkbox"> Aceita ATC.</div>
+        <div class="checkbox-group"><input type="checkbox" id="docHabiteSe" class="form-checkbox"> Habite-se</div>
+        <div class="checkbox-group"><input type="checkbox" id="docConstNAverb" class="form-checkbox"> Construç. Ñ Averb.</div>
+        <div class="checkbox-group"><input type="checkbox" id="docConstInvent" class="form-checkbox"> Inventário</div>
+        <div class="checkbox-group"><input type="checkbox" id="docConstProcuracao" class="form-checkbox"> Procuração</div>
+      </div>
+    </div>
+
+    <!-- Valores -->
+    <div class="section">
+      <div class="section-title">VALORES</div>
+      <div class="grid-4">
+        <div class="form__group">
+          <input type="text" class="form__field currency" id="valorImovel" placeholder=" " onkeypress="">
+          <label class="form__label">Valor líquido proprietário</label>
+
+          <script>
+            document.getElementById('valorImovel').addEventListener('keyup', function () {
+              // Obtém os campos
+              const valorImovel = this;
+              const comissaoField = document.getElementById('valorComissao');
+
+              // Remove a formatação de moeda (R$, pontos e espaços)
+              let valorNumerico = valorImovel.value
+                .replace(/[^\d,]/g, '')  // Remove tudo exceto números e vírgula
+                .replace(',', '.');      // Substitui vírgula por ponto para parseFloat
+
+              // Converte para número
+              valorNumerico = parseFloat(valorNumerico);
+
+              // Verifica se é um número válido
+              if (!isNaN(valorNumerico) && valorNumerico > 0) {
+                // Calcula o valor da comissão (valorImovel / 0.94)
+                const valorComissao = valorNumerico / 0.94;
+
+                // Formata como moeda brasileira (R$ 1.234,56)
+                comissaoField.value = valorComissao.toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                  minimumFractionDigits: 2
+                });
+              } else {
+                comissaoField.value = '';
+              }
+            });
+          </script>
+
+
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field" id="valorComissao" placeholder=" ">
+          <label class="form__label">Valor imovel(÷0,94)+comissão</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field currency" id="valorAvaliacao" placeholder=" ">
+          <label class="form__label">Avaliação corretor</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field currency" id="valorIPTU" placeholder=" ">
+          <label class="form__label">IPTU</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field currency" id="valorCondominio" placeholder=" ">
+          <label class="form__label">Condomínio</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Contato -->
+    <div class="section">
+      <div class="section-title">CONTATO VISITA</div>
+      <div class="grid-2">
+        <div class="form__group">
+          <input type="text" class="form__field" id="contatoNome" placeholder=" ">
+          <label class="form__label">Nome contato</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field" id="contatoTelefone" onkeyup="formatarTelefone(this)" maxlength="15"
+            placeholder=" ">
+          <label class="form__label">Telefone</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field" id="contatoHorarios" placeholder=" ">
+          <label class="form__label">Dias/horários</label>
+        </div>
+      </div>
+      <div class="checkbox-group">
+        Chaves com:
+        <input type="checkbox" id="chavesProprietario" class="form-checkbox"> Proprietário
+        <input type="checkbox" id="chavesImobiliaria" class="form-checkbox"> Imobiliária
+        <input type="checkbox" id="chavesOutros" class="form-checkbox"> Outros
+      </div>
+    </div>
+
+    <!-- Observações -->
+    <div class="section">
+      <div class="section-title">AUTORIZAÇÃO</div>
+      <div class="form__group">
+        <label>Autorização de Uso de Imagem para.:</label>
+        <div class="grid-3">
+          <div class="checkbox-group"><input type="checkbox" id="AutTipVenda" class="form-checkbox"> Venda</div>
+          <div class="checkbox-group"><input type="checkbox" id="AutTipLocacao" class="form-checkbox"> Locação</div>
+          <div class="checkbox-group"><input type="checkbox" id="Exclusividade" class="form-checkbox"> Exclusividade</div>
+          <div class="checkbox-group"><input type="checkbox" id="SExclusividade" class="form-checkbox"> Sem Exclusividade</div>
+        </div>
+      </div>
+      <div id="DIVexclusividade">
+        <label>O proprietário supra qualificado, autoriza através deste instrumento, pelo prazo de</label>
+        <input id="exclusividadeDias" size="2" class="form__field-noSize" type="text">
+        <label>dias, a contar desta data, a venda e oferta de seu imóvel. O prazo será prorrogado automaticamente caso não ocorra a manifestação contrária por escrito para cancelamento da presente autorização.</label>
+      </div>
+      <label>O proprietário supra qualificado autoriza o uso de imagens do imóvel (fotos e similares) em todo e qualquer material utilizado para a divulgação de venda (folder, sites, anúncios, mídias sociais, entre outros).</label>
+      <textarea class="form__field" id="observacoes" placeholder=" "></textarea>
+    </div>
+  </div>
+  </div>
+  <!--<script src="./script.js" type="text/javascript"></script> -->
+  <script>
+function setupTextareaExpansion() {
+  const processTextarea = (textarea) => {
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  // Processa todos existentes
+  document.querySelectorAll('textarea').forEach(processTextarea);
+
+  // Observa mudanças no DOM
+  new MutationObserver((mutations) => {
+    mutations.forEach(({ addedNodes }) => {
+      addedNodes.forEach((node) => {
+        if (node.nodeName === 'TEXTAREA') processTextarea(node);
+        if (node.querySelectorAll) {
+          node.querySelectorAll('textarea').forEach(processTextarea);
+        }
+      });
+    });
+  }).observe(document.body, { childList: true, subtree: true });
+
+  // Event delegation para input
+  document.addEventListener('input', ({ target }) => {
+    if (target.tagName === 'TEXTAREA') processTextarea(target);
+  }, true);
+}
+
+// Inicializa quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', setupTextareaExpansion);
+
+
+// Contador para itens adicionais
+let itemCounter = 0;
+let extraItems = [];
+
+// Adicionar mais itens
+function addMoreItems() {
+  const container = document.getElementById('moreItemsContainer');
+  const itemId = 'extraItem_' + Date.now();
+
+  const newItem = document.createElement('div');
+  newItem.className = 'item-row grid-4';
+  newItem.id = itemId;
+  newItem.innerHTML = `
+        <div class="form__group">
+          <input type="text" class="form__field extraItemName" placeholder=" ">
+          <label class="form__label">Item</label>
+        </div>
+        <div class="form__group">
+          <input type="text" class="form__field extraItemDetail" placeholder=" ">
+          <label class="form__label">Detalhe</label>
+        </div>
+        <div class="checkbox-group"><input type="checkbox" class="extraItemIncluded form-checkbox"> Incluso</div>
+        <div><button class="btn remove more-items-btn" onclick="removeItem('${itemId}')">Remover</button></div>
+      `;
+
+  container.appendChild(newItem);
+  extraItems.push(itemId);
+  itemCounter++;
+}
+
+// Remover item
+function removeItem(itemId) {
+  const item = document.getElementById(itemId);
+  if (item) {
+    item.remove();
+    extraItems = extraItems.filter(id => id !== itemId);
+  }
+}
+
+// Salvar formulário
+function saveForm() {
+  const formData = {};
+
+  // Coletar todos os inputs padrão
+  const inputs = document.querySelectorAll('input:not(.extraItemName):not(.extraItemDetail):not(.extraItemIncluded), textarea, select');
+  inputs.forEach(input => {
+    if (input.type === 'checkbox') {
+      formData[input.id] = input.checked;
+    } else {
+      formData[input.id] = input.value;
+    }
+  });
+
+  // Coletar itens extras
+  const extraItemsData = [];
+  document.querySelectorAll('.item-row').forEach(row => {
+    const name = row.querySelector('.extraItemName').value;
+    const detail = row.querySelector('.extraItemDetail').value;
+    const included = row.querySelector('.extraItemIncluded').checked;
+
+    if (name || detail) {
+      extraItemsData.push({
+        name: name,
+        detail: detail,
+        included: included
+      });
+    }
+  });
+
+  formData.extraItems = extraItemsData;
+
+  // Criar e baixar arquivo JSON
+  const dataStr = JSON.stringify(formData, null, 2);
+  const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+  const exportName = 'ficha_imovel_' + new Date().toISOString().slice(0, 10) + '.json';
+
+  const link = document.createElement('a');
+  link.setAttribute('href', dataUri);
+  link.setAttribute('download', exportName);
+  link.click();
+}
+
+// Configurar o input de arquivo
+document.getElementById('fileInput').addEventListener('change', function (e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      const formData = JSON.parse(e.target.result);
+
+      // Limpar itens extras existentes
+      document.getElementById('moreItemsContainer').innerHTML = '';
+      extraItems = [];
+
+      // Preencher campos padrão
+      Object.keys(formData).forEach(id => {
+        if (id !== 'extraItems') {
+          const element = document.getElementById(id);
+          if (element) {
+            if (element.type === 'checkbox') {
+              element.checked = formData[id];
+            } else {
+              element.value = formData[id] || '';
+            }
+          }
+        }
+      });
+
+      // Preencher itens extras
+      if (formData.extraItems && formData.extraItems.length > 0) {
+        formData.extraItems.forEach(item => {
+          addMoreItems();
+          const rows = document.querySelectorAll('.item-row');
+          const lastRow = rows[rows.length - 1];
+
+          if (lastRow) {
+            lastRow.querySelector('.extraItemName').value = item.name || '';
+            lastRow.querySelector('.extraItemDetail').value = item.detail || '';
+            lastRow.querySelector('.extraItemIncluded').checked = item.included || false;
+          }
+        });
+      }
+
+      alert('Formulário carregado com sucesso!');
+    } catch (error) {
+      alert('Erro ao carregar arquivo: ' + error.message);
+    }
+  };
+  reader.readAsText(file);
+});
+
+
+//formatação currency
+// Formatação de moeda corrigida (esquerda para direita)
+document.querySelectorAll('.currency').forEach((el) => {
+  el.addEventListener('input', () => {
+    let value = el.value.replace(/\D/g, '');
+    value = (parseInt(value, 10) / 100).toFixed(2);
+    el.value = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(value);
+  });
+
+  // Para garantir que campo não fique vazio
+  el.addEventListener('blur', () => {
+    if (!el.value) {
+      el.value = 'R$ 0,00';
+    }
+  });
+});
+
+//FORMATAÇÃO CELULAR
+function formatarTelefone(input) {
+  // Remove tudo que não for dígito
+  let numero = input.value.replace(/\D/g, '');
+
+  // Verifica se tem um DDD (2 dígitos)
+  if (numero.length > 2) {
+    // Formata: (XX) ...
+    numero = `(${numero.substring(0, 2)}) ${numero.substring(2)}`;
+  }
+
+  // Verifica se é um número com 9 dígitos (celular)
+  if (numero.length > 7) {
+    // Formata: (XX) XXXXX-XXXX
+    numero = numero.replace(/(\d{5})(\d)/, '$1-$2');
+  } else if (numero.length > 6) {
+    // Formata: (XX) XXXX-XXXX (telefone fixo)
+    numero = numero.replace(/(\d{4})(\d)/, '$1-$2');
+  }
+
+  // Atualiza o valor do campo
+  input.value = numero;
+}
+
+//deixa invisivel campo imovelPrazoDesocupacao se deseocupado
+function toggleDesocupacao(select) {
+  const campoDesocupacao = document.getElementById("prazoDesocupacao");
+
+  // Se selecionar "Ocupado", mostra o campo; senão, oculta
+  if (select.value === "Ocupado") {
+    campoDesocupacao.style.display = "block"; // ou "flex", "grid", etc.
+  } else {
+    campoDesocupacao.style.display = "none";
+  }
+}
+
+
+//deixa invisivel campo SE apartamento ou estúdio se deseocupado
+function toggleTipoImovel(select) {
+  const campo1 = document.getElementById("pavimento");
+  const campo2 = document.getElementById("vagas");
+
+  // Se selecionar "Ocupado", mostra o campo; senão, oculta
+  if (select.value === "TP-APTO" || select.value === "TP-ESTUDIO") {
+    campo1.style.display = "block";
+    campo2.style.display = "block"; // ou "flex", "grid", etc.
+  } else {
+    campo1.style.display = "none";
+    campo2.style.display = "none";
+  }
+
+  if (select.value === "TP-CASA.RUA" || select.value === "TP-CASA.COND" || select.value === "TP-SOBRADO" 
+    || select.value === "TP-SOBRADO.COND" || select.value === "TP-APTO" || select.value === "TP-ESTUDIO") {
+    // Oculta TODOS os elementos com a classe
+    document.querySelectorAll(".imv-res").forEach(elemento => {
+      elemento.style.display = "block";
+    });
+  } else {
+    document.querySelectorAll(".imv-res").forEach(elemento => {
+      elemento.style.display = "none";
+    });
+  }
+
+  if (select.value === "TP-CASA.RUA" || select.value === "TP-CASA.COND" || select.value === "TP-SOBRADO" 
+    || select.value === "TP-SOBRADO.COND" || select.value === "TP-APTO"
+    || select.value === "TP-ESTUDIO" || select.value === "TP-LOJA-COMERC") {
+    // Oculta TODOS os elementos com a classe
+    document.querySelectorAll(".imv").forEach(elemento => {
+      elemento.style.display = "block";
+    });
+  } else {
+    document.querySelectorAll(".imv").forEach(elemento => {
+      elemento.style.display = "none";
+    });
+  }
+
+  if (select.value === "TP-CASA.COND" || select.value === "TP-SOBRADO.COND" || select.value === "TP-APTO"
+    || select.value === "TP-ESTUDIO" || select.value === "TP-LOTE.COND") {
+    // Oculta TODOS os elementos com a classe
+    document.querySelectorAll(".imv-cond").forEach(elemento => {
+      elemento.style.display = "block";
+    });
+  } else {
+    document.querySelectorAll(".imv-cond").forEach(elemento => {
+      elemento.style.display = "none";
+    });
+  }
+
+  if (select.value === "TP-LOJA-COMERC" || select.value === "TP-AREA-COMERC" || select.value === "TP-AREA-INDUS" ) {
+    // Oculta TODOS os elementos com a classe
+    document.querySelectorAll(".cond-comerc").forEach(elemento => {
+      elemento.style.display = "block";
+    });
+  } else {
+    document.querySelectorAll(".imv-comerc").forEach(elemento => {
+      elemento.style.display = "none";
+    });
+  }
+
+}
+
+//EVENTO CHECKBOX EXCLUSIVIDADE/ SEM EXCLUSIVIDADE.
+document.addEventListener('DOMContentLoaded', function() {
+  // Obtém referências aos elementos
+  const exclusividadeCheckbox = document.getElementById('Exclusividade');
+  const semExclusividadeCheckbox = document.getElementById('SExclusividade');
+  const divExclusividade = document.getElementById('DIVexclusividade');
+
+  // Função para atualizar o estado dos elementos
+  function atualizarEstadoExclusividade() {
+      if (semExclusividadeCheckbox.checked) {
+          // Se "Sem Exclusividade" estiver marcado
+          divExclusividade.style.display = 'none';
+          exclusividadeCheckbox.checked = false;
+          exclusividadeCheckbox.disabled = true;
+      } else {
+          // Se "Sem Exclusividade" não estiver marcado
+          divExclusividade.style.display = exclusividadeCheckbox.checked ? 'block' : 'none';
+          exclusividadeCheckbox.disabled = false;
+      }
+  }
+
+  // Adiciona event listeners
+  exclusividadeCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+          semExclusividadeCheckbox.checked = false;
+      }
+      atualizarEstadoExclusividade();
+  });
+
+  semExclusividadeCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+          exclusividadeCheckbox.checked = false;
+      }
+      atualizarEstadoExclusividade();
+  });
+
+  // Inicializa o estado
+  atualizarEstadoExclusividade();
+});
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+/* Estilos para telas menores que 768px (dispositivos móveis) */
+@media (max-width: 699px) {
+  .menu {
+    list-style: none;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    background-color: #3a2c50;
+    color: #ecf0f1;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+  }
+
+  .menu li {
+    border-bottom: 1px solid #345e50;
+    padding: 4px 0;
+  }
+
+  .menu a {
+    display: block;
+    padding: 6px 10px;
+    text-decoration: none;
+    color: #ecf0f1;
+    transition: background-color 0.3s, color 0.3s;
+    line-height: 1.1;
+  }
+
+  .menu a:hover {
+    background-color: #001d42;
+    color: #fff;
+  }
+
+  .submenu {
+    display: none;
+    list-style: none;
+    padding: 0;
+  }
+
+  .submenu.opened {
+    display: block;
+  }
+
+  .submenu li {
+    border-bottom: none;
+    padding: 3px 0;
+  }
+
+  .submenu a {
+    display: block;
+    text-decoration: none;
+    color: #bdc3c7;
+    transition: background-color 0.3s, color 0.3s;
+    padding-left: 15px;
+    font-size: 11px;
+    line-height: 1.1;
+  }
+
+  .submenu a:hover {
+    background-color: #E67E22;
+    color: #fff;
+  }
+
+  .submenu .submenu {
+    padding-left: 10px;
+  }
+
+  td.cell-1 {
+    height: 90%;
+    width: 100%;
+    display: table-cell;
+    text-align: left;
+  }
+
+  td.cell-2 {
+    height: 10%;
+    width: 100%;
+    display: none;
+    text-align: right;
+  }
+}
+
+/* Estilos para telas maiores ou iguais a 768px (desktops) */
+@media (min-width: 700px) {
+  .menu {
+    list-style: none;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    width: 90%;
+    background-color: #2C3E50;
+    color: #ecf0f1;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu li {
+    border-bottom: 1px solid #34495E;
+    padding: 4px 0;
+  }
+
+  .menu a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #ecf0f1;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 13px;
+    line-height: 1.1;
+  }
+
+  .menu a:hover {
+    background-color: #E74C3C;
+    color: #fff;
+  }
+
+  .submenu {
+    display: none;
+    list-style: none;
+    padding: 0;
+  }
+
+  .submenu.opened {
+    display: block;
+  }
+
+  .submenu li {
+    border-bottom: none;
+    padding: 3px 0;
+  }
+
+  .submenu a {
+    display: block;
+    text-decoration: none;
+    color: #bdc3c7;
+    transition: background-color 0.3s, color 0.3s;
+    padding-left: 15px;
+    font-size: 11px;
+    line-height: 1.1;
+  }
+
+  .submenu a:hover {
+    background-color: #E67E22;
+    color: #fff.
+  }
+
+  .submenu .submenu {
+    padding-left: 10px;
+  }
+
+  table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+  }
+
+  td {
+    border: none;
+    vertical-align: middle;
+  }
+
+  td.cell-1 {
+    width: 50%;
+    display: table-cell;
+    text-align: left;
+  }
+
+  td.cell-2 {
+    width: 50%;
+    display: table-cell;
+    text-align: right;
+  }
+}
+

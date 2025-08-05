@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+</head>
+<body>
+    <h1>Redirecionando...</h1>
+    <p>Se não for redirecionado automaticamente, clique <a id="redirectLink" href="#">aqui</a>.</p>
+
+    <script>
+        // Função para carregar o arquivo XML e encontrar o link original baseado no ID encurtado
+        function buscarLinkOriginal(linkEncurtado) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "links.xml", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const xml = xhr.responseXML;
+                    const links = xml.getElementsByTagName('link');
+                    
+                    // Itera pelos links do XML para encontrar o link encurtado
+                    for (let i = 0; i < links.length; i++) {
+                        const encurtado = links[i].getElementsByTagName('encurtado')[0].textContent;
+                        const original = links[i].getElementsByTagName('original')[0].textContent;
+                        
+                        if (encurtado === linkEncurtado) {
+                            // Se encontrar, redireciona para o link original
+                            document.getElementById('redirectLink').href = original;
+                            window.location.href = original;
+                            return;
+                        }
+                    }
+                    // Caso o link encurtado não seja encontrado
+                    document.body.innerHTML = '<h1>Link encurtado não encontrado!</h1>';
+                }
+            };
+            xhr.send();
+        }
+
+        // Captura o parâmetro "id" da URL
+        const params = new URLSearchParams(window.location.search);
+        const linkEncurtado = params.get('id');
+
+        // Se o parâmetro "id" estiver presente, busca o link no XML e redireciona
+        if (linkEncurtado) {
+            buscarLinkOriginal(linkEncurtado);
+        } else {
+            document.body.innerHTML = '<h1>Nenhum link encurtado fornecido!</h1>';
+        }
+    </script>
+</body>
+</html>
+

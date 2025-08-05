@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QR Code via URL</title>
+</head>
+<body>
+
+    <h2>Gerador de QR Code</h2>
+
+    <label for="text-input">Digite o texto para gerar o QR Code:</label>
+    <input type="text" id="text-input" placeholder="Digite algo..." oninput="gerarQRCode()" >
+    <button onclick="gerarQRCode()">Gerar QR Code</button>
+    
+    <div id="qrcode"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // Função para obter parâmetros da URL
+        function getParametroUrl(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Função para gerar QR Code
+        function gerarQRCode() {
+            const texto = document.getElementById("text-input").value;
+            if (texto) {
+                // Limpar QR Code anterior
+                document.getElementById("qrcode").innerHTML = "";
+                new QRCode(document.getElementById("qrcode"), texto);
+                
+                // Atualizar a URL com o texto como parâmetro
+                const novaUrl = `${window.location.origin}${window.location.pathname}?texto=${encodeURIComponent(texto)}`;
+                window.history.pushState({path: novaUrl}, '', novaUrl);
+            } else {
+                alert("Por favor, insira um texto.");
+            }
+        }
+
+        // Ao carregar a página, verificar se há o parâmetro 'texto' na URL
+        window.onload = function() {
+            const textoParametro = getParametroUrl('texto');
+            if (textoParametro) {
+                document.getElementById("text-input").value = decodeURIComponent(textoParametro);
+                gerarQRCode();
+            }
+        };
+    </script>
+
+</body>
+</html>

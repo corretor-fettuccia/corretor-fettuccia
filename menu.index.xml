@@ -1,0 +1,360 @@
+<!-- Direitos reservados - Aspen informações cadastrais e cobrança ltda -->
+<!-- Versao 04.1 - data 28/06/24 -->
+<!--
+INSTRUÇÕES
+NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE NO CONSTRUTOR.
+-->
+<!-- Fonte Emoji https://fonts.google.com/noto/specimen/Noto+Color+Emoji/glyphs -->
+<Menu>
+	<Item name="📐 Calculadora OBRA" link="./calcObra" target="_blank" />
+	
+	<Item name="🖋️ Assinadores" target="_self" alt="Sistemas">
+        	<SubItem name="↳ ✒️ Assinador Registradores" link="https://assinador.registrodeimoveis.org.br/private" target="_blank" alt="assinador" />
+        	<SubItem name="↳ ✒️ Assinador ITI BR" link="https://assinador.iti.br/" target="_blank" alt="assinador" />
+        </Item>
+        
+	<Item name="🌍 Site roberto-fettuccia.com.br" link="https://www.migmidia.com.br/login" target="_blank" />
+	
+	<Item name="🌍 Tour 360" target="_self" >
+		<SubItem name="↳ 🌍 Gerador de Link" link="./tour360/make.html" target="_self"/>
+		<SubItem name="↳ 🌍 repositório imagens" link="https://github.com/corretor-fettuccia/360" target="_self"/>
+        </Item>
+
+	<Item name="🌍 ImobMap" target="_self" >
+		<SubItem name="↳ 🌍 Mobile" link="./imomaps/mobile/" target="_self"/>
+		<SubItem name="↳ 🌍 PC" link="./imomaps/" target="_self"/>
+        </Item>
+        
+	<Item name="🪃 Gestão de tickets" link="https://script.google.com/macros/s/AKfycbwpyV5WfBBYI_VbHp8Y_JO9bZ7M-ERXVHP0YQSwjj7pLQkP-YVG-0OXvsNZhQAGXEea/exec" target="_blank" />
+        <Item name="🔒 MARKETING" target="_self" alt="Sistemas">
+                <SubItem name="↳ 🌍 Blog- Corretor Guru" link="https://www.blogger.com/blog/posts/2791152837199678650" target="_blank" alt="BLOG" />
+		<SubItem name="↳ 🌍 Vlog- Youtube" link="https://studio.youtube.com/channel" target="_blank" alt="Youtube" />
+		
+		<SubItem name="↳ 🚩Google Meu negocio" target="_self">
+		        <SubSubItem name=" ↳ 🌍 Meus Perfis de empresas" link="https://business.google.com/locations" target="_blank" alt="google meu negocio" />
+			<SubSubItem name=" ↳ 🌍 Corretor Fettuccia" link="https://g.co/kgs/STS12Te" target="_blank" alt="google meu negocio" />
+			<SubSubItem name=" ↳ 🌍 Moradas De Porto Fino" link="https://g.co/kgs/XRrWF5F" target="_blank" alt="google meu negocio" />
+		</SubItem>
+                <SubItem name="" />
+		<SubItem name="↳ 🔒 Ads Google" link="https://ads.google.com/" target="_blank" alt="Gestão de campanhas" />
+		<SubItem name="↳ 💾 Ads Mananger Meta" link="https://adsmanager.facebook.com/" target="_blank" alt="Gestão de clientes e imóveis" />
+		<SubItem name="↳ 🌍 Ads Gerenciador Meta - Posts" link="https://business.facebook.com" target="_blank" alt="Gestão de clientes e imóveis" />
+		<SubItem name="↳ 📬 Ads Spotfy" link="https://ads.spotify.com/" target="_blank" />
+		
+		<SubItem name="" />
+		<SubItem name="↳ c Anuncios - Mercado Livre" link="https://www.mercadolivre.com.br/anuncie" target="_blank" alt="MercadoLivre" />
+		<SubItem name="↳ 🌍 Anuncios - Market Place" link="https://www.facebook.com/marketplace/you/selling" target="_blank" alt="Marketplace" />
+                
+		<SubItem name="" />
+		<SubItem name="↳ 🧩 Edição - TikTok Studio" link="https://www.tiktok.com/tiktokstudio" target="_blank" alt="Edicao" />
+		<SubItem name="↳ 🧩 Edição - Canva" link="https://www.canva.com/" target="_blank" alt="Edicao" />
+		<SubItem name="↳ 🧩 Edição - Cap-Cut" link="https://www.capcut.com/my-edit" target="_blank" alt="Edicao" />
+		<SubItem name="↳ 🧩 Edição - Vise ME " link="https://dashboard.visme.co/v2/home" target="_blank" alt="Edicao" />
+		<SubItem name="↳ 🧩 Edição - Captions " link="https://desktop.captions.ai/" target="_blank" alt="Edicao" />
+		<SubItem name="↳ 🧩 Edição - Trakto " link="https://dashboard.trakto.io" target="_blank" alt="Edicao" />
+		<SubItem name="↳ 🧩 Adobe Express" link="https://express.adobe.com/pt-BR/sp" target="_blank" />
+		
+		<SubItem name="↳ 🎧 TTS Maker" link="https://ttsmaker.com/br" target="_blank" />	
+	</Item>
+	
+	<Item name="🤖 IA">
+		<SubItem name="↳   🤖 CHAT GPT" link="https://chat.openai.com/" target="_blank" />
+		<SubItem name="↳   🤖 QWEN CHAT" link="https://chat.qwen.ai/" target="_blank" />
+		<SubItem name="↳   🤖 DEEP SEEK" link="https://chat.deepseek.com/" target="_blank" />
+		<SubItem name="↳   🤖 COMPILOT" link="https://copilot.microsoft.com/" target="_blank" />
+		<SubItem name="↳   🤖 ADOBE" link="https://podcast.adobe.com/enhance" target="_blank" />
+		<SubItem name="↳   🤖 SPACIO AI" link="https://app.spacio.ai/" target="_blank" />
+	</Item>
+
+	<Item name="📔 CERTIDÕES" target="_self" alt="Certidões necessárias">
+
+	
+		<SubItem name="↳ 📔 CERT. FAZENDA - RS" link="https://www.sefaz.rs.gov.br/sat/CertidaoSitFiscalSolic.aspx" target="_blank" alt="Certidão neg. da fazenda" />
+		<SubItem name="↳ 📔 CERT. CRIMINAL RS" link="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes" target="_blank" alt="Gestão de clientes e imóveis" />
+		<SubItem name="↳ 📔 CERT. JUSTIÇA FEDERAL" link="https://www2.trf4.jus.br/trf4/processos/certidao/index.php" target="_blank" alt="Certidão neg. da Justiça federal" />
+		<SubItem name="↳ 💸 NEGATIVAS RECEITA FEDERAL">
+			<SubSubItem name="↳ 👤 CPF - NEGATIVA CNDRF" link="https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/Emitir" target="_blank" />
+			<SubSubItem name="↳ 🏭 CNPJ - NEGATIVA CNDRF" link="https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PJ/Emitir" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 📔 CERT. TRABALHISTA" link="https://cndt-certidao.tst.jus.br/inicio.faces" target="_blank" alt="Certidão de débito trabalhista." />
+		
+		<SubItem name="↳ 📔 CERT. MUNICIPAL">
+			<SubSubItem name="↳  🏛️ CANOAS-RS" link="./redirect/index.html?id=CanoasCNDmuncipal" target="_blank" />
+		</SubItem>
+	</Item>
+
+	<Item name="🗃️ CONSULTAS">
+			<SubItem name="↳ 👤 CONSULTA REG. CPF" link="https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp" target="_blank" />
+			<SubItem name="↳ 🧾 CONSULTA REST. IR PF" link="https://www.restituicao.receita.fazenda.gov.br/#/" target="_blank" />
+			<SubItem name="↳ 🏭 CONSULTA CARTÃO CNPJ" link="https://solucoes.receita.fazenda.gov.br/Servicos/cnpjreva/Cnpjreva_Solicitacao.asp" target="_blank" />
+			<SubItem name="↳ 🚦 MEI ??" link="https://www8.receita.fazenda.gov.br/SimplesNacional/aplicacoes.aspx?id=21" target="_blank" />
+	</Item>
+
+	<Item name="🎩 CORRETAGEM">
+	
+	
+	        <SubItem name="↳🌍 MAPA ONR - Matriculas" link="https://mapa.onr.org.br/" target="_blank" alt="Mapa registradores onr" />
+		<SubItem name="↳🌍 Geo Canoas" link="https://geo.canoas.rs.gov.br/portal/home/" target="_blank" alt="Mapa de gerenciamento canoas" />
+		<SubItem name="↳🛃 Posição Solar 1" link="https://app.shadowmap.org" target="_blank" alt="Posição solar de um endereço" />
+		<SubItem name="↳🛃 Posição Solar 2" link="https://www.sunearthtools.com/dp/tools/pos_sun.php?lang=pt" target="_blank" alt="Posição solar de um endereço" />		
+
+	</Item>
+
+	<Item name="📚 Registradores ORG">
+		<SubItem name="↳🌍 Portal ONR" link="https://registradores.onr.org.br/" target="_blank" />
+		<SubItem name="↳🌍 Pedido Matricula/Consulta" link="https://registradores.onr.org.br/CertidaoDigital/frmPedidosCertidao.aspx?from=menudigital=1" target="_blank" />
+		<SubItem name="↳🌍 E-Protocolo reg elet" link="https://registradores.onr.org.br/eProtocolo/DefaultAC.aspx" />
+	</Item>
+
+<!--
+  <Item name="↳" target="_blank" />
+  	<SubItem name="↳">
+			<SubSubItem name="↳" />
+				<SubSubSubItem name="↳  " link="https://" target="_blank" />
+			</SubSubItem>
+		</SubItem>
+  </Item>
+-->
+
+	<Item name="📚 PORTIFOLIOS E sistemas / empreendimentos" target="_self" alt="Sistemas Internos CAIXA">
+	<SubItem name="↳[A] 🏢 ÁBACO">
+			<SubSubItem name="↳  🌍 Vivare - Viamão - Loteamento" link="https://drive.google.com/drive/folders/14kYu0MP4EDUj11mHkAFT2DySZ2SfaJul" target="_blank" alt="Sistema" />
+			<SubSubItem name="↳  🌍 Veredas - Eldorado - Cond. Fechado" link="https://drive.google.com/drive/folders/11el54afjfo4ufgbS_G_XVZzqTUb3E0DE" target="_blank" alt="Sistema" />
+			<SubSubItem name="↳  🌍 Bella Città - POA - Cond. Fechado" link="https://drive.google.com/drive/folders/1mZ-1pTj72usAh2oArM09JHzAigyZQzUo" target="_blank" alt="Sistema" />
+		</SubItem>
+		
+
+	<SubItem name="↳[A] 🏢 AVIVA">
+			<SubSubItem name="↳  🌍 Site" link="https://www.tagrs.com.br/" target="_blank" alt="Portifólio plantas, material apoio, etc." />
+			<SubSubItem name="↳  💾 Aura Legano - Drive" link="https://drive.google.com/drive/folders/1EPQGeDMkKKLe9WuaVI81z_5Gls_cqfgs" target="_blank" />
+			<SubSubItem name="↳  🚩 Aura Legano - Mapa" link="https://www.avivaurbanismo.com.br/mapa-aura-legano" target="_blank" />
+			<SubSubItem name="↳  🚩 Aura Legano - Regulamento Construtivo" link="https://drive.google.com/file/d/1AOVwG-VO5z0cs6FgslV5AKxnHnLmGQuY/view?usp=sharing" target="_blank" />
+			
+	 
+			<SubSubItem name="↳  💾 Jardins Parque Residencial" link="https://drive.google.com/drive/folders/1ENl_ocpC2IDB32r0uBGCuM8QZfad3fPm" target="_blank" alt="Portifólio plantas, material apoio, etc." />
+			<SubSubItem name="↳  💾 Legano Reserva" link="https://drive.google.com/drive/folders/14WUst6Zx-0UdhN2hn_10zzmeg0RWWMC9?usp=share_link" target="_blank" alt="Portifólio plantas, material apoio, etc." />
+			<SubSubItem name="↳  💾 Monet Residence" link="https://drive.google.com/drive/folders/10OoIifr3zQabZom9Ruglxe7blgY7_Rss?usp=sharing" target="_blank" alt="Portifólio plantas, material apoio, etc." />
+			
+			<SubSubItem name="↳  💾 NAU - Marina e Moradas" link="https://drive.google.com/drive/folders/1_KExIMR44hezsrpXunBy-4_EBm_vPnqO?usp=sharing" target="_blank" alt="Portifólio plantas, material apoio, etc." />
+			<SubSubItem name="↳  💾 Vert Residence" link="https://drive.google.com/drive/folders/19hT3VP1q4_uoMDlndbpjbLB8K3zw1Ouy?usp=share_link" target="_blank" alt="Portifólio plantas, material apoio, etc." />
+		<SubItem name="↳[A] 🏢 ARCADIA - Canoas">
+		<SubSubItem name="↳  💾 Tabela" link="https://abre.ai/tabelas-mearcadia" target="_blank" alt="Tabelas" />
+		</SubItem>	
+			
+		</SubItem>
+		<SubItem name="↳[B] 🏢 BENIN" target="_self" alt="Sistemas">
+		<SubSubItem name="📚 PORTIFOLIO BENIN - DRIVE" link="https://drive.google.com/drive/folders/1Mwz3ODMN38_GlOr0B6obaysK3ZbjxR0-" target="_blank" alt="Portifólio Benin, plantas, material apoio, etc." />       </SubItem>
+		<SubItem name="↳[B] 🏢 BOLOGNESI - Z.Met.">
+		
+			<SubSubItem name="↳  💾 DRIVE" link="https://drive.google.com/drive/folders/11cud8ioKWXPXqIO0PkFFUhYtFma0Ia-q" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[B] 🏢 BOLD - Canoas">
+			<SubSubItem name="↳  💾 Drive Corretor" link="https://drive.google.com/drive/folders/1x_EiF05GPkNtWqUZCuFIYYfHc5ZeINbh?usp=sharing" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+			<SubSubItem name="↳  📆 Agenda Sinatra" link="https://docs.google.com/spreadsheets/d/1TQ0jYFUftwKqyXlKuO6ojz0j_SlmVzvGUsfQassQw0g/edit?usp=sharing" target="_blank" alt="Agenda" />
+		</SubItem>
+		
+		<SubItem name="↳[C] 🏢 CIDADE URBANA">
+			<SubSubItem name="↳  🔒 Sistema" link="https://www.cidadeurbana.gestaoweb.net" target="_blank" alt="E-mail:fernandos1210@gmail.com  Senha:rm2832" />
+		</SubItem>
+		
+		<SubItem name="↳[D] 🏢 DUTRA - Canoas">
+			<SubSubItem name="↳  🔒 Espelho e Cadastro clientes" link="https://2day.gestaoweb.net" target="_blank" alt="Espelho cadastro clientes - Usuário: fernandos1210@gmail.com | Senha: bp8890" />
+			<SubSubItem name="↳  💾 MAPA" link="https://www.tagrs.com.br/mapa-vert" target="_blank" alt="Mapa unidades" />
+			<SubSubItem name="↳  💾 Materiais e Tabelas" link="https://drive.google.com/drive/folders/19hT3VP1q4_uoMDlndbpjbLB8K3zw1Ouy" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[E] 🏢 ENGEFORTES - Canoas">
+			<SubSubItem name="↳  💾 Materiais e Tabela" link="https://drive.google.com/drive/folders/1JirEzbEv45N6_XRETQasKXZqMzxd9bBb" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[E] 🏢 ERS - GRAVATAÍ">
+		<SubSubItem name="↳  💾 DRIVE" link="https://drive.google.com/drive/folders/1pnmODOa0sQ3ujJeIwzhn3LcqAsz40nBe" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[F] 🏢 FLEX - Canoas">
+		  <SubSubItem name="↳  📆 VARANDAS - Agenda" link="https://docs.google.com/spreadsheets/d/1TQ0jYFUftwKqyXlKuO6ojz0j_SlmVzvGUsfQassQw0g/edit?usp=sharing" target="_blank" alt="Agenda" />
+			<SubSubItem name="↳  💾 VARANDAS - Materiais e Tabela" link="https://drive.google.com/drive/folders/1rhtR-FFQPky-9mTadGrRHAj0vZfEB0N1" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+			<SubSubItem name="↳  💾 VARANDAS - Ficha Proposta" link="https://docs.google.com/file/d/1FIUdi-ydWY4rA7lcwhrcK38-w7h54qqA/edit" target="_blank" alt="Ficha proposta" />
+		</SubItem>
+		<SubItem name="↳[G] 🏢 GOBBI - Canoas">
+			<SubSubItem name="↳  💾 Gobbi" link="https://drive.google.com/drive/folders/1X2AnBuP0yY27eEGZBAaCdj9jb1G7Ouer?usp=sharing" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[G] 🏢 Gestão city - Administradora de lançamentos">
+			<SubSubItem name="↳  💾 Gestão Driver" link="https://drive.google.com/drive/folders/1WV9NsPGXipcjA28UYl-lPSlbw44I_H5i?usp=drive_link" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[H] 🏢 HENDLER - Canoas">
+			<SubSubItem name="↳  💾 Materiais e Tabela" link="http://bit.ly/startuphendler" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[L] 🏢 LOTICCI - Canoas">
+			<SubSubItem name="↳  🔒 Sistema" link="http://www.lottici.com.br/" target="_blank" alt="Login: fernando.santos@benin.com.br Senha: 984109090" />
+			<SubSubItem name="↳  💾 Materiais e Tabela" link="http://tinyurl.com/lottici-canoas" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>		
+		
+		<SubItem name="↳[M] 🏢 MARACON - NSR">
+		<SubSubItem name="↳  💾 DRIVE" link="https://drive.google.com/drive/folders/1zWAHPXeYN24onUYfyz8b_EhiA-HwQpCE" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		
+		<SubItem name="↳[M] 🏢 MELNICK - Z.Met.">
+			<SubSubItem name="↳  🌍 OTTO" link="https://app.beotto.com/" target="_blank" alt="Sistema" />
+			<SubSubItem name="↳  💾 FICHA DAÇÃO" link="https://bit.ly/fichadacaomelnick" target="_blank" alt="Ficha dação" />
+		</SubItem>
+		<SubItem name="↳[M] 🏢 MGF - Z.Met.">
+			<SubSubItem name="↳  📋 Tabelas " link="http://bit.ly/CFL_TABELAS" target="_blank" alt="Tabelas" />
+			<SubSubItem name="↳  📋 Revendas" link="http://bit.ly/CFL_REVENDAS" target="_blank" alt="Revendas" />
+			<SubSubItem name="↳  📋 Empreendimentos" link="http://bit.ly/CFL_EMPREENDIMENTOS" target="_blank" alt="Empreendimentos" />
+			<SubSubItem name="↳  💾 Portal Corretor" link="https://sites.google.com/view/portal-do-corretor-cfl/" target="_blank" alt="Portal Corretor" />
+		</SubItem>
+		<SubItem name="↳[M] 🏢 MORANA - Canoas">
+			<SubSubItem name="↳  💾 MORANA" link="https://drive.google.com/drive/folders/1OSrE-Pc8E1YYEq-3Am3wBYfsua6Pzq4V" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[N] 🏢 NEX - Z.Met.">
+			<SubSubItem name="↳  💾 Nex" link="http://bit.ly/corretoresnex" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		
+		<SubItem name="↳[P] 🏢 PESSI">
+			<SubSubItem name="↳  💾 Markho" link="https://bit.ly/PastaDoCorretorMarkho" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[S] 🏢 SCALLA - Gramado">
+			<SubSubItem name="↳  💾 Materiais e Tabela" link="tinyurl.com/lottici-canoas" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+		<SubItem name="↳[S] 🏢 SALIS ENGENHARIA - Canoas">
+			<SubSubItem name="↳  💾 Salis" link="https://drive.google.com/drive/folders/1ZitC9zRi9YIxH9AH3QFciSlGFLuIe2rB" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+
+		<SubItem name="↳[V] 🏢 VIEZZER - Canoas">
+			<SubSubItem name="↳  💾 Brasil 315" link="https://studio360tour.com/" target="_blank" alt="Empreendimento Brasil 315" />
+		</SubItem>
+		<SubItem name="↳[W] 🏢 WAGNERPAR - Capão da Canoa">
+			<SubSubItem name="↳  💾 Mirador" link="http://wagnerpar.com.br/miradorvendas" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
+		</SubItem>
+
+	</Item>
+
+
+
+	<Item name="🏫 PREFEITURA / ITBI e REGISTRO">
+		<SubItem name="↳ 🏠 Canoas">
+			<SubSubItem name="↳🆕 ITBI" link="https://sistemas.canoas.rs.gov.br/e-agata" target="_blank" />
+			<SubSubItem name="↳🆕 Agata /ITBI - Alteracao Senha" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwtalterasenhaeagata" target="_blank" />
+			<SubSubItem name="↳🆗 Negativa itbi" link="https://sistemas.canoas.rs.gov.br/portaldafazenda/servlet/wmportalservicosemca?..%2F..%2Fe-agata%2Fservlet%2Fhwsguiapagitbiportal" target="_blank" />
+			<SubSubItem name="↳🧾 DAM ITBI" link="http://sistemas.canoas.rs.gov.br/portaldafazenda/servlet/wmportalservicosemca?..%2F..%2Fe-agata%2Fservlet%2Fhwloginusuario%3F44" target="_blank" />
+			<SubSubItem name="↳📖 Manual do ITBI" link="https://drive.google.com/file/d/1q5vlGP1f7VfmTlNZrPLzFf-stEFp7wKs/view " target="_blank" />
+			<SubSubItem name="↳" />
+			<SubSubItem name="↳  🆕 Auto atendimento prefeitura" link="https://sistemas.canoas.rs.gov.br/demandas/publico" target="_blank" />
+			<SubSubItem name="↳  🌍 BCI - ANTIGO" link="https://www.canoas.rs.gov.br/servicos/bci/" target="_blank" />
+			<SubSubItem name="↳  🌍 BCI - ANTIGO" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwsemissaobci" target="_blank" />
+			<SubSubItem name="↳  🌍 CND do Imóvel" link="https://sistemas.canoas.rs.gov.br/e-agata/servlet/hwscertidaonegativadebito?1" target="_blank" />
+			<SubSubItem name="↳  🌍 IPTU" link="https://www.canoas.rs.gov.br/servicos_cat/boleto-iptu/" target="_blank" />
+			<SubSubItem name="↳  🌍 GEO-CANOAS-cadastro imob" link="https://geo.canoas.rs.gov.br/portal/apps/webappviewer/index.html?id=2adb48d539cc4c62aa34d8e7cc3f81f2" target="_blank" />
+			<SubSubItem name="↳  🌍 GEO-CANOAS-Planta Genérica Valores" link="https://geo.canoas.rs.gov.br/portal/apps/webappviewer/index.html?id=a888dd3898ef4b64b10fbb441760f1cb" target="_blank" />
+			<SubSubItem name="↳  🌍 GEO-CANOAS-Sistema Viário" link="https://geo.canoas.rs.gov.br/portal/apps/webappviewer/index.html?id=e967f3b5d6834e7c931cca3626558fd3" target="_blank" />
+			<SubSubItem name="↳  🌍 GEO-CANOAS-Cert Zoneamento" link="https://geo.canoas.rs.gov.br/portal/apps/opsdashboard/index.html#/ee6e9001470f43499fd1e626cf5772ae" target="_blank" />
+			<SubSubItem name="↳  🔖 GEO-CANOAS-Zoneamento Urbano" link="https://geo.canoas.rs.gov.br/portal/apps/webappviewer/index.html?id=fc31535b225c4b73a5e4e5518a86d647" target="_blank" />
+			<SubSubItem name="↳  🔖 GEO-CANOAS-Mapa Cadastral" link="https://geo.canoas.rs.gov.br/portal/apps/webappviewer/index.html?id=2adb48d539cc4c62aa34d8e7cc3f81f2" target="_blank" />
+			<SubSubItem name="↳" />
+			<SubSubItem name="↳  📚 Registro de imóveis" link="./canoas-ri" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 Nova Santa Rita">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://novasantarita.atende.net/autoatendimento/servicos/e-itbi-online" target="_blank" />
+			<SubSubItem name="↳  🆗 Negativa itbi" link="https://novasantarita.atende.net/autoatendimento/servicos/declaracao-de-quitacao-de-itbi" target="_blank" />
+			<SubSubItem name="↳  🌍 Portal" link="https://novasantarita.atende.net/?pg=autoatendimento#!/tipo/servico/valor/47/padrao/1/load/1" target="_blank" />
+			<SubSubItem name="↳  🆗 CND do imóvel" link="https://novasantarita.atende.net/autoatendimento/servicos/certidao-negativa-de-debitos" target="_blank" />
+			<SubSubItem name="↳" />
+			<SubSubItem name="↳  📚 Registro de imóveis" link="http://www.canoasri.com.br/consulta-nota-de-entrega/" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 Porto alegre">
+			<SubSubItem name="↳  📡 itbi" link="https://servicos.procempa.com.br/servicedesk/customer/portal/12/user/login?destination=portal%2F12" target="_blank" />
+			<SubSubItem name="↳  🆗 Negativa itbi" link="https://siat.procempa.com.br/siat/ItbEmitirDeclaracaoOnline_Internet.do" target="_blank" />
+			<SubSubItem name="↳" />
+			<SubSubItem name="↳  📚 Registro de imóveis">
+				<SubSubSubItem name="↳   🟥 1 zona" link="https://www.1ripoa.com.br/" target="_blank" />
+				<SubSubSubItem name="↳   🟪 2 zona" link="https://www.risegundazonapoa.com/" target="_blank" />
+				<SubSubSubItem name="↳   ⬛ 3 zona" link="https://www.ri3.com.br/" target="_blank" />
+				<SubSubSubItem name="↳   🟦 4 zona" link="https://www.quartazona.com.br/" target="_blank" />
+				<SubSubSubItem name="↳   🟩 5 zona" link="https://www.5ri.com.br/" target="_blank" />
+				<SubSubSubItem name="↳   ⬜ 6 zona" link="https://www.registro6zona.com.br/" target="_blank" />
+			</SubSubItem>
+		</SubItem>
+		<SubItem name="↳ 🏠 Esteio">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://www.esteio.rs.gov.br/conteudo/3701/1181?titulo=IPTU%2FITBI" target="_blank" />
+			<SubSubItem name="↳  🧾 DAM ITBI" link="https://grp.esteio.rs.gov.br/grp/acessoexterno/programaAcessoExterno.faces?codigo=669924" target="_blank" />
+			<SubSubItem name="↳  🆗 Negativa itbi" link="http://www.esteio.rs.gov.br/servico/689125/1070?titulo=ITBI+-+Certid%C3%A3o+de+Quita%C3%A7%C3%A3o" target="_blank" />
+			<SubSubItem name="↳" />
+			<SubSubItem name="↳  📚 Registro de imóveis" link="https://www.cartorioesteio.com.br/servicos-online/consulta-de-atos-do-imoveis" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 Sapucaia">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://sapucaiadosul.atende.net/autoatendimento/servicos/e-servicos-online-itbi" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 Novo Hamburgo">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://www.novohamburgo.rs.gov.br/semfaz/itbi-imposto-transmissao-bens-imoveis" target="_blank" />
+			<SubSubItem name="↳  🧾 DAM ITBI" link="https://www.novohamburgo.rs.gov.br/servicos/emissao-guia-itbi" target="_blank" />
+			<SubSubItem name="↳  🆗 Negativa itbi" link="https://www.novohamburgo.rs.gov.br/servicos/declaracao-quitacao-itbi" target="_blank" />
+			<SubSubItem name="↳" />
+			<SubSubItem name="↳  📚 Registro de imóveis" link="http://registrodeimoveisnh.com.br/" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 São Leopoldo">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://grp.saoleopoldo.rs.gov.br/erp/acessoexterno/programaAcessoExterno.faces?codigo=670113" target="_blank" />
+			<SubSubItem name="↳  🧾 DAM ITBI" link="https://grp.saoleopoldo.rs.gov.br/erp/acessoexterno/programaAcessoExterno.faces?codigo=670209" target="_blank" />
+			<SubSubItem name="↳  🆗 Negativa itbi" link="http://www.saoleopoldo.rs.gov.br/servico/671185/407/1927?titulo=Certid%C3%A3o+Negativa+ITBI" target="_blank" />
+			<SubSubItem name="↳  🌍 Portal fazenda" link="https://www.saoleopoldo.rs.gov.br/conteudo/1927/407?titulo=ITBI" target="_blank" />
+			<SubSubItem name="↳" />
+			<SubSubItem name="↳  📚 Registro de imóveis" link="https://risl.com.br/" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 Campo Bom">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://campobom.1doc.com.br/b.php?pg=wp/wp&amp;passo=1&amp;itd=5&amp;is=" target="_blank" />
+			<SubSubItem name="↳  🧾 ITBI/ acesso GOV" link="https://campobom.1doc.com.br/b.php?pg=o/social&amp;provider=gov.br&amp;modo=2&amp;itd=5" target="_blank" />
+			<SubSubItem name="↳  🆗 Geral" link="https://campobom.1doc.com.br/b.php?pg=o/wp&amp;s=campobom" target="_blank" />
+			<SubSubItem name="↳  🌍 Portal fazenda" link="https://www.saoleopoldo.rs.gov.br/conteudo/1927/407?titulo=ITBI" target="_blank" />
+			<SubSubItem name="↳  📚 Registro de imóveis" link="https://especiais.gazetadopovo.com.br/cartorios/campo-bom-rs/cartorio-cns-09.715-4" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 Cachoeirinha">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://cachoeirinha.atende.net/autoatendimento/servicos/itbi-online" target="_blank" />
+			<SubSubItem name="↳  🧾 DAM ITBI" link="https://cachoeirinha.atende.net/autoatendimento/servicos/guias-itbi/detalhar/1" target="_blank" />
+			<SubSubItem name="↳  🌍 Manual ITBI" link="https://cachoeirinha.atende.net/autoatendimento/servicos/e-manual-itbi-online" target="_blank" />
+		</SubItem>
+		<SubItem name="↳ 🏠 Capão da Canoa">
+			<SubSubItem name="↳  🆕 itbi / Auto atendimento" link="https://capaodacanoa.1doc.com.br/b.php?pg=wp/wpitd=5" target="_blank" />
+			<SubSubItem name="↳  📚 Registro de Imoveis - Consulta" link="https://www.servicoregistralcapaocanoa.com.br/servicos-online/consulta-de-atos-do-registro-de-imoveis" target="_blank" />
+		</SubItem>
+	</Item>
+	<Item name="🧰 Ferramentas">
+		<SubItem name="↳💾 Comprimir imagens Lote" link="./compressIMG" target="_blank" />
+		<SubItem name="↳🌍 QR-Code Gerador" link="./qr-code" target="_blank" />
+		<SubItem name="↳💬 URL ENCODE - WHATSAPP" link="./urlEncode" target="_blank" />
+		<SubItem name="↳🔂 RESPOSTA RÁPIDA" link="./fast" target="_blank" />
+		<SubItem name="↳📲 Zap Tool" link="./zap" />
+		<SubItem name="↳🏛️ REGISTRATO" link="https://registrato.bcb.gov.br/registrato/login/" target="_blank" />
+		<SubItem name="↳📱 CALCULADORAS">
+			<SubSubItem name="↳  💡 3 anos CTPS" link="./calc.datas.html" target="_blank" />
+			<SubSubItem name="↳  💡 120 dias CTPS" link="./calc.dias.html" target="_blank" />
+			<SubSubItem name="↳  📈 MEDIA RENDA" link="./media" target="_blank" />
+		</SubItem>
+	</Item>
+	<Item name="💾 Outros Sistemas">
+		<SubItem name="↳🏗️ CNO Obra" link="https://www.gov.br/pt-br/servicos/consultar-cadastro-de-obra-de-construcao-civil" target="_blank" />
+		<SubItem name="↳🌐 AVE-PDF" link="https://avepdf.com/pt/convert-to-pdfa" target="_blank" />
+		<SubItem name="↳🌐 I Love PDF" link="https://www.ilovepdf.com/pt/comprimir_pdf" target="_blank" />
+		<SubItem name="↳🌐 Alterar dados Receita" link="https://servicos.receita.fazenda.gov.br/servicos/cpf/alterar/default.asp" target="_blank" />
+	
+	</Item>
+	<Item name="📆 Agenda" link="https://calendar.google.com/" target="_blank" />
+	<Item name="📬 E-Mail - GMAIL" link="https://mail.google.com" target="_blank" />
+	<Item name="📺 Google Meet" link="https://meet.google.com/" target="_blank" />
+	<Item name="💡 Google Keep" link="https://keep.google.com/#home" target="_blank" />
+	<Item name="🏜️ Google Lens" link="https://lens.google.com/" target="_blank" />
+	<Item name="💾 Google Drive" link="https://drive.google.com" target="_blank" />
+	<Item name="💬 whatsapp" link="https://web.whatsapp.com/" target="_blank" />
+	<Item name="👤 Linkedin" link="https://br.linkedin.com/" target="_blank" />
+	<Item name="💎 Simuladores">
+		<SubItem name="↳🌐 WWW8 CAIXA" link="https://www8.caixa.gov.br" target="_blank" />
+		<SubItem name="↳🌐 PORTAL EMPREENDIMENTOS" link="https://www.portaldeempreendimentos.caixa.gov.br/simulador/simuladores" target="_blank" />
+		<SubItem name="↳🌐 SIOPI" link="https://habitacao.caixa.gov.br/siopiweb-web/simulaOperacaoInternet.do?method=inicializarCasoUso" target="_blank" />
+	</Item>
+	<Item name="🪙 ITI.GOV.BR">
+		<SubItem name="↳✒️ ASSINADOR de DOCUMENTOS" link="https://assinador.registrodeimoveis.org.br/private" target="_blank" alt="Aassinatura de arquivos com certificado ICP-br / GOV" />
+		<SubItem name="↳🛃 VERIFICADOR ASSINATURA ITI" link="https://validar.iti.gov.br/" target="_blank" alt="Aassinatura de arquivos com certificado ICP-br / GOV" />
+	</Item>
+</Menu>
+<!--
+icones
+
+📩 🔖 🧰 🌍
+📌 🔒
+-->

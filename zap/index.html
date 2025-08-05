@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enviar Mensagens WhatsApp</title>
+<style>
+    /* CSS para uma aparência mais agradável e funcional */
+/* Não aplique nenhuma regra de estilo para o input do tipo file */
+#arquivo {
+    /* Não há regras de estilo aqui */
+}
+
+/* Restante do seu CSS continua normalmente */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#formulario-contato {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formulario-contato input[type="text"],
+#formulario-contato input[type="tel"],
+#formulario-contato button {
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#formulario-contato input[type="text"],
+#formulario-contato input[type="tel"] {
+    flex: 1;
+}
+
+#mensagem {
+    width: 80%;
+    height: 100px;
+    padding: 10px;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.excluir-btn {
+    background-color: red;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+td {
+    text-align: center;
+}
+
+.file-upload {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.file-upload:hover {
+    background-color: #218838;
+}
+</style>
+</head>
+<body>
+<h1>Enviar Mensagens WhatsApp</h1>
+
+<div id="formulario-contato">
+    <input type="text" id="nome" placeholder="Nome">
+    <input type="tel" id="telefone" placeholder="Telefone">
+    <button onclick="adicionarContato()">Adicionar Contato</button>
+</div>
+
+<textarea id="mensagem" style="width: 440px; height: 276px;" placeholder="Digite sua mensagem aqui, digite [nome] e personalize o texto"></textarea><br>
+<button onclick="enviarProximoContato()">Enviar Próximo</button><br><br>
+
+<h2>Lista de Contatos</h2>
+
+<table id="lista-contatos">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Aqui a tabela de contatos será gerada dinamicamente -->
+    </tbody>
+</table><br>
+
+<input type="file" id="arquivo" accept=".txt" onchange="importarContatos(event)">
+<button onclick="exportarContatos()">Exportar Lista de Contatos</button>
+
+<script>
+let contatos = [];
+let indexContato = 0;
+
+function formatarParaURLEncoding(texto) {
+    texto = texto.replace(/ /g, "%20");
+    texto = texto.replace(/\n/g, "%0A");
+    texto = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, function(match) {
+        return encodeURIComponent(match);
+    });
+    return texto;
+}
+
+function adicionarContato() {
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    
+    if (nome.trim() === "" || telefone.trim() === "") {
+        alert("Por favor, preencha todos os campos.");
+        return;
+    }
+    
+    const tabela = document.getElementById("lista-contatos").getElementsByTagName("tbody")[0];
+    const linha = tabela.insertRow();
+    linha.innerHTML = `<td>${nome}</td><td>${telefone}</td><td>Pendente</td><td><button onclick="editarContato(this)">Editar</button><button class="excluir-btn" onclick="excluirContato(this)">Excluir</button></td>`;
+    
+    contatos.push({ nome, telefone, status: "Pendente" });
+    
+    document.getElementById("nome").value = "";
+    document.getElementById("telefone").value = "";
+}
+
+function editarContato(botao) {
+    const linha = botao.parentNode.parentNode;
+    const nomeAnterior = linha.cells[0].innerText;
+    const telefoneAnterior = linha.cells[1].innerText;
+    
+    const novoNome = prompt("Novo nome:", nomeAnterior);
+    const novoTelefone = prompt("Novo telefone:", telefoneAnterior);
+    
+    if (novoNome !== null && novoTelefone !== null) {
+        linha.cells[0].innerText = novoNome;
+        linha.cells[1].innerText = novoTelefone;
+        
+        const index = getIndexFromRow(linha);
+        contatos[index].nome = novoNome;
+        contatos[index].telefone = novoTelefone;
+    }
+}
+
+function excluirContato(botao) {
+    if (confirm("Tem certeza de que deseja excluir este contato?")) {
+        const linha = botao.parentNode.parentNode;
+        const index = getIndexFromRow(linha);
+        
+        contatos.splice(index, 1);
+        linha.remove();
+    }
+}
+
+function getIndexFromRow(row) {
+    const tbody = document.getElementById("lista-contatos").getElementsByTagName("tbody")[0];
+    return Array.from(tbody.rows).indexOf(row);
+}
+
+function enviarProximoContato() {
+    let mensagem = document.getElementById("mensagem").value;
+    const tabela = document.getElementById("lista-contatos").getElementsByTagName("tbody")[0];
+
+    if (contatos.length === 0) {
+        alert("A lista de contatos está vazia.");
+        return;
+    }
+
+    if (indexContato >= contatos.length) {
+        indexContato = 0; // Voltar para o primeiro contato se chegarmos ao final da lista
+    }
+
+    const contato = contatos[indexContato];
+    const nome = contato.nome;
+
+    // Substituir o marcador [nome] pelo nome do contato na mensagem
+    mensagem = mensagem.replace(/\[nome\]/g, nome);
+
+    const mensagemFormatada = formatarParaURLEncoding(mensagem);
+    const url = `https://api.whatsapp.com/send?phone=${contato.telefone}&text=${mensagemFormatada}`;
+
+    // Verificar se já existe uma janela aberta do WhatsApp
+    const whatsappWindow = window.open("about:blank", "_blank");
+    if (whatsappWindow) {
+        whatsappWindow.location.href = url;
+    } else {
+        window.location.href = url; // Se não houver uma janela aberta do WhatsApp, abrir uma nova
+    }
+
+    // Atualizar status do contato
+    contato.status = "Enviado";
+    const linha = tabela.rows[indexContato];
+    linha.cells[2].innerText = "Enviado";
+
+    // Mover o contato para o final da lista
+    contatos.push(contatos.splice(indexContato, 1)[0]);
+    linha.parentNode.appendChild(linha);
+
+    indexContato++;
+}
+
+function importarContatos(event) {
+    const arquivo = event.target.files[0];
+    const leitor = new FileReader();
+
+    leitor.onload = function(e) {
+        const texto = e.target.result;
+        const linhas = texto.split("\n");
+
+        const tabela = document.getElementById("lista-contatos").getElementsByTagName("tbody")[0];
+        tabela.innerHTML = "";
+        contatos = [];
+
+        linhas.forEach(linha => {
+            const [nome, telefone, status] = linha.split(",");
+            tabela.insertRow().innerHTML = `<td>${nome}</td><td>${telefone}</td><td>${status}</td><td><button onclick="editarContato(this)">Editar</button><button class="excluir-btn" onclick="excluirContato(this)">Excluir</button></td>`;
+            contatos.push({ nome, telefone, status });
+        });
+    };
+
+    leitor.readAsText(arquivo);
+}
+
+function exportarContatos() {
+    const tabela = document.getElementById("lista-contatos");
+    const linhas = [];
+
+    for (let i = 0; i < tabela.rows.length; i++) {
+        const linha = tabela.rows[i];
+        const nome = linha.cells[0].innerText;
+        const telefone = linha.cells[1].innerText;
+        const status = linha.cells[2].innerText;
+        linhas.push(`${nome},${telefone},${status}`);
+    }
+
+    const conteudo = linhas.join("\n");
+    const blob = new Blob([conteudo], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "contatos.txt";
+    link.click();
+}
+</script>
+</body>
+</html>

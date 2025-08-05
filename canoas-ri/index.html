@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Nota de Entrega</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos para a barra de consulta no topo */
+        .consulta {
+            background-color: #f1f1f1;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .consulta form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .consulta input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .consulta button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .consulta button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos para o frame de resultados */
+        iframe {
+            width: 100%;
+            height: calc(100vh - 80px); /* Calcula o espaço restante após a barra */
+            border: none;
+            margin-top: 80px; /* Espaço para não cobrir a barra de consulta */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Div da consulta no topo -->
+<div class="consulta">
+    <form id="notaForm">
+        <label>REGISTRO DE IMOVEIS DE CANOAS-RS - CONSULTA ASPEN</label></BR>
+        <label for="nota">Nota:</label>
+        <input type="text" id="nota" name="nota" placeholder="Digite o número da nota" required>
+
+        <label for="dvnota">Dígito Verificador:</label>
+        <input type="text" id="dvnota" name="dvnota" placeholder="Digite o dígito verificador" required>
+
+        <button type="submit">Consultar</button>
+    </form>
+</div>
+
+<!-- Frame onde será carregado o resultado -->
+<iframe id="resultFrame" src=""></iframe>
+
+<script>
+    // Lida com o envio do formulário
+    document.getElementById("notaForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Impede o envio tradicional do formulário
+
+        var nota = document.getElementById("nota").value;
+        var dvnota = document.getElementById("dvnota").value;
+
+        // Verifique se os campos estão preenchidos
+        if (nota && dvnota) {
+            // Cria a URL com os parâmetros
+            var url = `https://www.canoasri.com.br/consulta-nota-de-entrega-ri/?nota=${encodeURIComponent(nota)}&dvnota=${encodeURIComponent(dvnota)}&enviar=`;
+
+            // Carrega a URL no iframe
+            document.getElementById("resultFrame").src = url;
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
+    });
+</script>
+
+</body>
+</html>
+
