@@ -421,10 +421,10 @@
                     </div>
                     
                     <div class="watermark-preview" id="watermark-preview">
-                        <img src="./lg.png" 
+                        <img src="https://www.roberto-fettuccia.com.br/uploads/logo/062ddb6c727310e76b6200b7c71f63b5.png" 
                              alt="Watermark Preview" 
                              crossorigin="anonymous">
-                        <span>Watermark centralizado (120x120px)</span>
+                        <span>Watermark centralizado (<span id="watermark-size-text">300px</span>)</span>
                     </div>
                     
                     <div class="form-group">
@@ -433,11 +433,11 @@
                         <div class="slider-value" id="opacity-value">70%</div>
                     </div>
                     
-                    <!-- Novo controle para tamanho do watermark -->
+                    <!-- Novo controle para tamanho do watermark em pixels -->
                     <div class="form-group">
-                        <label for="watermark-size">Tamanho do Watermark:</label>
-                        <input type="range" id="watermark-size" min="30" max="70" value="50">
-                        <div class="slider-value" id="size-value">50%</div>
+                        <label for="watermark-size">Tamanho do Watermark (px):</label>
+                        <input type="range" id="watermark-size" min="100" max="500" value="300">
+                        <div class="slider-value" id="size-value">300px</div>
                     </div>
                 </div>
                 
@@ -492,6 +492,7 @@
         const opacityValue = document.getElementById('opacity-value');
         const watermarkSizeSlider = document.getElementById('watermark-size');
         const sizeValue = document.getElementById('size-value');
+        const watermarkSizeText = document.getElementById('watermark-size-text');
         const imageList = document.getElementById('image-list');
         const imageCount = document.getElementById('image-count');
         const conversionProgress = document.getElementById('conversion-progress');
@@ -511,7 +512,9 @@
         
         // Novo evento para o controle de tamanho do watermark
         watermarkSizeSlider.addEventListener('input', () => {
-            sizeValue.textContent = `${watermarkSizeSlider.value}%`;
+            const size = parseInt(watermarkSizeSlider.value);
+            sizeValue.textContent = `${size}px`;
+            watermarkSizeText.textContent = `${size}px`;
             updatePreview();
         });
         
@@ -583,20 +586,8 @@
                 const img = new Image();
                 img.crossOrigin = "Anonymous";
                 img.onload = () => {
-                    // Redimensionar para o tamanho base (120x120px)
-                    const baseSize = 120;
-                    const resizedCanvas = document.createElement('canvas');
-                    resizedCanvas.width = baseSize;
-                    resizedCanvas.height = baseSize;
-                    const ctx = resizedCanvas.getContext('2d');
-                    
-                    // Limpar o canvas
-                    ctx.clearRect(0, 0, resizedCanvas.width, resizedCanvas.height);
-                    
-                    // Desenhar a imagem redimensionada
-                    ctx.drawImage(img, 0, 0, baseSize, baseSize);
-                    
-                    watermarkImage = resizedCanvas;
+                    // Não redimensionamos aqui, vamos redimensionar dinamicamente ao aplicar
+                    watermarkImage = img;
                     resolve(watermarkImage);
                 };
                 img.onerror = () => {
@@ -612,8 +603,8 @@
         function createFallbackWatermark() {
             return new Promise((resolve) => {
                 const canvas = document.createElement('canvas');
-                canvas.width = 120;
-                canvas.height = 120;
+                canvas.width = 300;
+                canvas.height = 300;
                 const ctx = canvas.getContext('2d');
                 
                 // Limpar o canvas
@@ -621,25 +612,27 @@
                 
                 // Fundo semi-transparente
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, 120, 120);
+                ctx.fillRect(0, 0, 300, 300);
                 
                 // Texto do watermark
                 ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-                ctx.font = 'bold 14px Arial';
+                ctx.font = 'bold 24px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText('WATERMARK', 60, 60);
+                ctx.fillText('WATERMARK', 150, 150);
                 
-                watermarkImage = canvas;
-                resolve(watermarkImage);
+                const img = new Image();
+                img.onload = function() {
+                    watermarkImage = img;
+                    resolve(watermarkImage);
+                };
+                img.src = canvas.toDataURL();
             });
         }
         
-        // Obter o tamanho atual do watermark (com base no slider)
+        // Obter o tamanho atual do watermark (em pixels)
         function getWatermarkSize() {
-            const sizePercentage = parseInt(watermarkSizeSlider.value) / 100;
-            const baseSize = 120; // Tamanho base do watermark
-            return Math.round(baseSize * sizePercentage);
+            return parseInt(watermarkSizeSlider.value);
         }
         
         // Funções
@@ -752,7 +745,7 @@
                 const opacity = parseInt(watermarkOpacitySlider.value) / 100;
                 ctx.globalAlpha = opacity;
                 
-                // Calcular o tamanho do watermark com base no slider
+                // Obter o tamanho do watermark em pixels
                 const watermarkSize = getWatermarkSize();
                 const x = (canvas.width - watermarkSize) / 2;
                 const y = (canvas.height - watermarkSize) / 2;
@@ -864,7 +857,7 @@
                     const opacity = parseInt(watermarkOpacitySlider.value) / 100;
                     ctx.globalAlpha = opacity;
                     
-                    // Calcular o tamanho do watermark com base no slider
+                    // Obter o tamanho do watermark em pixels
                     const watermarkSize = getWatermarkSize();
                     const x = (canvas.width - watermarkSize) / 2;
                     const y = (canvas.height - watermarkSize) / 2;
@@ -940,7 +933,9 @@
             processBtn.textContent = 'Processar para WEBP';
             
             // Definir valor inicial do tamanho do watermark
-            sizeValue.textContent = `${watermarkSizeSlider.value}%`;
+            const initialSize = parseInt(watermarkSizeSlider.value);
+            sizeValue.textContent = `${initialSize}px`;
+            watermarkSizeText.textContent = `${initialSize}px`;
             
             // Carregar watermark inicialmente se a checkbox estiver marcada
             if (watermarkCheckbox.checked) {
