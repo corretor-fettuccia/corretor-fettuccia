@@ -132,6 +132,33 @@
             margin-right: 10px;
         }
         
+        /* Estilos para os radio buttons de formato */
+        .format-options {
+            margin-bottom: 15px;
+        }
+        
+        .format-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-option input {
+            margin-right: 5px;
+        }
+        
         .watermark-preview {
             display: flex;
             align-items: center;
@@ -333,14 +360,18 @@
                 border-left: none;
                 border-top: 1px solid #eee;
             }
+            
+            .radio-group {
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Conversor em Massa para WebP</h1>
-            <p class="description">Converta várias imagens para WebP com watermark</p>
+            <h1>Conversor em Massa de Imagens</h1>
+            <p class="description">Converta várias imagens para diferentes formatos com watermark</p>
         </header>
         
         <div class="main-content">
@@ -355,8 +386,31 @@
                 <div class="settings">
                     <h2>Configurações</h2>
                     
+                    <!-- Opções de formato de saída -->
+                    <div class="form-group format-options">
+                        <div class="format-title">Formato de Saída:</div>
+                        <div class="radio-group" id="format-options">
+                            <div class="radio-option">
+                                <input type="radio" id="format-webp" name="output-format" value="webp" checked>
+                                <label for="format-webp">WebP</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="format-png" name="output-format" value="png">
+                                <label for="format-png">PNG</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="format-jpeg" name="output-format" value="jpeg">
+                                <label for="format-jpeg">JPEG</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="format-jpg" name="output-format" value="jpg">
+                                <label for="format-jpg">JPG</label>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
-                        <label for="webp-quality">Qualidade WebP:</label>
+                        <label for="webp-quality">Qualidade:</label>
                         <input type="range" id="webp-quality" min="1" max="100" value="80">
                         <div class="slider-value" id="quality-value">80%</div>
                     </div>
@@ -412,7 +466,7 @@
         </div>
         
         <footer>
-            <p>Conversor em Massa para WebP &copy; 2023</p>
+            <p>Conversor em Massa de Imagens &copy; 2023</p>
         </footer>
     </div>
 
@@ -433,6 +487,7 @@
         const imageCount = document.getElementById('image-count');
         const conversionProgress = document.getElementById('conversion-progress');
         const progressText = document.getElementById('progress-text');
+        const formatOptions = document.querySelectorAll('input[name="output-format"]');
         
         // Atualizar valor exibido dos sliders
         webpQualitySlider.addEventListener('input', () => {
@@ -447,6 +502,20 @@
         
         watermarkCheckbox.addEventListener('change', () => {
             updatePreview();
+        });
+        
+        // Atualizar interface quando o formato for alterado
+        formatOptions.forEach(option => {
+            option.addEventListener('change', () => {
+                updatePreview();
+                
+                // Atualizar texto do botão de processamento
+                const selectedFormat = document.querySelector('input[name="output-format"]:checked').value;
+                processBtn.textContent = `Processar para ${selectedFormat.toUpperCase()}`;
+                
+                // Atualizar título da página
+                document.querySelector('h1').textContent = `Conversor em Massa para ${selectedFormat.toUpperCase()}`;
+            });
         });
         
         // Variáveis
@@ -732,13 +801,21 @@
                 progressText.textContent = `Processamento concluído! ${processedImages.length} imagens convertidas.`;
                 
                 updateStatus('Conversão concluída com sucesso! Clique em "Download em ZIP".', 'success');
-                processBtn.textContent = 'Processar Imagens';
+                
+                // Restaurar texto do botão
+                const selectedFormat = document.querySelector('input[name="output-format"]:checked').value;
+                processBtn.textContent = `Processar para ${selectedFormat.toUpperCase()}`;
+                
                 downloadAllBtn.disabled = false;
                 
             } catch (error) {
                 console.error('Erro no processamento:', error);
                 updateStatus('Ocorreu um erro durante o processamento: ' + error.message, 'error');
-                processBtn.textContent = 'Processar Imagens';
+                
+                // Restaurar texto do botão
+                const selectedFormat = document.querySelector('input[name="output-format"]:checked').value;
+                processBtn.textContent = `Processar para ${selectedFormat.toUpperCase()}`;
+                
                 processBtn.disabled = false;
             }
         }
@@ -771,15 +848,18 @@
                     ctx.globalAlpha = 1.0; // Reset alpha
                 }
                 
-                // Converter para WebP
+                // Obter o formato selecionado
+                const selectedFormat = document.querySelector('input[name="output-format"]:checked').value;
                 const quality = parseFloat(webpQualitySlider.value) / 100;
+                
+                // Converter para o formato selecionado
                 canvas.toBlob(function(blob) {
                     resolve({
                         originalName: image.file.name,
                         blob: blob,
                         url: URL.createObjectURL(blob)
                     });
-                }, 'image/webp', quality);
+                }, `image/${selectedFormat === 'jpg' ? 'jpeg' : selectedFormat}`, quality);
             });
         }
         
@@ -793,9 +873,12 @@
                 
                 const zip = new JSZip();
                 
+                // Obter o formato selecionado
+                const selectedFormat = document.querySelector('input[name="output-format"]:checked').value;
+                
                 // Adicionar cada imagem processada ao ZIP
                 processedImages.forEach(image => {
-                    const fileName = image.originalName.replace(/\.[^/.]+$/, '') + '.webp';
+                    const fileName = image.originalName.replace(/\.[^/.]+$/, '') + '.' + selectedFormat;
                     zip.file(fileName, image.blob);
                 });
                 
@@ -809,7 +892,7 @@
                 });
                 
                 // Fazer download do ZIP
-                saveAs(zipBlob, 'imagens_processadas.zip');
+                saveAs(zipBlob, `imagens_processadas_${selectedFormat}.zip`);
                 
                 updateStatus(`Download do ZIP com ${processedImages.length} arquivos iniciado.`, 'success');
                 downloadAllBtn.textContent = 'Download em ZIP';
@@ -823,13 +906,23 @@
             }
         }
         
-        // Carregar watermark inicialmente se a checkbox estiver marcada
-        if (watermarkCheckbox.checked) {
-            loadWatermark().catch(error => {
-                console.error('Erro ao carregar watermark:', error);
-                updateStatus('Erro ao carregar watermark. Usando alternativo.', 'error');
-            });
+        // Inicialização
+        function init() {
+            // Definir WebP como formato padrão
+            document.getElementById('format-webp').checked = true;
+            processBtn.textContent = 'Processar para WEBP';
+            
+            // Carregar watermark inicialmente se a checkbox estiver marcada
+            if (watermarkCheckbox.checked) {
+                loadWatermark().catch(error => {
+                    console.error('Erro ao carregar watermark:', error);
+                    updateStatus('Erro ao carregar watermark. Usando alternativo.', 'error');
+                });
+            }
         }
+        
+        // Iniciar a aplicação
+        init();
     </script>
 </body>
 </html>
