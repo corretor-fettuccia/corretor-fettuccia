@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor em Massa para WebP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        
+        .left-panel {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .right-panel {
+            flex: 2;
+            min-width: 400px;
+            padding: 20px;
+            border-left: 1px solid #eee;
+        }
+        
+        .upload-area {
+            border: 3px dashed #4b6cb7;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+        }
+        
+        .upload-area:hover, .upload-area.dragover {
+            border-color: #182848;
+            background-color: #e6eeff;
+        }
+        
+        .upload-icon {
+            font-size: 60px;
+            color: #4b6cb7;
+            margin-bottom: 15px;
+        }
+        
+        .settings {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .settings h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        input[type="range"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: white;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        
+        .watermark-preview {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0fff4;
+            border-radius: 6px;
+            border: 1px dashed #68d391;
+        }
+        
+        .watermark-preview img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+        }
+        
+        .slider-value {
+            text-align: center;
+            font-weight: bold;
+            color: #4b6cb7;
+            margin-top: 5px;
+        }
+        
+        button {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .preview-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .preview-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+        
+        #image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .image-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #f8fafc;
+        }
+        
+        .image-list-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .image-list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .image-list-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .image-list-info {
+            flex-grow: 1;
+        }
+        
+        .image-list-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+        
+        .image-list-size {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+        
+        .image-list-remove {
+            color: #e53e3e;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+        }
+        
+        .status.success {
+            background-color: #f0fff4;
+            color: #2f855a;
+            border: 1px solid #c6f6d5;
+        }
+        
+        .status.error {
+            background-color: #fed7d7;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+        
+        .status.info {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            border: 1px solid #bee3f8;
+        }
+        
+        .progress-container {
+            margin-top: 20px;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+        }
+        
+        .download-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .download-all {
+            background: linear-gradient(90deg, #38a169 0%, #2f855a 100%);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .right-panel {
+                border-left: none;
+                border-top: 1px solid #eee;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Conversor em Massa para WebP</h1>
+            <p class="description">Converta várias imagens para WebP com watermark</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="upload-area" id="drop-area">
+                    <div class="upload-icon">📁</div>
+                    <p>Clique para selecionar imagens ou arraste-as para aqui</p>
+                    <p><small>(Formatos suportados: JPG, PNG, GIF, BMP, WEBP)</small></p>
+                    <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
+                </div>
+                
+                <div class="settings">
+                    <h2>Configurações</h2>
+                    
+                    <div class="form-group">
+                        <label for="webp-quality">Qualidade WebP:</label>
+                        <input type="range" id="webp-quality" min="1" max="100" value="80">
+                        <div class="slider-value" id="quality-value">80%</div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="add-watermark" checked>
+                        <label for="add-watermark">Adicionar Watermark</label>
+                    </div>
+                    
+                    <div class="watermark-preview" id="watermark-preview">
+                        <img src="https://www.roberto-fettuccia.com.br/uploads/logo/062ddb6c727310e76b6200b7c71f63b5.png" 
+                             alt="Watermark Preview" 
+                             crossorigin="anonymous">
+                        <span>Watermark centralizado (120x120px)</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="watermark-opacity">Opacidade do Watermark:</label>
+                        <input type="range" id="watermark-opacity" min="1" max="100" value="70">
+                        <div class="slider-value" id="opacity-value">70%</div>
+                    </div>
+                </div>
+                
+                <button id="process-btn" disabled>Processar Imagens</button>
+                <button id="download-all-btn" class="download-all" disabled>Download em ZIP</button>
+                
+                <div class="status info" id="status-message">
+                    Selecione ou arraste as imagens para começar
+                </div>
+            </div>
+            
+            <div class="right-panel">
+                <div class="preview-container">
+                    <div class="preview-title">Pré-visualização com Watermark</div>
+                    <img id="image-preview" alt="Pré-visualização da imagem">
+                </div>
+                
+                <div class="image-list-container">
+                    <div class="preview-title">Imagens Carregadas (<span id="image-count">0</span>)</div>
+                    <div class="image-list" id="image-list">
+                        <div class="status info">Nenhuma imagem carregada</div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="preview-title">Progresso de Conversão</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="conversion-progress">0%</div>
+                    </div>
+                    <div id="progress-text">Aguardando processamento...</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Conversor em Massa para WebP &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // Elementos da interface
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const processBtn = document.getElementById('process-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const watermarkCheckbox = document.getElementById('add-watermark');
+        const statusMessage = document.getElementById('status-message');
+        const webpQualitySlider = document.getElementById('webp-quality');
+        const qualityValue = document.getElementById('quality-value');
+        const watermarkOpacitySlider = document.getElementById('watermark-opacity');
+        const opacityValue = document.getElementById('opacity-value');
+        const imageList = document.getElementById('image-list');
+        const imageCount = document.getElementById('image-count');
+        const conversionProgress = document.getElementById('conversion-progress');
+        const progressText = document.getElementById('progress-text');
+        
+        // Atualizar valor exibido dos sliders
+        webpQualitySlider.addEventListener('input', () => {
+            qualityValue.textContent = `${webpQualitySlider.value}%`;
+            updatePreview();
+        });
+        
+        watermarkOpacitySlider.addEventListener('input', () => {
+            opacityValue.textContent = `${watermarkOpacitySlider.value}%`;
+            updatePreview();
+        });
+        
+        watermarkCheckbox.addEventListener('change', () => {
+            updatePreview();
+        });
+        
+        // Variáveis
+        let images = [];
+        let processedImages = [];
+        let watermarkImage = null;
+        const watermarkUrl = "./lg.png";
+        
+        // Eventos
+        dropArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFiles(e.target.files);
+            }
+        });
+        
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+        
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragover');
+        });
+        
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length > 0) {
+                handleFiles(e.dataTransfer.files);
+            }
+        });
+        
+        processBtn.addEventListener('click', processAllImages);
+        downloadAllBtn.addEventListener('click', downloadAllAsZip);
+        
+        // Carregar watermark
+        function loadWatermark() {
+            return new Promise((resolve, reject) => {
+                // Verificar se a checkbox está marcada
+                if (!watermarkCheckbox.checked) {
+                    resolve(null);
+                    return;
+                }
+                
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.onload = () => {
+                    // Redimensionar para 120x120px
+                    const resizedCanvas = document.createElement('canvas');
+                    resizedCanvas.width = 120;
+                    resizedCanvas.height = 120;
+                    const ctx = resizedCanvas.getContext('2d');
+                    
+                    // Limpar o canvas
+                    ctx.clearRect(0, 0, resizedCanvas.width, resizedCanvas.height);
+                    
+                    // Desenhar a imagem redimensionada
+                    ctx.drawImage(img, 0, 0, 120, 120);
+                    
+                    watermarkImage = resizedCanvas;
+                    resolve(watermarkImage);
+                };
+                img.onerror = () => {
+                    // Se não conseguir carregar o watermark remoto, criar um simples
+                    console.warn('Não foi possível carregar o watermark remoto. Criando um alternativo.');
+                    createFallbackWatermark().then(resolve).catch(reject);
+                };
+                img.src = watermarkUrl + "?t=" + new Date().getTime(); // Adiciona timestamp para evitar cache
+            });
+        }
+        
+        // Criar watermark alternativo em caso de falha
+        function createFallbackWatermark() {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = 120;
+                canvas.height = 120;
+                const ctx = canvas.getContext('2d');
+                
+                // Limpar o canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Fundo semi-transparente
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, 120, 120);
+                
+                // Texto do watermark
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('WATERMARK', 60, 60);
+                
+                watermarkImage = canvas;
+                resolve(watermarkImage);
+            });
+        }
+        
+        // Funções
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.type.startsWith('image/') || 
+                    ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'].some(ext => file.name.toLowerCase().endsWith(ext))) {
+                    
+                    // Verificar se a imagem já foi adicionada
+                    if (!images.some(img => img.file.name === file.name && img.file.size === file.size)) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            const imageObj = {
+                                file: file,
+                                dataUrl: e.target.result,
+                                preview: null
+                            };
+                            
+                            const img = new Image();
+                            img.onload = function() {
+                                imageObj.preview = img;
+                                images.push(imageObj);
+                                updateImageList();
+                                
+                                // Se for a primeira imagem, mostrar preview
+                                if (images.length === 1) {
+                                    showPreview(imageObj);
+                                }
+                                
+                                updateStatus(`Imagem "${file.name}" carregada. Total: ${images.length}`, 'success');
+                            };
+                            img.src = e.target.result;
+                        };
+                        
+                        reader.readAsDataURL(file);
+                    }
+                }
+            }
+        }
+        
+        function updateImageList() {
+            imageList.innerHTML = '';
+            imageCount.textContent = images.length;
+            
+            if (images.length === 0) {
+                imageList.innerHTML = '<div class="status info">Nenhuma imagem carregada</div>';
+                processBtn.disabled = true;
+                return;
+            }
+            
+            processBtn.disabled = false;
+            
+            images.forEach((image, index) => {
+                const listItem = document.createElement('div');
+                listItem.className = 'image-list-item';
+                
+                listItem.innerHTML = `
+                    <img src="${image.dataUrl}" class="image-list-thumb" alt="${image.file.name}">
+                    <div class="image-list-info">
+                        <div class="image-list-name">${image.file.name}</div>
+                        <div class="image-list-size">${formatFileSize(image.file.size)} • ${image.preview.width}x${image.preview.height}px</div>
+                    </div>
+                    <div class="image-list-remove" data-index="${index}">✖</div>
+                `;
+                
+                imageList.appendChild(listItem);
+                
+                // Adicionar evento de clique para preview
+                listItem.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('image-list-remove')) {
+                        showPreview(image);
+                    }
+                });
+            });
+            
+            // Adicionar eventos para remover imagens
+            document.querySelectorAll('.image-list-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    const removedImage = images[index];
+                    images.splice(index, 1);
+                    updateImageList();
+                    updateStatus(`Imagem "${removedImage.file.name}" removida. Restantes: ${images.length}`, 'info');
+                    
+                    // Se não houver mais imagens, limpar preview
+                    if (images.length === 0) {
+                        imagePreview.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        function showPreview(image) {
+            // Criar canvas para preview com watermark
+            const canvas = document.createElement('canvas');
+            canvas.width = image.preview.width;
+            canvas.height = image.preview.height;
+            const ctx = canvas.getContext('2d');
+            
+            // Limpar o canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Desenhar imagem original
+            ctx.drawImage(image.preview, 0, 0, canvas.width, canvas.height);
+            
+            // Adicionar watermark se necessário
+            if (watermarkCheckbox.checked && watermarkImage) {
+                const opacity = parseInt(watermarkOpacitySlider.value) / 100;
+                ctx.globalAlpha = opacity;
+                
+                const x = (canvas.width - watermarkImage.width) / 2;
+                const y = (canvas.height - watermarkImage.height) / 2;
+                
+                // Desenhar o watermark
+                ctx.drawImage(watermarkImage, x, y);
+                
+                ctx.globalAlpha = 1.0; // Reset alpha
+            }
+            
+            // Atualizar preview
+            imagePreview.src = canvas.toDataURL();
+            imagePreview.style.display = 'block';
+        }
+        
+        function updatePreview() {
+            if (images.length > 0) {
+                showPreview(images[0]);
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        function updateStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = 'status ' + type;
+        }
+        
+        async function processAllImages() {
+            if (images.length === 0) return;
+            
+            try {
+                processBtn.disabled = true;
+                downloadAllBtn.disabled = true;
+                processBtn.textContent = 'Processando...';
+                
+                // Carregar watermark se necessário
+                updateStatus('Carregando watermark...', 'info');
+                await loadWatermark();
+                
+                processedImages = [];
+                
+                // Processar cada imagem
+                for (let i = 0; i < images.length; i++) {
+                    const image = images[i];
+                    updateStatus(`Processando ${i+1} de ${images.length}: ${image.file.name}`, 'info');
+                    
+                    // Atualizar barra de progresso
+                    const progress = Math.round((i / images.length) * 100);
+                    conversionProgress.style.width = `${progress}%`;
+                    conversionProgress.textContent = `${progress}%`;
+                    progressText.textContent = `Processando ${i+1} de ${images.length} (${progress}%)`;
+                    
+                    // Processar imagem
+                    const processedImage = await processImage(image);
+                    processedImages.push(processedImage);
+                    
+                    // Pequena pausa para não travar a interface
+                    await new Promise(resolve => setTimeout(resolve, 10));
+                }
+                
+                // Finalizar barra de progresso
+                conversionProgress.style.width = '100%';
+                conversionProgress.textContent = '100%';
+                progressText.textContent = `Processamento concluído! ${processedImages.length} imagens convertidas.`;
+                
+                updateStatus('Conversão concluída com sucesso! Clique em "Download em ZIP".', 'success');
+                processBtn.textContent = 'Processar Imagens';
+                downloadAllBtn.disabled = false;
+                
+            } catch (error) {
+                console.error('Erro no processamento:', error);
+                updateStatus('Ocorreu um erro durante o processamento: ' + error.message, 'error');
+                processBtn.textContent = 'Processar Imagens';
+                processBtn.disabled = false;
+            }
+        }
+        
+        async function processImage(image) {
+            return new Promise((resolve) => {
+                // Criar canvas para processamento
+                const canvas = document.createElement('canvas');
+                canvas.width = image.preview.width;
+                canvas.height = image.preview.height;
+                const ctx = canvas.getContext('2d');
+                
+                // Limpar o canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Desenhar imagem original
+                ctx.drawImage(image.preview, 0, 0, canvas.width, canvas.height);
+                
+                // Adicionar watermark se necessário
+                if (watermarkCheckbox.checked && watermarkImage) {
+                    const opacity = parseInt(watermarkOpacitySlider.value) / 100;
+                    ctx.globalAlpha = opacity;
+                    
+                    const x = (canvas.width - watermarkImage.width) / 2;
+                    const y = (canvas.height - watermarkImage.height) / 2;
+                    
+                    // Desenhar o watermark
+                    ctx.drawImage(watermarkImage, x, y);
+                    
+                    ctx.globalAlpha = 1.0; // Reset alpha
+                }
+                
+                // Converter para WebP
+                const quality = parseFloat(webpQualitySlider.value) / 100;
+                canvas.toBlob(function(blob) {
+                    resolve({
+                        originalName: image.file.name,
+                        blob: blob,
+                        url: URL.createObjectURL(blob)
+                    });
+                }, 'image/webp', quality);
+            });
+        }
+        
+        async function downloadAllAsZip() {
+            if (processedImages.length === 0) return;
+            
+            try {
+                downloadAllBtn.disabled = true;
+                downloadAllBtn.textContent = 'Criando ZIP...';
+                updateStatus('Criando arquivo ZIP...', 'info');
+                
+                const zip = new JSZip();
+                
+                // Adicionar cada imagem processada ao ZIP
+                processedImages.forEach(image => {
+                    const fileName = image.originalName.replace(/\.[^/.]+$/, '') + '.webp';
+                    zip.file(fileName, image.blob);
+                });
+                
+                // Gerar o arquivo ZIP
+                const zipBlob = await zip.generateAsync({
+                    type: 'blob',
+                    compression: 'DEFLATE',
+                    compressionOptions: {
+                        level: 6
+                    }
+                });
+                
+                // Fazer download do ZIP
+                saveAs(zipBlob, 'imagens_processadas.zip');
+                
+                updateStatus(`Download do ZIP com ${processedImages.length} arquivos iniciado.`, 'success');
+                downloadAllBtn.textContent = 'Download em ZIP';
+                downloadAllBtn.disabled = false;
+                
+            } catch (error) {
+                console.error('Erro ao criar ZIP:', error);
+                updateStatus('Erro ao criar arquivo ZIP: ' + error.message, 'error');
+                downloadAllBtn.textContent = 'Download em ZIP';
+                downloadAllBtn.disabled = false;
+            }
+        }
+        
+        // Carregar watermark inicialmente se a checkbox estiver marcada
+        if (watermarkCheckbox.checked) {
+            loadWatermark().catch(error => {
+                console.error('Erro ao carregar watermark:', error);
+                updateStatus('Erro ao carregar watermark. Usando alternativo.', 'error');
+            });
+        }
+    </script>
+</body>
+</html>
