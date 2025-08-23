@@ -37,6 +37,7 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		</SubItem>
                 <SubItem name="" />
 		<SubItem name="↳ 🔒 Ads Google" link="https://ads.google.com/" target="_blank" alt="Gestão de campanhas" />
+		<SubItem name="↳ 🔒 Analitics Google" link="https://analytics.google.com/" target="_blank" alt="Análise de tráfego" />	
 		<SubItem name="↳ 💾 Ads Mananger Meta" link="https://adsmanager.facebook.com/" target="_blank" alt="Gestão de clientes e imóveis" />
 		<SubItem name="↳ 🌍 Ads Gerenciador Meta - Posts" link="https://business.facebook.com" target="_blank" alt="Gestão de clientes e imóveis" />
 		<SubItem name="↳ 📬 Ads Spotfy" link="https://ads.spotify.com/" target="_blank" />
