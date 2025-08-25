@@ -14,30 +14,32 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
         </Item>
         
 	<Item name="🌍 Site roberto-fettuccia.com.br" link="https://www.migmidia.com.br/login" target="_blank" />
+	<Item name="🌍 LEADS" link="https://docs.google.com/spreadsheets/d/1c7ZohiY0wy7C2F3fxfnROfjc-PiBeRqSZfsVdvwFofA/edit" target="_blank" />
 	
 	<Item name="🌍 Tour 360" target="_self" >
 		<SubItem name="↳ 🌍 Gerador de Link" link="./tour360/make.html" target="_self"/>
 		<SubItem name="↳ 🌍 repositório imagens" link="https://github.com/corretor-fettuccia/360" target="_self"/>
         </Item>
-
+    
 	<Item name="🌍 ImobMap" target="_self" >
 		<SubItem name="↳ 🌍 Mobile" link="./imomaps/mobile/" target="_self"/>
 		<SubItem name="↳ 🌍 PC" link="./imomaps/" target="_self"/>
         </Item>
         
 	<Item name="🪃 Gestão de tickets" link="https://script.google.com/macros/s/AKfycbwpyV5WfBBYI_VbHp8Y_JO9bZ7M-ERXVHP0YQSwjj7pLQkP-YVG-0OXvsNZhQAGXEea/exec" target="_blank" />
-        <Item name="🔒 MARKETING" target="_self" alt="Sistemas">
-                <SubItem name="↳ 🌍 Blog- Corretor Guru" link="https://www.blogger.com/blog/posts/2791152837199678650" target="_blank" alt="BLOG" />
-		<SubItem name="↳ 🌍 Vlog- Youtube" link="https://studio.youtube.com/channel" target="_blank" alt="Youtube" />
-		
+    <Item name="🔒 MARKETING" target="_self" alt="Sistemas">
+		 <SubItem name="↳ 🌍 Git.Hub" link="https://github.com/corretor-fettuccia" target="_blank" alt="git" />
+         <SubItem name="↳ 🌍 Blog- Corretor Guru" link="https://www.blogger.com/blog/posts/2791152837199678650" target="_blank" alt="BLOG" />
+		 <SubItem name="↳ 🌍 Vlog- Youtube" link="https://studio.youtube.com/channel" target="_blank" alt="Youtube" />
+		 
 		<SubItem name="↳ 🚩Google Meu negocio" target="_self">
-		        <SubSubItem name=" ↳ 🌍 Meus Perfis de empresas" link="https://business.google.com/locations" target="_blank" alt="google meu negocio" />
+            <SubSubItem name=" ↳ 🌍 Meus Perfis de empresas" link="https://business.google.com/locations" target="_blank" alt="google meu negocio" />
 			<SubSubItem name=" ↳ 🌍 Corretor Fettuccia" link="https://g.co/kgs/STS12Te" target="_blank" alt="google meu negocio" />
 			<SubSubItem name=" ↳ 🌍 Moradas De Porto Fino" link="https://g.co/kgs/XRrWF5F" target="_blank" alt="google meu negocio" />
 		</SubItem>
-                <SubItem name="" />
+        <SubItem name="" />
+		<SubItem name="↳ 🧩 Analitics Google" link="https://analytics.google.com/" target="_blank" alt="Análise de tráfego" />	
 		<SubItem name="↳ 🔒 Ads Google" link="https://ads.google.com/" target="_blank" alt="Gestão de campanhas" />
-		<SubItem name="↳ 🔒 Analitics Google" link="https://analytics.google.com/" target="_blank" alt="Análise de tráfego" />	
 		<SubItem name="↳ 💾 Ads Mananger Meta" link="https://adsmanager.facebook.com/" target="_blank" alt="Gestão de clientes e imóveis" />
 		<SubItem name="↳ 🌍 Ads Gerenciador Meta - Posts" link="https://business.facebook.com" target="_blank" alt="Gestão de clientes e imóveis" />
 		<SubItem name="↳ 📬 Ads Spotfy" link="https://ads.spotify.com/" target="_blank" />
