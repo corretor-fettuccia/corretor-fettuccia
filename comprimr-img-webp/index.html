@@ -6,6 +6,11 @@
     <title>Conversor em Massa para WebP</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- Biblioteca para decodificar HEIC -->
+<!-- Biblioteca para decodificar HEIC -->
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js"></script>
+
+    
     <style>
         * {
             box-sizing: border-box;
@@ -379,8 +384,8 @@
                 <div class="upload-area" id="drop-area">
                     <div class="upload-icon">📁</div>
                     <p>Clique para selecionar imagens ou arraste-as para aqui</p>
-                    <p><small>(Formatos suportados: JPG, PNG, GIF, BMP, WEBP)</small></p>
-                    <input type="file" id="file-input" accept="image/*" multiple style="display: none;">
+                    <p><small>(Formatos suportados: JPG, PNG, GIF, BMP, WEBP, HEIC)</small></p>
+                    <input type="file" id="file-input" accept="image/*,.heic,.HEIC" multiple style="display: none;">
                 </div>
                 
                 <div class="settings">
@@ -540,7 +545,6 @@
         let images = [];
         let processedImages = [];
         let watermarkImage = null;
-        const watermarkUrl = "./lg.png";
         
         // Eventos
         dropArea.addEventListener('click', () => {
@@ -595,7 +599,7 @@
                     console.warn('Não foi possível carregar o watermark remoto. Criando um alternativo.');
                     createFallbackWatermark().then(resolve).catch(reject);
                 };
-                img.src = watermarkUrl + "?t=" + new Date().getTime(); // Adiciona timestamp para evitar cache
+                img.src = document.querySelector('.watermark-preview img').src;
             });
         }
         
@@ -638,40 +642,96 @@
         // Funções
         function handleFiles(files) {
             for (let file of files) {
-                if (file.type.startsWith('image/') || 
-                    ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'].some(ext => file.name.toLowerCase().endsWith(ext))) {
-                    
+                // Verificar se é uma imagem ou arquivo HEIC
+                const isImage = file.type.startsWith('image/');
+                const isHeic = file.name.toLowerCase().endsWith('.heic') || 
+                               file.name.toLowerCase().endsWith('.HEIC') ||
+                               file.type === 'image/heic' || 
+                               file.type === 'image/HEIC';
+                
+                if (isImage || isHeic) {
                     // Verificar se a imagem já foi adicionada
                     if (!images.some(img => img.file.name === file.name && img.file.size === file.size)) {
-                        const reader = new FileReader();
-                        
-                        reader.onload = function(e) {
-                            const imageObj = {
-                                file: file,
-                                dataUrl: e.target.result,
-                                preview: null
-                            };
-                            
-                            const img = new Image();
-                            img.onload = function() {
-                                imageObj.preview = img;
-                                images.push(imageObj);
-                                updateImageList();
-                                
-                                // Se for a primeira imagem, mostrar preview
-                                if (images.length === 1) {
-                                    showPreview(imageObj);
-                                }
-                                
-                                updateStatus(`Imagem "${file.name}" carregada. Total: ${images.length}`, 'success');
-                            };
-                            img.src = e.target.result;
+                        const imageObj = {
+                            file: file,
+                            dataUrl: null,
+                            preview: null,
+                            isHeic: isHeic
                         };
                         
-                        reader.readAsDataURL(file);
+                        // Se for HEIC, converter primeiro
+                        if (isHeic) {
+                            convertHeicToJpeg(file).then(convertedBlob => {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    imageObj.dataUrl = e.target.result;
+                                    const img = new Image();
+                                    img.onload = function() {
+                                        imageObj.preview = img;
+                                        images.push(imageObj);
+                                        updateImageList();
+                                        
+                                        // Se for a primeira imagem, mostrar preview
+                                        if (images.length === 1) {
+                                            showPreview(imageObj);
+                                        }
+                                        
+                                        updateStatus(`Imagem HEIC "${file.name}" convertida e carregada. Total: ${images.length}`, 'success');
+                                    };
+                                    img.src = e.target.result;
+                                };
+                                reader.readAsDataURL(convertedBlob);
+                            }).catch(error => {
+                                console.error('Erro ao converter HEIC:', error);
+                                updateStatus(`Erro ao converter HEIC "${file.name}": ${error.message}`, 'error');
+                            });
+                        } else {
+                            // Para outros formatos de imagem
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                imageObj.dataUrl = e.target.result;
+                                const img = new Image();
+                                img.onload = function() {
+                                    imageObj.preview = img;
+                                    images.push(imageObj);
+                                    updateImageList();
+                                    
+                                    // Se for a primeira imagem, mostrar preview
+                                    if (images.length === 1) {
+                                        showPreview(imageObj);
+                                    }
+                                    
+                                    updateStatus(`Imagem "${file.name}" carregada. Total: ${images.length}`, 'success');
+                                };
+                                img.src = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
                     }
                 }
             }
+        }
+        
+        // Função para converter HEIC para JPEG
+        function convertHeicToJpeg(heicFile) {
+            return new Promise((resolve, reject) => {
+                try {
+                    // Usar a biblioteca heic2any para converter
+                    heic2any({
+                        blob: heicFile,
+                        toType: 'image/jpeg',
+                        quality: 0.8 // 80% de qualidade
+                    })
+                    .then(convertedBlob => {
+                        resolve(convertedBlob);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    });
+                } catch (error) {
+                    reject(error);
+                }
+            });
         }
         
         function updateImageList() {
@@ -690,10 +750,14 @@
                 const listItem = document.createElement('div');
                 listItem.className = 'image-list-item';
                 
+                // Adicionar indicador para HEIC
+                const formatIndicator = image.isHeic ? 
+                    '<span style="color:#4b6cb7; font-weight:bold; margin-right:5px;">[HEIC]</span>' : '';
+                
                 listItem.innerHTML = `
                     <img src="${image.dataUrl}" class="image-list-thumb" alt="${image.file.name}">
                     <div class="image-list-info">
-                        <div class="image-list-name">${image.file.name}</div>
+                        <div class="image-list-name">${formatIndicator}${image.file.name}</div>
                         <div class="image-list-size">${formatFileSize(image.file.size)} • ${image.preview.width}x${image.preview.height}px</div>
                     </div>
                     <div class="image-list-remove" data-index="${index}">✖</div>
