@@ -156,7 +156,7 @@ const urlParams = new URLSearchParams(window.location.search);
   }
 
   // Atualizar visibilidade dos botões
-  setInterval(updateNavButtons, 100);
+  setInterval(updateNavButtons, 10000);
 
 
 
