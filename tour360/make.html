@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Gerador de Links - Tour Virtual 360°</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+  <script src="./lz-string.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -78,7 +78,7 @@ function gerarLink() {
   const dadosJson = JSON.stringify(dados);
   const dadosCompactados = LZString.compressToBase64(dadosJson);
 
-  const base = `http://geocities.ws/fettuccia/tour360`; // <- ajuste para seu domínio depois
+  const base = `https://corretor-fettuccia.github.io/corretor-fettuccia/tour360`; // <- ajuste para seu domínio depois
   const link = `${base}?data=${encodeURIComponent(dadosCompactados)}`;
 
   document.getElementById('linkFinal').innerHTML = `<strong>Link Gerado:</strong><br><a href="${link}" target="_blank">${link}</a>`;
