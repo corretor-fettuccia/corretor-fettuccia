@@ -26,7 +26,7 @@ html, body {
     /* Container do carrossel */
     #thumbnails-container {
       position: absolute;
-      bottom: 20px;
+      bottom: 50px;
       left: 0;
       right: 0;
       height: 70px;
@@ -37,7 +37,7 @@ html, body {
     }
     #thumbnails {
       display: flex;
-      gap: 10px;
+      gap: 0px;
       height: 100%;
       align-items: center;
       transition: transform 0.3s ease;
