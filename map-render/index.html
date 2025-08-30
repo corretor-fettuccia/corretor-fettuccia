@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visualizador de Tiles – Vidanova Santa Rita</title>
+  <style>
+    :root {
+      --tile-size: 256px;
+      --bg: #000000;
+      --panel: #000000;
+      --text: #ffffff;
+      --muted: #888888;
+      --accent: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font: 14px/1.3 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+
+    header {
+      position: fixed; inset: 12px 12px auto 12px; z-index: 10;
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+      background: color-mix(in oklab, var(--panel) 86%, transparent);
+      backdrop-filter: blur(6px);
+      border: 1px solid #1d2330; border-radius: 14px; padding: 10px 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    header label { color: var(--muted); font-size: 12px; }
+    header input, header select { padding: 6px 8px; border-radius: 8px; border: 1px solid #2a3242; background: #0d1117; color: var(--text); }
+    header input { width: 80px; }
+    header button { padding: 8px 12px; border-radius: 10px; border: 1px solid #2a3242; background: #141925; color: var(--text); cursor: pointer; }
+    header button:hover { border-color: var(--accent); color: white; }
+
+    .hint { color: var(--muted); font-size: 12px; }
+
+    .viewport {
+      position: absolute; inset: 0; overflow: hidden; cursor: grab;
+    }
+    .viewport:active { cursor: grabbing; }
+
+    .stage { position: absolute; top: 50%; left: 50%; transform-origin: 0 0; }
+
+    .grid {
+      display: grid;
+      grid-auto-rows: var(--tile-size);
+      background: #000000;
+      outline: 1px solid #333333;
+    }
+    .tile { width: var(--tile-size); height: var(--tile-size); background: #000000; }
+    .tile img { width: 100%; height: 100%; object-fit: cover; display: block; background: #000000; }
+    .tile.broken { background: repeating-conic-gradient(#ff0000 0 25%, #000000 0 50%) 50% / 20px 20px; }
+
+    .badge {
+      position: absolute; right: 12px; bottom: 12px; z-index: 10; background: #000000;
+      border: 1px solid #333333; color: var(--muted); padding: 6px 10px; border-radius: 10px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>Visualizador de Tiles</strong>
+    <label>Base URL:</label>
+    <input id="baseUrl" value="https://smartlot.nyc3.cdn.digitaloceanspaces.com/mapas/vpurbanizadora/vidanovasantarita2" />
+    <label>Zoom (z):</label>
+    <input id="zoom" type="number" value="5" min="0" step="1" />
+    <label>Linhas (y):</label>
+    <input id="minRow" type="number" value="0" step="1" />
+    <input id="maxRow" type="number" value="31" step="1" />
+    <label>Colunas (x):</label>
+    <input id="minCol" type="number" value="0" step="1" />
+    <input id="maxCol" type="number" value="31" step="1" />
+    <label>Tile px:</label>
+    <input id="tileSize" type="number" value="256" step="1" />
+    <label>Ordem:</label>
+    <select id="order">
+      <option value="row">Por Linhas</option>
+      <option value="col">Por Colunas</option>
+    </select>
+    <button id="btnRender">Montar</button>
+    <button id="btnReset">Centralizar</button>
+    <label>Exportar:</label>
+    <select id="format">
+      <option value="png">PNG</option>
+      <option value="jpg">JPG</option>
+      <option value="jpeg">JPEG</option>
+      <option value="webp">WEBP</option>
+    </select>
+    <button id="btnExport">Exportar</button>
+    <span class="hint">Arraste: mover • Ctrl+roda: zoom • Duplo clique: reset</span>
+  </header>
+
+  <div class="viewport" id="viewport">
+    <div class="stage" id="stage">
+      <div class="grid" id="grid"></div>
+    </div>
+  </div>
+
+  <div class="badge" id="badge">—</div>
+
+  <script>
+    const el = {
+      baseUrl: document.getElementById('baseUrl'),
+      zoom: document.getElementById('zoom'),
+      minRow: document.getElementById('minRow'),
+      maxRow: document.getElementById('maxRow'),
+      minCol: document.getElementById('minCol'),
+      maxCol: document.getElementById('maxCol'),
+      tileSize: document.getElementById('tileSize'),
+      order: document.getElementById('order'),
+      format: document.getElementById('format'),
+      grid: document.getElementById('grid'),
+      stage: document.getElementById('stage'),
+      viewport: document.getElementById('viewport'),
+      badge: document.getElementById('badge'),
+      btnRender: document.getElementById('btnRender'),
+      btnReset: document.getElementById('btnReset'),
+      btnExport: document.getElementById('btnExport')
+    };
+
+    let scale = 1;
+    let tx = 0, ty = 0;
+
+    function updateTransform() {
+      el.stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    }
+
+    function centerStage() {
+      const rect = el.grid.getBoundingClientRect();
+      const vp = el.viewport.getBoundingClientRect();
+      tx = vp.width/2 - rect.width/2;
+      ty = vp.height/2 - rect.height/2;
+      scale = 1;
+      updateTransform();
+    }
+
+    // Pan
+    (function(){
+      let dragging=false, sx=0, sy=0, stx=0, sty=0;
+      el.viewport.addEventListener('mousedown', e=>{
+        dragging=true; sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
+      });
+      window.addEventListener('mousemove', e=>{
+        if(!dragging) return;
+        tx=stx+(e.clientX-sx); ty=sty+(e.clientY-sy); updateTransform();
+      });
+      window.addEventListener('mouseup', ()=> dragging=false);
+      el.viewport.addEventListener('dblclick', centerStage);
+    })();
+
+    // Zoom
+    el.viewport.addEventListener('wheel', e=>{
+      if(!e.ctrlKey) return;
+      e.preventDefault();
+      const delta=-Math.sign(e.deltaY)*0.1;
+      const newScale=Math.min(8,Math.max(0.2,scale+delta));
+      const rect=el.stage.getBoundingClientRect();
+      const ox=e.clientX-rect.left;
+      const oy=e.clientY-rect.top;
+      tx=e.clientX-ox*(newScale/scale);
+      ty=e.clientY-oy*(newScale/scale);
+      scale=newScale; updateTransform();
+    },{passive:false});
+
+    function render(){
+      const base=el.baseUrl.value.replace(/\/$/,'');
+      const z=+el.zoom.value;
+      const y0=+el.minRow.value, y1=+el.maxRow.value;
+      const x0=+el.minCol.value, x1=+el.maxCol.value;
+      const size=+el.tileSize.value;
+      const order=el.order.value;
+
+      const rows=y1-y0+1, cols=x1-x0+1;
+      if(rows<=0||cols<=0){ alert('Intervalos inválidos'); return; }
+
+      el.grid.style.setProperty('--tile-size', size+'px');
+      el.grid.style.gridTemplateColumns=`repeat(${cols}, var(--tile-size))`;
+      el.grid.innerHTML='';
+
+      const frag=document.createDocumentFragment();
+      if(order==='row'){
+        for(let y=y0;y<=y1;y++){
+          for(let x=x0;x<=x1;x++){
+            const url=`${base}/${z}/${y}/${x}.jpg?t=${Date.now()}`;
+            const cell=document.createElement('div'); cell.className='tile';
+            const img=document.createElement('img');
+            img.src=url; img.loading='lazy'; img.decoding='async';
+            img.alt=`z${z} y${y} x${x}`;
+            img.onerror=()=>{ cell.classList.add('broken'); };
+            cell.title=img.alt; cell.appendChild(img); frag.appendChild(cell);
+          }
+        }
+      } else {
+        for(let x=x0;x<=x1;x++){
+          for(let y=y0;y<=y1;y++){
+            const url=`${base}/${z}/${y}/${x}.jpg`;
+            const cell=document.createElement('div'); cell.className='tile';
+            const img=document.createElement('img');
+            img.src=url; img.loading='lazy'; img.decoding='async';
+            img.alt=`z${z} y${y} x${x}`;
+            img.onerror=()=>{ cell.classList.add('broken'); };
+            cell.title=img.alt; cell.appendChild(img); frag.appendChild(cell);
+          }
+        }
+      }
+
+      el.grid.appendChild(frag);
+      el.badge.textContent=`z ${z} • linhas ${y0}–${y1} • colunas ${x0}–${x1} • ${rows}×${cols} tiles • ${size}px`;
+      requestAnimationFrame(centerStage);
+    }
+
+    async function exportImage() {
+      try {
+        el.btnExport.disabled = true;
+        el.badge.textContent = 'Preparando exportação...';
+
+        const base = el.baseUrl.value.replace(/\/$/, '');
+        const z = +el.zoom.value;
+        const y0 = +el.minRow.value, y1 = +el.maxRow.value;
+        const x0 = +el.minCol.value, x1 = +el.maxCol.value;
+        const size = +el.tileSize.value;
+        const rows = y1 - y0 + 1, cols = x1 - x0 + 1;
+
+        if (rows * cols > 1000) {
+          if (!confirm(`Isso irá exportar ${rows * cols} tiles. Pode demorar. Continuar?`)) {
+            return;
+          }
+        }
+
+        // Criar canvas com o tamanho total do mosaico
+        const canvas = document.createElement('canvas');
+        canvas.width = cols * size;
+        canvas.height = rows * size;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Criar array de promessas para carregar e desenhar cada tile
+        const promises = [];
+        
+        for (let y = y0; y <= y1; y++) {
+          for (let x = x0; x <= x1; x++) {
+            const posX = (x - x0) * size;
+            const posY = (y - y0) * size;
+            
+            promises.push(new Promise(resolve => {
+              const img = new Image();
+              img.crossOrigin = 'Anonymous';
+              img.onload = () => {
+                ctx.drawImage(img, posX, posY, size, size);
+                el.badge.textContent = `Processando ${((y - y0) * cols + (x - x0) + 1)}/${rows * cols} tiles...`;
+                resolve();
+              };
+              img.onerror = () => {
+                // Desenhar tile de fallback diretamente no canvas
+                ctx.fillStyle = '#1a1d24';
+                ctx.fillRect(posX, posY, size, size);
+                ctx.fillStyle = '#ff0000';
+                ctx.font = 'bold 16px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('404', posX + size/2, posY + size/2);
+                resolve();
+              };
+              img.src = `${base}/${z}/${y}/${x}.jpg?t=${Date.now()}`;
+            }));
+          }
+        }
+
+        await Promise.all(promises);
+
+        // Configurar formato de saída
+        const fmt = el.format.value.toLowerCase();
+        let mime, quality;
+        switch (fmt) {
+          case 'jpg':
+          case 'jpeg':
+            mime = 'image/jpeg';
+            quality = 0.92;
+            break;
+          case 'webp':
+            mime = 'image/webp';
+            quality = 0.90;
+            break;
+          default:
+            mime = 'image/png';
+        }
+
+        // Criar e baixar a imagem final
+        el.badge.textContent = 'Finalizando exportação...';
+        canvas.toBlob(blob => {
+          const link = document.createElement('a');
+          link.download = `mapa-zoom${z}-${y0}-${y1}-${x0}-${x1}.${fmt}`;
+          link.href = URL.createObjectURL(blob);
+          link.click();
+          setTimeout(() => URL.revokeObjectURL(link.href), 100);
+          el.badge.textContent = `Exportado! ${rows}×${cols} tiles`;
+        }, mime, quality);
+
+      } catch (error) {
+        console.error('Erro na exportação:', error);
+        el.badge.textContent = 'Erro na exportação: ' + error.message;
+      } finally {
+        el.btnExport.disabled = false;
+      }
+    }
+
+
+    el.btnRender.addEventListener('click',render);
+    el.btnReset.addEventListener('click',centerStage);
+    el.btnExport.addEventListener('click',exportImage);
+    render();
+  </script>
+</body>
+</html>
+
