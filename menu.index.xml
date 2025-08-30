@@ -318,8 +318,9 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		</SubItem>
 	</Item>
 	<Item name="🧰 Ferramentas">
-		<SubItem name="↳💾 Comprimir imagens Lote" link="./compressIMG" target="_blank" />
 		<SubItem name="↳💾 Comprimir Imagens e converter webp" link="./comprimr-img-webp" target="_blank" />
+		<SubItem name="↳💾 Comprimir imagens Lote" link="./compressIMG" target="_blank" />
+		<SubItem name="↳🏜️ Renderizar Mapas" link="./map-render" target="_blank" />
 		<SubItem name="↳🌍 QR-Code Gerador" link="./qr-code" target="_blank" />
 		<SubItem name="↳💬 URL ENCODE - WHATSAPP" link="./urlEncode" target="_blank" />
 		<SubItem name="↳🔂 RESPOSTA RÁPIDA" link="./fast" target="_blank" />
