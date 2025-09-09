@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatador de Postagens para Imóveis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        /* Container principal */
+.input-tags-container {
+  position: relative;
+  margin: 1rem 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  max-width: 600px;
+}
+
+/* Label */
+.input-tags-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Input principal */
+.input-tags-container input[list] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+/* Efeito quando o input está em foco */
+.input-tags-container input[list]:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+  outline: none;
+}
+
+/* Dropdown (datalist) */
+.input-tags-container datalist {
+  position: absolute;
+  width: 100%;
+  max-height: 250px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0 0 6px 6px;
+  border-top: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 100;
+  margin-top: -1px;
+}
+
+/* Opções do dropdown */
+.input-tags-container option {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+
+/* Efeito hover nas opções */
+.input-tags-container option:hover {
+  background-color: #f8f9fa;
+}
+
+/* Seta indicadora (pseudo-elemento) */
+.input-tags-container::after {
+  content: "▼";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  color: #666;
+  pointer-events: none;
+}
+
+/* Estilo quando o dropdown está ativo */
+.input-tags-container:focus-within::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .input-tags-container {
+    max-width: 100%;
+  }
+  
+  .input-tags-container input[list] {
+    padding: 0.65rem 0.9rem;
+  }
+}
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-item input {
+            margin-right: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            white-space: pre-line;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .section-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .custom-item {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .custom-item input {
+            flex: 1;
+        }
+        #customItemsContainer {
+            margin-top: 10px;
+        }
+        .emoji-picker {
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .emoji-category {
+            margin-bottom: 10px;
+        }
+        .category-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .emoji-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .emoji-option {
+            cursor: pointer;
+            font-size: 20px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .emoji-option:hover {
+            background-color: #f0f0f0;
+        }
+        #emojiSearch {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .valor-input {
+            position: relative;
+        }
+        .valor-input:before {
+            content: "💰";
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-size: 18px;
+        }
+        .valor-input input {
+            padding-left: 35px;
+        }
+        .import-export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .import-export-buttons button {
+            flex: 1;
+        }
+        #fileInput {
+            display: none;
+        }
+        /* Estilo para os itens personalizados com botão de remoção */
+        .custom-item-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .custom-item-content {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .remove-custom-item {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .remove-custom-item:hover {
+            background-color: #d32f2f;
+        }
+        /* Estilo para o campo de andar (inicialmente oculto) */
+        #andarContainer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formatador de Postagens para Imóveis</h1>
+        
+        <div class="import-export-buttons">
+            <button id="exportButton">Exportar Dados</button>
+            <button id="importButton">Importar Dados</button>
+            <input type="file" id="fileInput" accept=".json">
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Informações Básicas</div>
+            <div class="form-group">
+                <label for="tipoImovel">Tipo do Imóvel</label>
+                <select id="tipoImovel">
+                    <option value="Casa">🏡 Casa</option>
+                    <option value="Apartamento">🏢 Apartamento</option>
+                    <option value="Terreno">📌 Terreno</option>
+                    <option value="Loja comercial">🏪 Loja comercial</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="titulo">Título da Postagem</label>
+                <input type="text" id="titulo" placeholder="Ex: Oportunidade em Mathias – Casa dos Sonhos!">
+            </div>
+            
+            <div class="form-group">
+                <label for="localizacao">Localização</label>
+                <input type="text" id="localizacao" placeholder="Ex: Rua Encantado, 999">
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Características</div>
+            <div class="form-group" id="andarContainer">
+                <label for="andar">Número do Andar</label>
+                <input type="number" id="andar" min="0" value="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="dormitorios">Dormitórios</label>
+                <input type="number" id="dormitorios" min="0" value="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="banheiros">Banheiros</label>
+                <input type="number" id="banheiros" min="0" value="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="vagas">Vagas de Estacionamento</label>
+                <input type="number" id="vagas" min="0" value="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="area">Área Privativa (m²)</label>
+                <input type="text" id="area" placeholder="Ex: 120">
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Itens do Imóvel</div>
+            <div class="checkbox-group">
+            <div class="checkbox-item">
+                    <input type="checkbox" id="academia">
+                    <label for="elevador">🏋️ Academia</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="walk">
+                    <label for="walk">🏃 Área de caminhada</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="aguaqente">
+                    <label for="aguaquente">🔥 Agua Quente</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="TomadaCarro">
+                    <label for="TomadaCarro">🚘 Tomada Carro Elétrico</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="lareira">
+                    <label for="lareira">🔥 Lareira</label>
+                </div>
+                
+                 <div class="checkbox-item">
+                    <input type="checkbox" id="suite">
+                    <label for="suite">🛂 Porteiro</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="elevador">
+                    <label for="elevador">🛗 Elevador</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="painelSolar">
+                    <label for="painelSolar">☀️ Painel solar</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="porteiro2">
+                    <label for="porteiro2">🛂 Porteiro 24H</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="closet">
+                    <label for="closet">👠 Closet</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="work">
+                    <label for="work">👔 Escritório</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="Smobiliado">
+                    <label for="Smobiliado">🪑 Semi-Mobiliado</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="piscina">
+                    <label for="piscina">🏊 Piscina</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="churrasqueira">
+                    <label for="churrasqueira">🔥 Churrasqueira</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="mobiliado">
+                    <label for="mobiliado">🪑 Mobiliado</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="Pisoaquecido">
+                    <label for="Pisoaquecido">🌡️ Piso Aquecido</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="piscinaH">
+                    <label for="piscinaH">🏊 Piscina Aquecida</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="salaoFestas">
+                    <label for="salaoFestas">🎉 Salão de festas</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="patio">
+                    <label for="patio">🌳 Pátio</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="sacada">
+                    <label for="sacada">🪟 Sacada</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="adega">
+                    <label for="adega">🍾 Adega</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="Banheira">
+                    <label for="Banheira">🛁 Banheira</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="gourmet">
+                    <label for="gourmet">🍽️ Area Gourmet</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="office">
+                    <label for="office">👔 Espaço Office</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="arCondicionado">
+                    <label for="arCondicionado">❄️ Ar condicionado</label>
+                </div>
+        <div class="checkbox-item">
+                    <input type="checkbox" id="bicicletario">
+                    <label for="bicicletario">🚲 Bicicletário</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="games">
+                    <label for="games">🏓 Sala de Jogos</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="playground">
+                    <label for="playground">🛝 Playground</label>
+                </div>
+                
+                <div class="checkbox-item">
+                    <input type="checkbox" id="QEsporte">
+                    <label for="QEsporte">⚽ Quadra Esporte</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="pista">
+                    <label for="pista">🏃 Pista de passeio</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="tenis">
+                    <label for="tenis">🎾 Quadra de Tenis</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="kids">
+                    <label for="kids">👶 Area Kids</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="teen">
+                    <label for="teen">👶 Area teen</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Adicionar Item Personalizado</label>
+                <div class="custom-item">
+                    <input type="text" id="customEmoji" placeholder="Clique para selecionar emoji" readonly onclick="showEmojiPicker()">
+                    <input type="text" id="customItem" placeholder="Descrição do item">
+                    <button onclick="addCustomItem()">+</button>
+                </div>
+                
+                <div id="emojiPicker" class="emoji-picker" style="display: none;">
+                    <input type="text" id="emojiSearch" placeholder="Pesquisar emoji..." oninput="filterEmojis()">
+                    <div id="emojiCategoriesContainer"></div>
+                </div>
+                
+                <div id="customItemsContainer"></div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <div class="section-title">Informações Adicionais</div>
+            <div class="form-group">
+                <label for="negociacao">Tipo de Negociação</label>
+                <input type="text" id="negociacao" placeholder="Ex: Negociação direta com o proprietário!">
+            </div>
+            
+            <div class="form-group valor-input">
+                <label for="valor">Valor do Imóvel</label>
+                <input type="text" id="valor" placeholder="Digite apenas números (ex: 350000)">
+            </div>
+            
+            <div class="form-group">
+                <label for="publicoAlvo">Para quem é...</label>
+                <textarea id="publicoAlvo" rows="2" placeholder="Ex: Ideal para famílias que buscam conforto e segurança"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="observacao">Observação</label>
+                <textarea id="observacao" rows="3" placeholder="Ex: Essa casa é ideal para quem busca conforto, espaço e praticidade..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="chamada">Chamada para Ação</label>
+                <input type="text" id="chamada" placeholder="Ex: Entre em contato e agende uma visita!">
+            </div>
+            
+            <div class="form-group">
+                <label for="tags">Tags (separadas por vírgula)</label>
+                <input list="tagss" id="tags" placeholder="Ex: #CasaAVenda, #ImóvelMathias, #Oportunidade" style="width: 100%;">
+            	<datalist id="tagss">
+            	<option value="#minhacasaminhavida #mcmv #compreagora #grandeportoalegre #canoas-rs #esteio-rs #portoalegre #canoasmilgrau #novasantarita #novasantaritamiugrau #corretorfettuccia">
+            	  <option value="#ImoveisPopularesRS #sementrada #CasasAcessiveisRS #MoradiaPopularRS #FinanciamentoImovelRS #MinhaCasaMinhaVidaRS #ApartamentoBaratoPOA #ImoveisEconomicosRS #CasaPropriaRS #ImovelPopularPOA #MoradiaBemLocalizadaRS #corretorfettuccia">
+            	  <option value="#ConstrucaoRS #EngenhariaGaucha #ObrasNoRS #ReformasRS #ArquitetoRS #PlantasDeCasasRS #MateriaisDeConstrucaoRS #ConstrucaoCivilRS #ConstrutorasRS #ProjetosResidenciaisRS">
+<option value="#TerrenosRS #LoteamentosRS #ComprarTerrenoRS #TerrenosBaratosRS #TerrenosNobresRS #TerrenosLitoralRS #TerrenosSerraGaucha #TerrenosUrbanosRS #TerrenosRuraisRS #LoteamentoFeitoRS">
+<option value="#InvestimentoImobiliarioRS #FlippingRS #ImoveisParaAlugarRS #RendaPassivaRS #OportunidadesImobiliariasRS #ImoveisDescontadosRS #RetornoFinanceiroRS #InvestirNoRS #CarteiraDeImoveis #LocacaoResidencialRS">
+<option value="#ImoveisComerciaisRS #SalaComercialPOA #LojasParaAlugarRS #GalpoesRS #PontosComerciaisRS #EscritoriosRS #ImovelParaNegocioRS #ComercioNoRS #ImovelComercialPOA #SalaoComercialRS">
+<option value="#AltoPadraoRS #CasasDeLuxoRS #CondominioExclusivoRS #BairrosNobresPOA #ImoveisPremiumRS #VidaDeLuxoRS #MansoesRS #ApartamentosLuxoPOA #ResidencialPremiumRS #ImoveisExclusivosRS">
+ <option value="#ImoveisDeLuxoRS #LuxoNaSerraGaucha #CoberturasPOA #CasasComPiscinaRS #VistaParaOMarRS #DesignDeInterioresRS #EleganciaNoRS #MansoesNaSerra #HighEndRS #LuxuryRealEstateRS">
+            	</datalist> 
+            
+            </div>
+        </div>
+        
+        <button id="gerarPostagem">Gerar Postagem</button>
+        
+        <div class="form-group">
+            <label for="resultado">Postagem Formatada:</label>
+            <div id="resultado"></div>
+            <button id="copiarTexto">Copiar Texto</button>
+        </div>
+    </div>
+
+    <script>
+        // Mapeamento de emojis
+        const emojiMap = {
+            'Casa': '🏡',
+            'Condominio':'🏘️',
+            'Apartamento': '🏢',
+            'bicicletario': '🚲',
+            'Terreno': '📌',
+            'Loja comercial': '🏪',
+            'dormitorios': '🛏️',
+            'banheiros': '🚿',
+            'vagas': '🚙',
+            'gourmet': '🍽️',
+            'TomadaCarro': '🚘',
+            'area': '📐',
+            'elevador': '🛗',
+            'painelSolar': '☀️',
+            'porteiro': '🛂',
+            'closet': '👠',
+            'work': '👔',
+            'office': '👔',
+            'mobiliado': '🪑',
+            'Smobiliado': '🪑',
+            'piscina': '🏊',
+            'piscinaH': '🏊',
+            'churrasqueira': '🔥',
+            'Pisoaquecido':'🌡️',
+            'lareira':'🔥',
+            'aguaquente':'🔥',
+            'salaoFestas': '🎉',
+            'porteiro':'🛂',
+            'porteiro2':'🛂',
+            'patio': '🌳',
+            'sacada': '🪟',
+            'arCondicionado': '❄️',
+            'localizacao': '📍',
+            'negociacao': '💬',
+            'playground':'🛝',
+        'adega':'🍾',
+            'chamada': '📲',
+            'valor': '💰',
+            'games': '🏓',
+            'QEsporte':'⚽',
+            'academia':'🏋️',
+            'walk':'🏃',
+            'pista':'🏃',
+            'tenis':'🎾',
+            'kids':'👶',
+            'teen':'👶',
+            'andar': '🪜'
+        };
+
+        // Emojis organizados por categoria
+        const emojiCategories = [
+            {
+                name: "Tipos de Imóvel",
+                emojis: ["🏡", "🏢", "🏠", "🏘️", "🏚️", "🏗️", "🏭", "🏣", "🏤", "🏥"]
+            },
+            {
+                name: "Cômodos",
+                emojis: ["🛏️", "🪜", "🪟", "🚿", "🛁", "🚽", "🍽️", "🛋️", "📺", "👠"]
+            },
+            {
+                name: "Bem estar",
+                emojis: ["🔥", "☀️", "❄️", "⛄", "🌡️", "🧘", "👥", "🌟", "🏞️", "⚜️"]
+            },
+            {
+                name: "Áreas Externas",
+                emojis: ["🌳", "🌿", "🖼️", "🛡️", "🏝️", "🌷", "🏀", "🚗", "♿", "🛝"]
+            },
+            {
+                name: "Diversos",
+                emojis: ["✅", "⭐", "✨", "🔹", "💰", "📌", "📍", "📞", "🛡️", "💬"]
+            },
+            {
+                name: "Comodidades",
+                emojis: ["🛗", "🥂", "⚡", "💡", "🔌", "📙", "🔑", "🗝️", "🔋", "🪑"]
+            },
+            {
+                name: "Utilidades",
+                emojis: ["🪣", "🧹", "🫕", "❇️", "🛒", "🛍️", "📦", "🆗", "🔁", "🧸"]
+            },
+            {
+                name: "Estilo de vida",
+                emojis: ["💅", "🏃", "🚲", "⚓", "⛵", "💯", "🥂", "🔸", "🔶", "👁️‍🗨️"]
+            }
+        ];
+
+        // Itens personalizados
+        let customItems = [];
+
+        // Mostrar/ocultar o campo do andar baseado no tipo de imóvel selecionado
+        function toggleAndarField() {
+            const tipoImovel = document.getElementById('tipoImovel').value;
+            const andarContainer = document.getElementById('andarContainer');
+            
+            if (tipoImovel === 'Apartamento') {
+                andarContainer.style.display = 'block';
+            } else {
+                andarContainer.style.display = 'none';
+            }
+        }
+
+        // Formatar o texto do andar
+        function formatarAndar(andar) {
+            if (andar == 0) {
+                return '🪜 Térreo';
+            } else if (andar == 1) {
+                return '🪜 1º Andar';
+            } else {
+                return `🪜 ${andar}º Andar`;
+            }
+        }
+
+        // Mostrar/ocultar o seletor de emojis
+        function showEmojiPicker() {
+            const picker = document.getElementById('emojiPicker');
+            picker.style.display = picker.style.display === 'none' ? 'block' : 'none';
+            
+            if (picker.style.display === 'block' && !picker.dataset.loaded) {
+                loadEmojiCategories();
+                picker.dataset.loaded = true;
+            }
+        }
+
+        // Carregar categorias de emojis
+        function loadEmojiCategories() {
+            const container = document.getElementById('emojiCategoriesContainer');
+            container.innerHTML = '';
+            
+            emojiCategories.forEach(category => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'emoji-category';
+                
+                const title = document.createElement('div');
+                title.className = 'category-title';
+                title.textContent = category.name;
+                
+                const emojiList = document.createElement('div');
+                emojiList.className = 'emoji-list';
+                
+                category.emojis.forEach(emoji => {
+                    const emojiOption = document.createElement('span');
+                    emojiOption.className = 'emoji-option';
+                    emojiOption.textContent = emoji;
+                    emojiOption.onclick = () => {
+                        document.getElementById('customEmoji').value = emoji;
+                        document.getElementById('emojiPicker').style.display = 'none';
+                    };
+                    emojiList.appendChild(emojiOption);
+                });
+                
+                categoryDiv.appendChild(title);
+                categoryDiv.appendChild(emojiList);
+                container.appendChild(categoryDiv);
+            });
+        }
+
+        // Filtrar emojis
+        function filterEmojis() {
+            const searchTerm = document.getElementById('emojiSearch').value.toLowerCase();
+            const allEmojis = document.querySelectorAll('.emoji-option');
+            
+            allEmojis.forEach(emoji => {
+                const emojiText = emoji.textContent;
+                if (!searchTerm || emojiText.toLowerCase().includes(searchTerm)) {
+                    emoji.style.display = 'inline-block';
+                } else {
+                    emoji.style.display = 'none';
+                }
+            });
+        }
+
+        // Adicionar item personalizado
+        function addCustomItem() {
+            const emoji = document.getElementById('customEmoji').value;
+            const descricao = document.getElementById('customItem').value;
+            
+            if (emoji && descricao) {
+                customItems.push({ emoji, descricao });
+                updateCustomItemsDisplay();
+                document.getElementById('customEmoji').value = '';
+                document.getElementById('customItem').value = '';
+            }
+        }
+
+        // Remover item personalizado
+        function removeCustomItem(index) {
+            customItems.splice(index, 1);
+            updateCustomItemsDisplay();
+        }
+
+        // Atualizar exibição de itens personalizados
+        function updateCustomItemsDisplay() {
+            const container = document.getElementById('customItemsContainer');
+            container.innerHTML = '';
+            
+            customItems.forEach((item, index) => {
+                const itemContainer = document.createElement('div');
+                itemContainer.className = 'custom-item-container';
+                
+                const itemContent = document.createElement('div');
+                itemContent.className = 'custom-item-content';
+                itemContent.innerHTML = `
+                    <input type="checkbox" id="custom-${index}" checked>
+                    <label for="custom-${index}">${item.emoji} ${item.descricao}</label>
+                `;
+                
+                const removeButton = document.createElement('button');
+                removeButton.className = 'remove-custom-item';
+                removeButton.textContent = 'Remover';
+                removeButton.onclick = () => removeCustomItem(index);
+                
+                itemContainer.appendChild(itemContent);
+                itemContainer.appendChild(removeButton);
+                container.appendChild(itemContainer);
+            });
+        }
+
+        // Função para formatar valor em BRL (apenas na geração)
+        function formatarValorParaTexto(valor) {
+            if (!valor) return 'R$ 0,00';
+            
+            // Remove tudo que não é dígito
+            let value = valor.replace(/\D/g, '');
+            
+            // Se estiver vazio, retorna zero
+            if (value === '') return 'R$ 0,00';
+            
+            // Garante que temos pelo menos centavos
+            while (value.length < 3) {
+                value = '0' + value;
+            }
+            
+            // Separa reais e centavos
+            const reais = value.slice(0, -2) || '0';
+            const centavos = value.slice(-2);
+            
+            // Formata os reais com pontos
+            let reaisFormatados = '';
+            let count = 0;
+            
+            for (let i = reais.length - 1; i >= 0; i--) {
+                reaisFormatados = reais[i] + reaisFormatados;
+                count++;
+                if (count % 3 === 0 && i !== 0) {
+                    reaisFormatados = '.' + reaisFormatados;
+                }
+            }
+            
+            return 'R$ ' + reaisFormatados + ',' + centavos;
+        }
+
+        // Exportar dados do formulário para JSON
+        function exportData() {
+            const formData = {
+                tipoImovel: document.getElementById('tipoImovel').value,
+                titulo: document.getElementById('titulo').value,
+                localizacao: document.getElementById('localizacao').value,
+                andar: document.getElementById('andar').value,
+                dormitorios: document.getElementById('dormitorios').value,
+                banheiros: document.getElementById('banheiros').value,
+                vagas: document.getElementById('vagas').value,
+                area: document.getElementById('area').value,
+                valor: document.getElementById('valor').value,
+                publicoAlvo: document.getElementById('publicoAlvo').value,
+                negociacao: document.getElementById('negociacao').value,
+                observacao: document.getElementById('observacao').value,
+                chamada: document.getElementById('chamada').value,
+                tags: document.getElementById('tags').value,
+                checkboxes: {},
+                customItems: customItems
+            };
+
+            // Salvar estado dos checkboxes
+            document.querySelectorAll('.checkbox-group input[type="checkbox"]').forEach(checkbox => {
+                formData.checkboxes[checkbox.id] = checkbox.checked;
+            });
+
+            // Criar arquivo JSON
+            const dataStr = JSON.stringify(formData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+            
+            // Criar link de download
+            const exportFileDefaultName = 'postagem-imovel.json';
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        // Importar dados do formulário de um arquivo JSON
+        function importData(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                try {
+                    const formData = JSON.parse(e.target.result);
+                    
+                    // Preencher campos básicos
+                    document.getElementById('tipoImovel').value = formData.tipoImovel || '';
+                    document.getElementById('titulo').value = formData.titulo || '';
+                    document.getElementById('localizacao').value = formData.localizacao || '';
+                    document.getElementById('andar').value = formData.andar || '0';
+                    document.getElementById('dormitorios').value = formData.dormitorios || '0';
+                    document.getElementById('banheiros').value = formData.banheiros || '0';
+                    document.getElementById('vagas').value = formData.vagas || '0';
+                    document.getElementById('area').value = formData.area || '';
+                    document.getElementById('valor').value = formData.valor || '';
+                    document.getElementById('publicoAlvo').value = formData.publicoAlvo || '';
+                    document.getElementById('negociacao').value = formData.negociacao || '';
+                    document.getElementById('observacao').value = formData.observacao || '';
+                    document.getElementById('chamada').value = formData.chamada || '';
+                    document.getElementById('tags').value = formData.tags || '';
+                    
+                    // Atualizar visibilidade do campo andar
+                    toggleAndarField();
+                    
+                    // Preencher checkboxes
+                    if (formData.checkboxes) {
+                        for (const id in formData.checkboxes) {
+                            const checkbox = document.getElementById(id);
+                            if (checkbox) {
+                                checkbox.checked = formData.checkboxes[id];
+                            }
+                        }
+                    }
+                    
+                    // Preencher itens personalizados
+                    if (formData.customItems && Array.isArray(formData.customItems)) {
+                        customItems = formData.customItems;
+                        updateCustomItemsDisplay();
+                    }
+                    
+                    alert('Dados importados com sucesso!');
+                } catch (error) {
+                    alert('Erro ao importar dados: ' + error.message);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+
+
+        // Gerar a postagem
+            document.getElementById('gerarPostagem').addEventListener('click', function() {
+            const tipoImovel = document.getElementById('tipoImovel').value;
+            const titulo = document.getElementById('titulo').value;
+            const localizacao = document.getElementById('localizacao').value;
+            const andar = document.getElementById('andar').value;
+            const dormitorios = document.getElementById('dormitorios').value;
+            const banheiros = document.getElementById('banheiros').value;
+            const vagas = document.getElementById('vagas').value;
+            const area = document.getElementById('area').value;
+            const valor = document.getElementById('valor').value;
+            const valorFormatado = formatarValorParaTexto(valor);
+            const publicoAlvo = document.getElementById('publicoAlvo').value;
+            const negociacao = document.getElementById('negociacao').value;
+            const observacao = document.getElementById('observacao').value;
+            const chamada = document.getElementById('chamada').value;
+            const tags = document.getElementById('tags').value;
+            
+            // Itens selecionados
+            const itensSelecionados = [];
+            document.querySelectorAll('.checkbox-group input:checked').forEach(item => {
+                if (emojiMap[item.id]) {
+                    itensSelecionados.push({
+                        emoji: emojiMap[item.id],
+                        descricao: item.nextElementSibling.textContent.replace(/^[^\w\s]+/, '').trim()
+                    });
+                }
+            });
+            
+            // Itens personalizados selecionados
+            document.querySelectorAll('#customItemsContainer input:checked').forEach((item, index) => {
+                itensSelecionados.push(customItems[index]);
+            });
+            
+            // Gerar texto formatado
+            let postagem = `${emojiMap[tipoImovel.split(' ')[0]] || ''} ${titulo}\n\n`;
+            
+            postagem += `${emojiMap['dormitorios'] || ''} ${dormitorios} Dormitório${dormitorios > 1 ? 's' : ''} | `;
+            postagem += `${emojiMap['banheiros'] || ''} ${banheiros} Banheiro${banheiros > 1 ? 's' : ''}`;
+            
+            if (vagas > 0) {
+                postagem += ` | ${emojiMap['vagas'] || ''} Vaga ${vagas} carro${vagas > 1 ? 's' : ''}`;
+            }
+            
+            // Adicionar andar se for apartamento e estiver preenchido
+            if (tipoImovel === 'Apartamento' && andar !== undefined && andar !== '') {
+                postagem += ` | ${formatarAndar(andar)}`;
+            }
+            
+            postagem += `\n${emojiMap['localizacao'] || ''} End.: ${localizacao}\n`;
+            
+            if (valor) {
+                postagem += `${emojiMap['valor'] || ''} Valor: ${valorFormatado}\n\n`;
+            } else {
+                postagem += '\n';
+            }
+            
+            if (area) {
+                postagem += `${emojiMap['area'] || ''} Área privativa: ${area}m²\n\n`;
+            }
+            
+            if (publicoAlvo) {
+                postagem += `Para quem é:\n${publicoAlvo}\n\n`;
+            }
+            
+            if (itensSelecionados.length > 0) {
+                itensSelecionados.forEach(item => {
+                    postagem += `${item.emoji} ${item.descricao}\n`;
+                });
+                postagem += '\n';
+            }
+            
+            if (negociacao) {
+                postagem += `${emojiMap['negociacao'] || ''} ${negociacao}\n\n`;
+            }
+            
+            if (observacao) {
+                postagem += `${observacao}\n\n`;
+            }
+            
+            if (chamada) {
+                postagem += `${emojiMap['chamada'] || ''} ${chamada}\n\n`;
+            }
+            
+            if (tags) {
+                postagem += `${tags.split(',').map(tag => tag.trim() ? `${tag.trim()}` : '').join(' ')}`;
+            }
+            
+            document.getElementById('resultado').textContent = postagem;
+        });
+        
+        // Copiar texto
+        document.getElementById('copiarTexto').addEventListener('click', function() {
+            const resultado = document.getElementById('resultado');
+            navigator.clipboard.writeText(resultado.textContent)
+                .then(() => alert('Texto copiado com sucesso!'))
+                .catch(err => alert('Erro ao copiar texto: ' + err));
+        });
+        
+        // Configurar botões de importação/exportação
+        document.getElementById('exportButton').addEventListener('click', exportData);
+        document.getElementById('importButton').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                importData(e.target.files[0]);
+            }
+        });
+
+        // Inicializar o campo andar (oculto por padrão)
+        document.getElementById('andarContainer').style.display = 'none';
+        
+        // Monitorar mudanças no tipo de imóvel
+        document.getElementById('tipoImovel').addEventListener('change', toggleAndarField);
+    </script>
+</body>
+</html>
