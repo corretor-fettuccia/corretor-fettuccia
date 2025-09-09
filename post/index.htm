@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formatador de Postagens para Imóveis</title>
     <style>
+        .result-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .result-actions button {
+            flex: 1;
+        }
+        #compartilharWhatsApp {
+            background-color: #25D366;
+        }
+        #compartilharWhatsApp:hover {
+            background-color: #128C7E;
+        }
+        #baixarTexto {
+            background-color: #2196F3;
+        }
+        #baixarTexto:hover {
+            background-color: #0b7dda;
+        }
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -546,7 +566,11 @@
         <div class="form-group">
             <label for="resultado">Postagem Formatada:</label>
             <div id="resultado"></div>
-            <button id="copiarTexto">Copiar Texto</button>
+            <div class="result-actions">
+                <button id="copiarTexto">Copiar Texto</button>
+                <button id="baixarTexto">Baixar como TXT</button>
+                <button id="compartilharWhatsApp">Compartilhar no WhatsApp</button>
+            </div>
         </div>
     </div>
 
@@ -767,6 +791,31 @@
                 itemContainer.appendChild(removeButton);
                 container.appendChild(itemContainer);
             });
+        }
+
+        // Função para formatar valor enquanto digita
+        function formatarValorInput(input) {
+            let value = input.value.replace(/\D/g, '');
+            
+            if (value.length > 2) {
+                value = value.replace(/^0+/, '');
+                const reais = value.slice(0, -2) || '0';
+                const centavos = value.slice(-2);
+                input.value = reais + ',' + centavos;
+                
+                // Calcular valor por m² se área estiver preenchida
+                const area = parseFloat(document.getElementById('area').value);
+                if (area && area > 0) {
+                    const valorNumerico = parseFloat(reais + '.' + centavos);
+                    const valorM2 = (valorNumerico / area).toFixed(2);
+                    document.getElementById('valorPorM2').style.display = 'block';
+                    document.getElementById('valorPorM2').textContent = `Valor por m²: R$ ${valorM2.replace('.', ',')}`;
+                } else {
+                    document.getElementById('valorPorM2').style.display = 'none';
+                }
+            } else if (value.length > 0) {
+                input.value = '0,' + value.padStart(2, '0');
+            }
         }
 
         // Função para formatar valor em BRL (apenas na geração)
@@ -992,6 +1041,26 @@
                 .then(() => alert('Texto copiado com sucesso!'))
                 .catch(err => alert('Erro ao copiar texto: ' + err));
         });
+
+        // Baixar como TXT
+        document.getElementById('baixarTexto').addEventListener('click', function() {
+            const texto = document.getElementById('resultado').textContent;
+            const blob = new Blob([texto], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'postagem-imovel.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        // Compartilhar no WhatsApp
+        document.getElementById('compartilharWhatsApp').addEventListener('click', function() {
+            const texto = encodeURIComponent(document.getElementById('resultado').textContent);
+            window.open(`https://wa.me/?text=${texto}`, '_blank');
+        });
         
         // Configurar botões de importação/exportação
         document.getElementById('exportButton').addEventListener('click', exportData);
@@ -1007,6 +1076,21 @@
         // Inicializar o campo andar (oculto por padrão)
         document.getElementById('andarContainer').style.display = 'none';
         
+        // Calcular valor por m² quando área muda
+        function calcularValorPorM2() {
+            const valorInput = document.getElementById('valor').value;
+            const area = parseFloat(document.getElementById('area').value);
+            
+            if (valorInput && area && area > 0) {
+                const valorNumerico = parseFloat(valorInput.replace(/\D/g, '')) / 100;
+                const valorM2 = (valorNumerico / area).toFixed(2);
+                document.getElementById('valorPorM2').style.display = 'block';
+                document.getElementById('valorPorM2').textContent = `Valor por m²: R$ ${valorM2.replace('.', ',')}`;
+            } else {
+                document.getElementById('valorPorM2').style.display = 'none';
+            }
+        }
+
         // Monitorar mudanças no tipo de imóvel
         document.getElementById('tipoImovel').addEventListener('change', toggleAndarField);
     </script>
