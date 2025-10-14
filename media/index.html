@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora ASPEN</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4KX380T5BD');
+</script>
+
+
+    <div class="container">
+    <br>
+    <button id="printButton" class="actions" onclick="window.print()">Imprimir</button>
+    <label id="name-caption" for="name"></label>
+    <input type="text" id="name" placeholder="Nome">
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+       <div style="display: flex; flex-direction: column; align-items: flex-start;width: 80%;">
+	    	<label for="analista" style="aligin: center;">Analista</label>
+	    	<input type="text" id="analista" placeholder="Analisado Por [nome analista]">
+	    	<div style="aligin:center;">
+	    		<label id="datetime"></label>
+	    	</div>
+	</div>
+        <div id="average"></div>
+        <div id="total"></div>
+        <div id="columns" class="columns"></div>
+        <div class="additional-info"> </div>
+     	<button id="exportButton" class="actions" >Exportar</button>
+        <input type="file" id="importInput" style="display: none;">
+        <button id="importButton" class="actions" >Importar</button>
+        
+</div>
+
+    <script src="script.js"></script>
+    <script src="time.js"></script>
+    
+    <script>
+	document.addEventListener('DOMContentLoaded', () => {
+	    const nameInput = document.getElementById('name');
+
+	    nameInput.addEventListener('input', () => {
+		nameInput.setAttribute('title', nameInput.value);
+	    });
+	});
+
+    </script>
+</body>
+<!-- Hosted by www.Geocities.ws -->
+</html>
+
+
+

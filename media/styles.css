@@ -1,0 +1,154 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 75%;
+    margin: 0;
+    background-color: #f4f4f4;
+    overflow-x: hidden; /* Impede a rolagem horizontal */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 99%;
+    margin: 0 auto;
+    justify-content: center; /* Centraliza as colunas no eixo x */
+}
+
+.columns {
+    display: flex;
+    flex-wrap: nowrap; /* Impede a quebra de linha das colunas */
+    overflow-x: auto; /* Adiciona a rolagem horizontal */
+    width: 100%;
+    justify-content: center; /* Centraliza as colunas no eixo x */
+
+}
+
+/* CSS para o input */
+#name {
+    border: none;
+    outline: none; /* Remove a borda ao focar */
+    width: 100%;
+    border-bottom: 1px solid #000; /* Adiciona a linha de underline */
+    padding-bottom: 5px; /* Adiciona espaço entre o texto e a linha de underline */
+    margin-bottom: 10px; /* Adiciona margem abaixo do input */
+    text-align: center; /* Alinha o texto ao centro */
+    text-transform: uppercase; /* Força o texto a ser digitado em maiúsculas */
+}
+
+/* CSS para o input */
+#analista {
+    border: none;
+    outline: none; /* Remove a borda ao focar */
+    width: 100%;
+    border-bottom: 1px solid #000; /* Adiciona a linha de underline */
+    padding-bottom: 5px; /* Adiciona espaço entre o texto e a linha de underline */
+    margin-bottom: 10px; /* Adiciona margem abaixo do input */
+    text-align: center; /* Alinha o texto ao centro */
+    text-transform: uppercase; /* Força o texto a ser digitado em maiúsculas */
+}
+/* CSS para a legenda */
+#name-caption {
+    font-size: 12px; /* Tamanho da fonte */
+    color: #666; /* Cor do texto */
+    margin-bottom: 5px; /* Adiciona margem abaixo da legenda */
+    text-transform: uppercase; /* Força o texto a ser digitado em maiúsculas */
+}
+
+.total-row {
+    font-weight: bold;
+    border-bottom: 1px solid #000; /* Adiciona a linha de underline */
+    padding-bottom: 5px; /* Adiciona espaço entre o texto e a linha de underline */
+    margin-bottom: 10px; /* Adiciona margem abaixo do input */
+}
+
+#average {
+    font-weight: bold;
+    font-size: 125%;
+}
+
+.column {
+    margin: 5px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 200px; /* Largura fixa para cada coluna */
+    box-sizing: border-box; /* Inclui padding e border no tamanho total */
+}
+
+.column .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.column input[type="text"] {
+    width: 100%;
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+
+.entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    white-space: nowrap; /* Evita quebra de linha */
+}
+
+.entry .entry-value {
+    flex-grow: 1; /* Faz com que o valor ocupe o máximo de espaço possível */
+}
+
+.chart-container {
+    max-height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: top;
+    align-items: top;
+    margin-bottom: 20px;
+}
+
+canvas {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Estilos normais */
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Estilos para impressão */
+@media print {
+    .actions {
+        display: none; /* Oculta os elementos com a classe .actions durante a impressão */
+    }
+}
+
+
+/* Estilo normal para selects */
+select {
+    appearance: none; /* Remove o estilo padrão do navegador */
+    background-color: white; /* Cor de fundo */
+    border: 1px solid #ccc; /* Borda */
+    padding: 5px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho da fonte */
+    font-weight: bold;
+    cursor: pointer; /* Cursor de ponteiro */
+}
+
+/* Estilo para selects desativados */
+select:disabled {
+    background-color: white; /* Cor de fundo igual aos selects normais */
+    color: black; /* Cor do texto */
+    border: 1px solid #ccc; /* Borda igual aos selects normais */
+    cursor: default; /* Cursor padrão */
+    opacity: 1; /* Remover a opacidade padrão */
+    font-weight: bold;
+}
