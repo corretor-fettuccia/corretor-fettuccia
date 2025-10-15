@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkRápido | Encurtador Profissional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #ecf0f1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(52, 73, 94, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .form-group {
+            margin-bottom: 35px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #ecf0f1;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        input[type="url"] {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(44, 62, 80, 0.8);
+            color: #ecf0f1;
+            backdrop-filter: blur(10px);
+        }
+        
+        input[type="url"]::placeholder {
+            color: #95a5a6;
+        }
+        
+        input[type="url"]:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 
+                0 0 0 4px rgba(52, 152, 219, 0.15),
+                0 8px 25px rgba(0, 0, 0, 0.2);
+            background: rgba(44, 62, 80, 0.9);
+            transform: translateY(-2px);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 20px 32px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 30px rgba(52, 152, 219, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+        
+        .result {
+            margin-top: 35px;
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+            border-radius: 16px;
+            color: white;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .result h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #ecf0f1;
+        }
+        
+        .short-url {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            background: rgba(44, 62, 80, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .short-url input {
+            flex: 1;
+            padding: 20px;
+            border: none;
+            font-size: 1.1rem;
+            background: transparent;
+            color: #ecf0f1;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border: none;
+            padding: 20px 28px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1rem;
+            min-width: 120px;
+        }
+        
+        .copy-btn:hover {
+            background: linear-gradient(135deg, #229954 0%, #1e8449 100%);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            font-size: 1rem;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .url-preview {
+            background: rgba(44, 62, 80, 0.6);
+            padding: 18px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
+            border-left: 4px solid #3498db;
+            color: #bdc3c7;
+        }
+        
+        /* Página de Redirecionamento Moderna */
+        .redirect-page {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+        
+        .redirect-container {
+            background: rgba(52, 73, 94, 0.95);
+            backdrop-filter: blur(30px);
+            border-radius: 24px;
+            padding: 60px 50px;
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            max-width: 550px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .redirect-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(52, 152, 219, 0.1),
+                rgba(46, 204, 113, 0.1),
+                rgba(155, 89, 182, 0.1),
+                transparent
+            );
+            animation: rotate 8s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .logo-container {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            filter: brightness(1.1) contrast(1.1);
+        }
+        
+        .redirect-message {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            color: #ecf0f1;
+            font-weight: 300;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .loading-animation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .orbital-loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+        
+        .orbital-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 50%;
+            animation: orbital 2s linear infinite;
+        }
+        
+        .orbital-dot:nth-child(1) {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 0s;
+        }
+        
+        .orbital-dot:nth-child(2) {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            animation-delay: 0.5s;
+        }
+        
+        .orbital-dot:nth-child(3) {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 1s;
+        }
+        
+        .orbital-dot:nth-child(4) {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes orbital {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            25% {
+                transform: translateX(-50%) scale(1.5);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .progress-container {
+            width: 100%;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+        
+        .modern-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .modern-progress::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%);
+            animation: shine 2s infinite;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db 0%, #27ae60 100%);
+            border-radius: 3px;
+            width: 0%;
+            animation: progress-fill 3s ease-in-out forwards;
+            position: relative;
+            z-index: 2;
+        }
+        
+        @keyframes progress-fill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .destination-info {
+            background: rgba(44, 62, 80, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .destination-info strong {
+            color: #ecf0f1;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .destination-url {
+            color: #bdc3c7;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+        
+        .fallback-link {
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #bdc3c7;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .fallback-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .fallback-link a:hover {
+            color: #2980b9;
+            border-bottom-color: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 16px;
+            }
+            
+            .content {
+                padding: 30px 25px;
+            }
+            
+            header {
+                padding: 30px 25px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .redirect-container {
+                padding: 40px 30px;
+                margin: 20px;
+            }
+            
+            .redirect-message {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .logo img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LinkRápido</h1>
+            <p>Encurtador de URLs</p>
+        </header>
+        
+        <div class="content">
+            <div class="form-group">
+                <label for="original-url">COLE SUA URL AQUI</label>
+                <input type="url" id="original-url" placeholder="https://www.exemplo.com/url-muito-longa" required>
+                
+                <div class="url-preview" id="url-preview" style="display: none;">
+                    <strong>URL DETECTADA:</strong> <span id="preview-text"></span>
+                </div>
+            </div>
+            
+            <button id="shorten-btn">ENCURTAR URL</button>
+            
+            <div class="result" id="result">
+                <h3>URL ENCURTADA COM SUCESSO</h3>
+                <p>Seu link compactado está pronto para compartilhar:</p>
+                
+                <div class="short-url">
+                    <input type="text" id="short-url" readonly>
+                    <button class="copy-btn" id="copy-btn">COPIAR</button>
+                </div>
+                
+                <div class="stats" hidden>
+                    <span id="original-length">Original: 0 caracteres</span>
+                    <span id="short-length">Compactado: 0 caracteres</span>
+                    <span id="reduction">Redução: 0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const home = window.location.origin + window.location.pathname;
+        
+        const originalUrlInput = document.getElementById('original-url');
+        const shortenBtn = document.getElementById('shorten-btn');
+        const resultDiv = document.getElementById('result');
+        const shortUrlInput = document.getElementById('short-url');
+        const copyBtn = document.getElementById('copy-btn');
+        const originalLength = document.getElementById('original-length');
+        const shortLength = document.getElementById('short-length');
+        const reduction = document.getElementById('reduction');
+        const urlPreview = document.getElementById('url-preview');
+        const previewText = document.getElementById('preview-text');
+        
+        function compressLongUrl(url) {
+            if (url.length > 1000) {
+                const chunks = [];
+                const chunkSize = 500;
+                
+                for (let i = 0; i < url.length; i += chunkSize) {
+                    const chunk = url.substring(i, i + chunkSize);
+                    const compressedChunk = btoa(unescape(encodeURIComponent(chunk)))
+                        .replace(/\+/g, '-')
+                        .replace(/\//g, '_')
+                        .replace(/=/g, '');
+                    chunks.push(compressedChunk);
+                }
+                
+                return chunks.join('.');
+            }
+            
+            const base64 = btoa(unescape(encodeURIComponent(url)));
+            return base64
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .replace(/=/g, '');
+        }
+        
+        function decompressLongUrl(compressed) {
+            try {
+                if (compressed.includes('.')) {
+                    const chunks = compressed.split('.');
+                    let fullUrl = '';
+                    
+                    for (const chunk of chunks) {
+                        let base64 = chunk
+                            .replace(/-/g, '+')
+                            .replace(/_/g, '/');
+                        
+                        while (base64.length % 4) {
+                            base64 += '=';
+                        }
+                        
+                        fullUrl += decodeURIComponent(escape(atob(base64)));
+                    }
+                    
+                    return fullUrl;
+                } else {
+                    let base64 = compressed
+                        .replace(/-/g, '+')
+                        .replace(/_/g, '/');
+                    
+                    while (base64.length % 4) {
+                        base64 += '=';
+                    }
+                    
+                    return decodeURIComponent(escape(atob(base64)));
+                }
+            } catch (e) {
+                console.error('Erro ao descomprimir URL:', e);
+                return null;
+            }
+        }
+        
+        function shortenUrl() {
+            let originalUrl = originalUrlInput.value.trim();
+            
+            if (!originalUrl) {
+                alert('Por favor, insira uma URL válida.');
+                return;
+            }
+            
+            if (!originalUrl.startsWith('http://') && !originalUrl.startsWith('https://')) {
+                originalUrl = 'https://' + originalUrl;
+            }
+            
+            try {
+                new URL(originalUrl);
+            } catch (e) {
+                alert('URL inválida. Por favor, verifique a URL e tente novamente.');
+                return;
+            }
+            
+            const compressed = compressLongUrl(originalUrl);
+            const shortUrl = `${home}?url=${compressed}`;
+            shortUrlInput.value = shortUrl;
+            
+            updateStats(originalUrl, shortUrl);
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function updateStats(originalUrl, shortUrl) {
+            const origLen = originalUrl.length;
+            const shortLen = shortUrl.length;
+            const reductionPercent = Math.round((1 - shortLen / origLen) * 100);
+            
+            originalLength.textContent = `Original: ${origLen} caracteres`;
+            shortLength.textContent = `Compactado: ${shortLen} caracteres`;
+            reduction.textContent = `Redução: ${reductionPercent}%`;
+        }
+        
+        function copyShortUrl() {
+            shortUrlInput.select();
+            shortUrlInput.setSelectionRange(0, 99999);
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = 'COPIADO!';
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                    }, 2000);
+                }
+            } catch (err) {
+                console.error('Falha ao copiar:', err);
+            }
+        }
+        
+        function checkForRedirect() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const compressedUrl = urlParams.get('url');
+            
+            if (compressedUrl) {
+                const originalUrl = decompressLongUrl(compressedUrl);
+                
+                if (originalUrl) {
+                    document.body.innerHTML = `
+                        <div class="redirect-page">
+                            <div class="redirect-container">
+                                <div class="logo-container">
+                                    <div class="logo">
+                                        <img src="https://raw.githubusercontent.com/corretor-fettuccia/corretor-fettuccia/refs/heads/main/comprimr-img-webp/lg.png" alt="Logo">
+                                    </div>
+                                </div>
+                                
+                                <div class="redirect-message">
+                                    Aguarde, estamos conectando suas expectativas!
+                                </div>
+                                
+                                <div class="loading-animation">
+                                    <div class="orbital-loader">
+                                        <div class="orbital-dot"></div>
+                                        <div class="orbital-dot"></div>
+                                        <div class="orbital-dot"></div>
+                                        <div class="orbital-dot"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-container">
+                                    <div class="progress-label">
+                                        <span>CONECTANDO</span>
+                                        <span id="progress-percent">0%</span>
+                                    </div>
+                                    <div class="modern-progress">
+                                        <div class="progress-fill" id="progress-fill"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="destination-info" hidden>
+                                    <strong>DESTINO:</strong>
+                                    <div class="destination-url">${originalUrl}</div>
+                                </div>
+                                
+                                <div class="fallback-link">
+                                    Se o redirecionamento não funcionar automaticamente, 
+                                    <a href="${originalUrl}">clique aqui para ir diretamente</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Animação de progresso
+                    const progressFill = document.getElementById('progress-fill');
+                    const progressPercent = document.getElementById('progress-percent');
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 1;
+                        progressPercent.textContent = `${progress}%`;
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                        }
+                    }, 30);
+
+                    setTimeout(() => {
+                        window.location.href = originalUrl;
+                    }, 3000);
+                    
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        function updateUrlPreview() {
+            const url = originalUrlInput.value.trim();
+            if (url.length > 50) {
+                previewText.textContent = url.substring(0, 100) + '...';
+                urlPreview.style.display = 'block';
+            } else {
+                urlPreview.style.display = 'none';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkForRedirect()) return;
+            
+            shortenBtn.addEventListener('click', shortenUrl);
+            copyBtn.addEventListener('click', copyShortUrl);
+            originalUrlInput.addEventListener('input', updateUrlPreview);
+            originalUrlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') shortenUrl();
+            });
+            
+            originalUrlInput.value = '';
+            updateUrlPreview();
+        });
+    </script>
+</body>
+</html>
