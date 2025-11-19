@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copiar Texto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .input-area {
+            margin-bottom: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+            background: #f8f9fa;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .copy-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            width: 100%;
+        }
+        
+        .copy-btn:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            background: #27ae60;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Copiar Texto</h1>
+        
+        <div class="input-area">
+            <textarea id="text-input" placeholder="Cole ou digite seu texto aqui..."></textarea>
+        </div>
+        
+        <button class="copy-btn" id="copy-button">COPIAR TEXTO</button>
+        
+        <div class="success-message" id="success-message">
+            ✅ Texto copiado para área de transferência!
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('copy-button').addEventListener('click', function() {
+            const textToCopy = document.getElementById('text-input').value;
+            
+            if (!textToCopy.trim()) {
+                alert('Por favor, digite ou cole algum texto primeiro.');
+                return;
+            }
+            
+            // Método moderno usando Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showSuccessMessage();
+                }).catch(err => {
+                    // Fallback para método antigo se o moderno falhar
+                    copyWithFallback(textToCopy);
+                });
+            } else {
+                // Fallback para navegadores mais antigos
+                copyWithFallback(textToCopy);
+            }
+        });
+
+        function copyWithFallback(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // Para mobile
+            
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                if (successful) {
+                    showSuccessMessage();
+                } else {
+                    alert('Erro ao copiar texto. Tente novamente.');
+                }
+            } catch (err) {
+                document.body.removeChild(textArea);
+                alert('Erro ao copiar texto: ' + err);
+            }
+        }
+
+        function showSuccessMessage() {
+            const successMessage = document.getElementById('success-message');
+            successMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Texto de exemplo pré-carregado (opcional)
+        document.getElementById('text-input').value = `
+DESCRIÇÃO PARA SITE (SEM EMOJIS) - MODELO DE ANUNCIO
+
+Quero que você gere exatamente no formato abaixo, seguindo este padrão, SEM usar emojis em nenhuma parte:
+
+Título SEO até 60 caracteres
+
+Meta description (SEO) até 150 caracteres
+Descrição completa para o site, no estilo profissional, clara e objetiva, seguindo estrutura específica (abaixo)
+
+Utilize SOMENTE as informações fornecidas a seguir:
+
+✅ INFORMAÇÕES BRUTAS DO IMÓVEL (EU IREI PREENCHER): 
+
+Tipo: [Casa / Apartamento]
+Empreendimento: [Nome do empreendimento ou "Nenhum"]
+Construtora: [Nome da construtora ou "Nenhuma"]
+Dormitórios: [X]
+Suíte: [Sim / Não / Quantas]
+Banheiros: [X]
+Garagem: [X vaga(s)]
+Pátio: [Sim / Não]
+Pé-direito duplo: [Sim / Não]
+Área privativa: [X m²]
+Rua: [Nome da rua]
+Bairro: [Nome do bairro]
+Cidade: [Cidade - Estado]
+Posição solar: [Ex.: Frente Oeste]
+Perfil: [Novo / Em construção / Usado]
+Aceita financiamento: [Sim / Não]
+Aceita permuta: [Sim / Não]
+Estuda propostas: [Sim / Não]
+Características: [lista completa aqui]
+Pontos próximos: [escolas, parques, áreas verdes, posto de saúde, Tabaí-Canoas etc.]
+
+✅ INSTRUÇÕES DE PRODUÇÃO
+1) TÍTULO SEO (ATÉ 60 CARACTERES)
+
+Formato obrigatório:
+[Tipo] [X Dorm] | [Relevante 1] | [Relevante 2] | [Diferencial]
+
+Exemplo:
+Casa 2 Dorm | Suíte | Garagem | Pátio
+Sempre SEM emojis.
+
+2) META DESCRIPTION (ATÉ 150 CARACTERES)
+
+Criar frase objetiva, citando:
+
+cidade
+
+tipo de imóvel
+
+principais diferenciais
+Sem emojis.
+
+3) DESCRIÇÃO COMPLETA PARA O SITE
+
+Seguir exatamente esta estrutura, SEM emojis:
+
+1. Título descritivo longo
+Ex.: Casa Geminada com 2 Dormitórios (1 Suíte) – 69m² | Centro, Nova Santa Rita – RS
+
+2. Endereço
+Rua, bairro, cidade – estado.
+
+3. Linha comercial inicial
+Ex.: Casa Mobiliada. | 2 Dorm | Geminada | Pátio | Centro  (versão do título longo otimizada.)
+Frase curta, profissional e direta, apresentando o estilo do imóvel.
+
+
+4. Bloco de informações gerais
+Perfil, posição solar, permuta, propostas, financiamento.
+
+5. Medidas (se constar)
+Área privativa.
+Área total.
+
+6. Texto principal descritivo
+Apresentação clara e profissional sobre padrão, conceito, construção, distribuição e diferenciais do imóvel.
+
+7. Tópicos com detalhes do imóvel
+Listar elementos como:
+- cercamento
+- espera para split
+- etc.
+
+8. Diferenciais do imóvel
+Itens que agregam valor.
+
+9. Localização detalhada
+Descrição do bairro e benefícios regionais.
+
+10. Pontos de interesse próximos
+Lista dos itens informados.
+
+11. Chamada final
+Convite para contato, sem apelos exagerados.
+
+✅ OBSERVAÇÕES IMPORTANTES
+
+• Não usar emojis.
+• Não inventar informações.
+• Não repetir palavras desnecessárias.
+• Não exagerar no tom comercial.
+• Seguir o padrão do texto exemplo que você já usa no site.
+• Se houver empreendimento e construtora, incluir no texto.}
+
+COM ESTES DADOS FAÇA A FORMATAÇÃO LINEAR COM PONTOS DE DESTAQUE QUE POSSA COPIAR E COLAR
+1 - TÍTULO
+2 - Descrição do imóvel
+3 - SEO título
+4 - Descrição SEO
+-----------------------------------------------------------------
+Segue descrição do imóvel para ser formatado.`;
+    </script>
+</body>
+</html>
