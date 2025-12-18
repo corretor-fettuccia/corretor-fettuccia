@@ -259,7 +259,7 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 			<SubSubItem name="↳  🆗 Negativa itbi" link="https://novasantarita.atende.net/autoatendimento/servicos/declaracao-de-quitacao-de-itbi" target="_blank" />
 			<SubSubItem name="↳  🌍 Portal" link="https://novasantarita.atende.net/?pg=autoatendimento#!/tipo/servico/valor/47/padrao/1/load/1" target="_blank" />
 			<SubSubItem name="↳  🆗 CND do imóvel" link="https://novasantarita.atende.net/autoatendimento/servicos/certidao-negativa-de-debitos" target="_blank" />
-			<SubSubItem name="↳  📘 Consulta Processos" link="https://novasantarita.atende.net/autoatendimento/servicos/consulta-de-processo-digital" target="_blank" />
+			<SubSubItem name="↳  📘 Consulta Processos" link="#document (https://novasantarita.atende.net/autoatendimento/servicos/embed/data/eyJpZC…lIjp7fSwicHJveHkiOnRydWV9/servicos/consulta-de-processo-digital/detalhar/1)" target="_blank" />
 			<SubSubItem name="↳" />
 			<SubSubItem name="↳  📚 Registro de imóveis" link="http://www.canoasri.com.br/consulta-nota-de-entrega/" target="_blank" />
 		</SubItem>
