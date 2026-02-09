@@ -1,0 +1,75 @@
+/* Additional custom styles for enhanced UX */
+
+/* Smooth transitions for all interactive elements */
+button, a, textarea {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Custom selection color */
+::selection {
+    background: #667eea;
+    color: white;
+}
+
+/* Focus visible for accessibility */
+button:focus-visible,
+a:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Loading state for copy button */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spinner 0.8s linear infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 640px) {
+    .glass-effect {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    textarea {
+        height: 60vh;
+    }
+}
+
+/* Print styles - hide buttons when printing */
+@media print {
+    button, a, .fixed {
+        display: none !important;
+    }
+    
+    textarea {
+        border: 1px solid #000;
+        height: auto;
+        overflow: visible;
+    }
+}
