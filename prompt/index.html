@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Copy Pro - Gerador de Descrições</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .textarea-focus:focus {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .btn-hover {
+            transition: all 0.2s ease;
+        }
+        .btn-hover:hover {
+            transform: translateY(-1px);
+        }
+        .btn-active:active {
+            transform: translateY(0);
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        .toast-enter {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        .toast-exit {
+            animation: slideOut 0.3s ease-in forwards;
+        }
+        .scrollbar-custom::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl glass-effect rounded-2xl shadow-2xl p-6 md:p-8">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-indigo-100 rounded-lg">
+                    <i data-lucide="home" class="w-6 h-6 text-indigo-600"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Real Estate Copy Pro</h1>
+                    <p class="text-sm text-gray-500">Gerador de descrições otimizadas para SEO</p>
+                </div>
+            </div>
+            <button onclick="resetTemplate()" class="text-sm text-gray-500 hover:text-indigo-600 flex items-center gap-1 transition-colors" title="Restaurar template original">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Restaurar Template</span>
+            </button>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="flex flex-wrap gap-4 mb-4 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+            <div class="flex items-center gap-2">
+                <i data-lucide="type" class="w-4 h-4 text-indigo-500"></i>
+                <span>Caracteres: <strong id="char-count" class="text-indigo-600">0</strong></span>
+            </div>
+            <div class="flex items-center gap-2">
+                <i data-lucide="align-left" class="w-4 h-4 text-indigo-500"></i>
+                <span>Palavras: <strong id="word-count" class="text-indigo-600">0</strong></span>
+            </div>
+            <div class="flex items-center gap-2 ml-auto">
+                <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">SEO Título: 60 chars</span>
+                <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Meta Desc: 150 chars</span>
+            </div>
+        </div>
+
+        <!-- Text Area -->
+        <div class="relative mb-6">
+            <textarea 
+                id="text-input" 
+                class="w-full h-96 p-4 border-2 border-gray-200 rounded-xl resize-none focus:border-indigo-500 textarea-focus outline-none transition-all scrollbar-custom text-gray-700 leading-relaxed"
+                placeholder="Cole ou digite seu texto aqui..."
+                spellcheck="false"
+            ></textarea>
+            
+            <!-- Floating Action Buttons -->
+            <div class="absolute bottom-4 right-4 flex gap-2">
+                <button onclick="clearText()" class="p-2 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-gray-600 transition-all" title="Limpar texto">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+                <button onclick="downloadText()" class="p-2 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-gray-600 transition-all" title="Download .txt">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-4">
+            <!-- Primary Action -->
+            <button 
+                onclick="copyText()" 
+                id="copy-btn"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 px-6 rounded-xl btn-hover btn-active flex items-center justify-center gap-2 shadow-lg shadow-indigo-200"
+            >
+                <i data-lucide="copy" class="w-5 h-5"></i>
+                <span>COPIAR PARA ÁREA DE TRANSFERÊNCIA</span>
+            </button>
+
+            <!-- AI Buttons -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <a href="https://chatgpt.com" target="_blank" class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-4 rounded-lg btn-hover btn-active transition-all">
+                    <i data-lucide="bot" class="w-5 h-5"></i>
+                    <span class="font-medium">ChatGPT</span>
+                </a>
+                <a href="https://gemini.google.com" target="_blank" class="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg btn-hover btn-active transition-all">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                    <span class="font-medium">Gemini</span>
+                </a>
+                <a href="https://claude.ai" target="_blank" class="flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 text-white py-3 px-4 rounded-lg btn-hover btn-active transition-all md:col-span-1 col-span-2">
+                    <i data-lucide="message-square" class="w-5 h-5"></i>
+                    <span class="font-medium">Claude AI</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+            <div class="flex items-start gap-3">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-amber-600 mt-0.5"></i>
+                <div class="text-sm text-amber-800">
+                    <p class="font-semibold mb-1">Dicas para SEO:</p>
+                    <ul class="list-disc list-inside space-y-1 text-xs">
+                        <li>Mantenha o título até 60 caracteres para não ser cortado no Google</li>
+                        <li>A meta description deve ter entre 150-160 caracteres</li>
+                        <li>Evite emojis se o portal imobiliário não suportar caracteres especiais</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 bg-emerald-600 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 hidden z-50">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <div>
+            <p class="font-semibold">Texto copiado!</p>
+            <p class="text-sm text-emerald-100">Pronto para colar no ChatGPT ou Gemini</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
