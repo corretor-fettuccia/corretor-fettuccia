@@ -7,7 +7,34 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 <!-- Fonte Emoji https://fonts.google.com/noto/specimen/Noto+Color+Emoji/glyphs -->
 <Menu>
 	<Item name="📐 Calculadora OBRA" link="./calcObra" target="_blank" />
-	
+	<Item name="🧰 Ferramentas">
+		<SubItem name="↳💾 Comprimir Picture/Downdoad" link="https://corretor-fettuccia.github.io/picture/" target="_blank" />
+		<SubItem name="↳💾 Comprimir Imagens e converter webp" link="./comprimr-img-webp" target="_blank" />
+		<SubItem name="↳💾 Comprimir imagens Lote" link="./compressIMG" target="_blank" />
+		<SubItem name="↳🏜️ Renderizar Mapas" link="./map-render" target="_blank" />
+		<SubItem name="↳🗒️ Gerador Posts - Social Media" link="./post" target="_blank" />
+		<SubItem name="↳🌍 QR-Code Gerador" link="./qr-code" target="_blank" />
+		<SubItem name="↳💬 URL ENCODE - WHATSAPP" link="./urlEncode" target="_blank" />
+		<SubItem name="↳🔂 RESPOSTA RÁPIDA" link="./fast" target="_blank" />
+		<SubItem name="↳📲 Zap Tool" link="./zap" />
+		<SubItem name="↳🏛️ REGISTRATO" link="https://registrato.bcb.gov.br/registrato/login/" target="_blank" />
+		<SubItem name="↳📱 CALCULADORAS">
+			<SubSubItem name="↳  💡 3 anos CTPS" link="./calc.datas.html" target="_blank" />
+			<SubSubItem name="↳  💡 120 dias CTPS" link="./calc.dias.html" target="_blank" />
+			<SubSubItem name="↳  📈 MEDIA RENDA" link="./media" target="_blank" />
+		</SubItem>
+		<SubItem name="↳🗒️ Gerador Prompt" link="https://corretor-fettuccia.github.io/corretor-fettuccia/prompt/" target="_blank" />
+		
+		<SubItem name="🤖 IA">
+			<SubSubItem name="↳   🤖 CHAT GPT" link="https://chat.openai.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 GROK" link="https://chat.openai.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 QWEN CHAT" link="https://chat.qwen.ai/" target="_blank" />
+			<SubSubItem name="↳   🤖 DEEP SEEK" link="https://chat.deepseek.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 COMPILOT" link="https://copilot.microsoft.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 ADOBE" link="https://podcast.adobe.com/enhance" target="_blank" />
+			<SubSubItem name="↳   🤖 SPACIO AI" link="https://app.spacio.ai/" target="_blank" />
+		</SubItem>
+	</Item>
 	<Item name="🖋️ Assinadores" target="_self" alt="Sistemas">
         	<SubItem name="↳ ✒️ Assinador Registradores" link="https://assinador.registrodeimoveis.org.br/private" target="_blank" alt="assinador" />
         	<SubItem name="↳ ✒️ Assinador ITI BR" link="https://assinador.iti.br/" target="_blank" alt="assinador" />
@@ -31,7 +58,8 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		 <SubItem name="↳ 🌍 Git.Hub" link="https://github.com/corretor-fettuccia" target="_blank" alt="git" />
          <SubItem name="↳ 🌍 Blog- Corretor Guru" link="https://www.blogger.com/blog/posts/2791152837199678650" target="_blank" alt="BLOG" />
 		 <SubItem name="↳ 🌍 Vlog- Youtube" link="https://studio.youtube.com/channel" target="_blank" alt="Youtube" />
-		 
+	     <SubItem name="↳ 🌍 Google Search console" link="https://search.google.com/search-console" target="_blank" alt="SearchConsole" />
+		
 		<SubItem name="↳ 🚩Google Meu negocio" target="_self">
             <SubSubItem name=" ↳ 🌍 Meus Perfis de empresas" link="https://business.google.com/locations" target="_blank" alt="google meu negocio" />
 			<SubSubItem name=" ↳ 🌍 Corretor Fettuccia" link="https://g.co/kgs/STS12Te" target="_blank" alt="google meu negocio" />
@@ -49,6 +77,7 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		<SubItem name="↳ 🌍 Anuncios - Market Place" link="https://www.facebook.com/marketplace/you/selling" target="_blank" alt="Marketplace" />
                 
 		<SubItem name="" />
+		<SubItem name="↳ 🧩 Edição - 123app" link="https://123apps.com/pt" target="_blank" alt="Edicao" />
 		<SubItem name="↳ 🧩 Edição - TikTok Studio" link="https://www.tiktok.com/tiktokstudio" target="_blank" alt="Edicao" />
 		<SubItem name="↳ 🧩 Edição - Canva" link="https://www.canva.com/" target="_blank" alt="Edicao" />
 		<SubItem name="↳ 🧩 Edição - Cap-Cut" link="https://www.capcut.com/my-edit" target="_blank" alt="Edicao" />
@@ -60,14 +89,7 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		<SubItem name="↳ 🎧 TTS Maker" link="https://ttsmaker.com/br" target="_blank" />	
 	</Item>
 	
-	<Item name="🤖 IA">
-		<SubItem name="↳   🤖 CHAT GPT" link="https://chat.openai.com/" target="_blank" />
-		<SubItem name="↳   🤖 QWEN CHAT" link="https://chat.qwen.ai/" target="_blank" />
-		<SubItem name="↳   🤖 DEEP SEEK" link="https://chat.deepseek.com/" target="_blank" />
-		<SubItem name="↳   🤖 COMPILOT" link="https://copilot.microsoft.com/" target="_blank" />
-		<SubItem name="↳   🤖 ADOBE" link="https://podcast.adobe.com/enhance" target="_blank" />
-		<SubItem name="↳   🤖 SPACIO AI" link="https://app.spacio.ai/" target="_blank" />
-	</Item>
+
 
 	<Item name="📔 CERTIDÕES" target="_self" alt="Certidões necessárias">
 
@@ -318,22 +340,7 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 			<SubSubItem name="↳  📚 Registro de Imoveis - Consulta" link="https://www.servicoregistralcapaocanoa.com.br/servicos-online/consulta-de-atos-do-registro-de-imoveis" target="_blank" />
 		</SubItem>
 	</Item>
-	<Item name="🧰 Ferramentas">
-		<SubItem name="↳💾 Comprimir Imagens e converter webp" link="./comprimr-img-webp" target="_blank" />
-		<SubItem name="↳💾 Comprimir imagens Lote" link="./compressIMG" target="_blank" />
-		<SubItem name="↳🏜️ Renderizar Mapas" link="./map-render" target="_blank" />
-		<SubItem name="↳🗒️ Gerador Posts - Social Media" link="./post" target="_blank" />
-		<SubItem name="↳🌍 QR-Code Gerador" link="./qr-code" target="_blank" />
-		<SubItem name="↳💬 URL ENCODE - WHATSAPP" link="./urlEncode" target="_blank" />
-		<SubItem name="↳🔂 RESPOSTA RÁPIDA" link="./fast" target="_blank" />
-		<SubItem name="↳📲 Zap Tool" link="./zap" />
-		<SubItem name="↳🏛️ REGISTRATO" link="https://registrato.bcb.gov.br/registrato/login/" target="_blank" />
-		<SubItem name="↳📱 CALCULADORAS">
-			<SubSubItem name="↳  💡 3 anos CTPS" link="./calc.datas.html" target="_blank" />
-			<SubSubItem name="↳  💡 120 dias CTPS" link="./calc.dias.html" target="_blank" />
-			<SubSubItem name="↳  📈 MEDIA RENDA" link="./media" target="_blank" />
-		</SubItem>
-	</Item>
+	
 	<Item name="💾 Outros Sistemas">
 		<SubItem name="↳🏗️ CNO Obra" link="https://www.gov.br/pt-br/servicos/consultar-cadastro-de-obra-de-construcao-civil" target="_blank" />
 		<SubItem name="↳🌐 AVE-PDF" link="https://avepdf.com/pt/convert-to-pdfa" target="_blank" />
