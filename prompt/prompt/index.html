@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<title>Biblioteca de Prompts IA</title>
+
+<style>
+
+body{
+font-family: Arial;
+max-width:700px;
+margin:auto;
+margin-top:40px;
+}
+
+h2{
+margin-bottom:10px;
+}
+
+select{
+width:100%;
+padding:10px;
+font-size:16px;
+}
+
+textarea{
+width:100%;
+height:180px;
+margin-top:10px;
+padding:10px;
+font-size:15px;
+resize:none;
+cursor:pointer;
+}
+
+button{
+margin-top:10px;
+padding:10px 15px;
+font-size:15px;
+cursor:pointer;
+}
+
+.info{
+margin-top:10px;
+color:green;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Biblioteca de Prompts IA</h2>
+
+<select id="listaModelos">
+<option>Carregando modelos...</option>
+</select>
+
+<textarea id="textoPrompt" readonly placeholder="Selecione um modelo..."></textarea>
+
+<button id="btnCopiar">📋 Copiar Prompt</button>
+
+<div class="info" id="status"></div>
+
+<script>
+
+const combo = document.getElementById("listaModelos");
+const texto = document.getElementById("textoPrompt");
+const status = document.getElementById("status");
+const btnCopiar = document.getElementById("btnCopiar");
+
+function copiarPrompt(){
+
+let conteudo = texto.value;
+
+if(conteudo.trim()=="") return;
+
+navigator.clipboard.writeText(conteudo);
+
+status.innerText = "✔ Prompt copiado!";
+setTimeout(()=>status.innerText="",2000);
+
+}
+
+fetch("modelos.xml")
+.then(response => response.text())
+.then(data => {
+
+const parser = new DOMParser();
+const xml = parser.parseFromString(data,"text/xml");
+
+const modelos = xml.getElementsByTagName("modelo");
+
+combo.innerHTML = "<option value=''>Selecione um modelo</option>";
+
+for(let i=0;i<modelos.length;i++){
+
+let nome = modelos[i].getAttribute("nome");
+let tipo = modelos[i].getAttribute("tipo");
+let textoModelo = modelos[i].textContent.trim();
+
+let option = document.createElement("option");
+
+option.value = textoModelo;
+option.textContent = nome + " ("+tipo+")";
+
+combo.appendChild(option);
+
+}
+
+});
+
+combo.addEventListener("change",function(){
+
+let textoSelecionado = this.value;
+
+texto.value = textoSelecionado;
+
+copiarPrompt();
+
+});
+
+btnCopiar.addEventListener("click",copiarPrompt);
+
+texto.addEventListener("click",copiarPrompt);
+
+</script>
+
+</body>
+</html>

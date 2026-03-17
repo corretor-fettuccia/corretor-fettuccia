@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<modelos>
+
+    <modelo nome="Prompt imagem Luz" tipo="imagem">
+        - melhore saturação
+        - iluminação equilibrada
+        - remova lens flare
+        - melhore a qualidade
+    </modelo>
+
+    <modelo nome="Prompt Foto Imobiliária" tipo="imagem">
+        - dia claro
+        - iluminação natural
+        - sem distorção de lente
+        - melhorar nitidez
+    </modelo>
+
+    <modelo nome="Prompt Descrição Imóvel" tipo="texto">
+        Criar descrição imobiliária profissional destacando:
+        - localização
+        - diferenciais
+        - oportunidade
+    </modelo>
+
+
+	<modelo nome="Prompt para Descrição Técnica (Foco em SEO e Site)" tipo="Texto">
+	 Nota: Este prompt é ideal para gerar textos que priorizam a clareza e os dados, perfeitos para o seu modelo de Descrição para Site
+
+	Prompt: Atue como um copywriter imobiliário sênior. Escreva uma descrição profissional para site, sem o uso de emojis, sobre o imóvel [Tipo do Imóvel] em [Cidade/Bairro]. 		Estruture o texto em tópicos claros: 
+	(1) Resumo das metragens e localização, 
+	(2) Detalhamento dos cômodos, 
+	(3) Diferenciais de acabamento e infraestrutura, 
+	(4) Condições de negociação (ex: aceita financiamento/FGTS). 
+
+	Use uma linguagem técnica, focada em SEO para palavras-chave como 'comprar casa em [Cidade]' e 'imóvel pronto para morar'
+		</modelo>
+		
+		
+<modelo nome="Prompt para MarketPlace" tipo="Texto">		
+Prompt MARKET PLACE
+"Atue como um especialista em copy imobiliário. Com base nos dados fornecidos, gere o anúncio seguindo rigorosamente as diretrizes abaixo"
+SEM EMOJIS: Utilize apenas texto e pontuação profissional.
+LISTAS: Use obrigatoriamente o caracter (⬩) para listar as características.
+PRIVACIDADE: Omitir endereço completo. Mencionar apenas Bairro e Cidade / Condomínio.
+
+DIRETRIZES DE FORMATAÇÃO E CONTEÚDO:
+
+CABEÇALHO OBRIGATÓRIO: [VENDA]
+[Tipo do Imóvel | Bairro | Cidade]
+[Valor]  (caso haja uma promoção de Valor X par Y usar DE [X] para [Y])
+[Atributos relevantes aqui]
+
+[Texto apresentando pontos de forma profissional]
+
+[bloco de atributos imóvel]
+
+Tipo: [Inserir Tipo]
+Área: [Inserir m²]
+Condomínio Nome: [Se houver informar o nome]
+Condomínio Valor: [Se houver, inserir valor mensal]
+IPTU: [Se houver, inserir valor anual]
+Localização: [Inserir Bairro e Cidade]
+Configuração: [Inserir n° dormitórios/suítes]
+Andar: [Se for apto ou sobrado, informar]
+Diferenciais: [Inserir diferenciais]
+
+[bloco condições e valores negociais]
+Valores: [Valor] (caso haja uma promoção de Valor X par Y usar DE [X] para [Y])
+Permuta: [Informar se aceita carro/imóvel e limites caso não informado deixe valor "estuda proposta" ]
+Aceita financiamento : [sim ou não] (informar conforme os dados a processar no texto)
+Aceita FGTS:  [sim ou não] (informar conforme dados a processar no texto)
+Listar alguma outra observação adicional pertinente a condição de pagamento seja dação ou outra consideração.
+
+[Bloco de pontos relevantes do imóvel]
+Pontos relevantes do imóvel:
+(Listar os diferenciais técnicos e construtivos aqui)
+
+[bloco pontos próximos]
+Pontos próximos:
+(Listar proximidades, logística e serviços)
+
+[Bloco de Chamada final]
+(Criar CTA profissional convidando para visita ou informações)
+Contato: 51 998 111 078
+------------------------------
+segue logo abaixo as informações a serem estruturadas no modelo
+
+</modelo>
+</modelos> 
