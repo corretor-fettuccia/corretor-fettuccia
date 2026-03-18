@@ -3,24 +3,24 @@
 <modelos>
 
     <modelo nome="Prompt imagem Luz" tipo="imagem">
-        - melhore saturação
-        - iluminação equilibrada
-        - remova lens flare
-        - melhore a qualidade
+    - melhore saturação
+    - iluminação equilibrada
+    - remova lens flare
+    - melhore a qualidade para ultra HD
     </modelo>
 
     <modelo nome="Prompt Foto Imobiliária" tipo="imagem">
-        - dia claro
-        - iluminação natural
-        - sem distorção de lente
-        - melhorar nitidez
+    - dia claro
+    - iluminação natural e difusa
+    - sem distorção de lente
+    - melhorar nitidez
     </modelo>
 
     <modelo nome="Prompt Descrição Imóvel" tipo="texto">
-        Criar descrição imobiliária profissional destacando:
-        - localização
-        - diferenciais
-        - oportunidade
+    Criar descrição imobiliária profissional destacando:
+    - localização
+    - diferenciais
+    - oportunidade
     </modelo>
 
 
