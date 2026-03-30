@@ -1,7 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <modelos>
+<modelo nome="Prompt - Post Viral - Escutei essa frase" tipo="texto">
+Post inicia com a seguinte frase "Escutei uma frase"
+no texto não usar - ser mais natural e humano.
+separar em frases de impacto 4 frases por linha no máximo
+linhas com maior ênfase colocar negrito. para ficar dinâmico a oscilação.
+Finalizar com CTA impactante seguido do contato
+5551998111078
+assim estrutura do post fica nesta ordem.
+- Frase
+- Gancho
+- CTA	
+Logo abaixo segue o contexto que pretendo utilizar no post.
+sendo o gancho = 
+</modelo>
 
+<modelos>
+<modelo nome="Prompt - Post Viral - Eu aprendi" tipo="texto">
+Post inicia com a seguinte frase "Sabe oque eu aprendi"
+no texto não usar - ser mais natural e humano.
+separar em frases de impacto 4 frases por linha no máximo
+linhas com maior ênfase colocar negrito. para ficar dinâmico a oscilação.
+Finalizar com CTA impactante seguido do contato
+5551998111078
+assim estrutura do post fica nesta ordem.
+- Frase
+- Gancho
+- CTA
+Logo abaixo segue o contexto que pretendo utilizar no post.
+sendo o gancho = 
+</modelo>
+
+<modelos>
+<modelo nome="Prompt - Post Viral - Se estiver a fim de anotar anota" tipo="texto">
+Post inicia com a seguinte frase "Se estiver a fim de anotar, ANOTA."
+no texto não usar - ser mais natural e humano.
+separar em frases de impacto 4 frases por linha no máximo
+linhas com maior ênfase colocar negrito. para ficar dinâmico a oscilação.
+Finalizar com CTA impactante seguido do contato
+5551998111078
+assim estrutura do post fica nesta ordem.
+- Frase
+- Gancho
+- conteúdo
+- CTA
+	
+Logo abaixo segue o contexto que pretendo utilizar no post.
+sendo o 
+gancho = 
+Conteúdo =
+</modelo>
+	
     <modelo nome="Prompt imagem Luz" tipo="imagem">
     - melhore saturação
     - iluminação equilibrada
@@ -17,10 +67,10 @@
     </modelo>
 
     <modelo nome="Prompt Descrição Imóvel" tipo="texto">
-    Criar descrição imobiliária profissional destacando:
-    - localização
-    - diferenciais
-    - oportunidade
+Criar descrição imobiliária profissional destacando:
+localização
+diferenciais
+oportunidade
     </modelo>
 
 
