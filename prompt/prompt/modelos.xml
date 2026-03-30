@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <modelos>
+
+<modelo nome="Prompt - Postagem com CEO" tipo="texto">
+Transforme o texto que vai ser usado em postagem, para ficar indexável e melhorar integração de busca.
+texto linear sem separação. pode usar no cabeçalho de acordo com o contexto o caracter |
+Utilizar " " para palavra com sentido de sarcasmo quando caber no contexto "avaliar"
+Utilizar ( ) para  palavra para dar ênfase e peso quando for dar relevância. (sem exagerar - ponderar uso)
+Utilizar palavra isolada em linha quando o contexto for dramático, Avaliar se for utilizar não usar caso não seja adequado.
+Utilizar Caixa alta, quando for insicivo ou autoritário "sem exagero" avaliar se for pertinente usar conforme o contexto.	
+título com CEO para rede social
+comentar gancho.
+cta de finalização 5551998111078
+#tags relacionadas para melhorar performance.
+</modelo>
+
+	
 <modelo nome="Prompt - Post Viral - Escutei essa frase" tipo="texto">
 Post inicia com a seguinte frase "Escutei uma frase"
 no texto não usar - ser mais natural e humano.
@@ -71,19 +86,6 @@ diferenciais
 oportunidade
 </modelo>
 
-<modelo nome="Prompt - Postagem com CEO" tipo="texto">
-Transforme o texto que vai ser usado em postagem, para ficar indexável e melhorar integração de busca.
-texto linear sem separação. pode usar no cabeçalho de acordo com o contexto o caracter |
-Utilizar " " para palavra com sentido de sarcasmo quando caber no contexto "avaliar"
-Utilizar ( ) para  palavra para dar ênfase e peso quando for dar relevância. (sem exagerar - ponderar uso)
-Utilizar palavra isolada em linha quando o contexto for dramático, Avaliar se for utilizar não usar caso não seja adequado.
-Utilizar Caixa alta, quando for insicivo ou autoritário "sem exagero" avaliar se for pertinente usar conforme o contexto.	
-título com CEO para rede social
-comentar gancho.
-cta de finalização 5551998111078
-#tags relacionadas para melhorar performance.
-
-</modelo>
 
 <modelo nome="Prompt para Descrição Técnica (Foco em SEO e Site)" tipo="Texto">
 	 Nota: Este prompt é ideal para gerar textos que priorizam a clareza e os dados, perfeitos para o seu modelo de Descrição para Site
