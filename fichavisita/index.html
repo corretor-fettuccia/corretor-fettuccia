@@ -1,0 +1,218 @@
+ <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ficha de Visita Imobiliária</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f5f5f5;
+}
+
+.container {
+    width: 210mm;
+    /*min-height: 297mm;*/
+    margin: auto;
+    background: #fff;
+    padding: 20px 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}* {
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;* {
+    box-sizing: border-box;
+}
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+input, textarea, select {
+    width: 100%;
+    border: none;* {
+    box-sizing: border-box;
+}
+    border-bottom: 1px solid #000;
+    padding: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.static {
+    border-bottom: 1px solid #000;
+    padding: 5px 0;
+}
+
+.texto {
+    font-size: 13px;
+    text-align: justify;
+    margin-top: 15px;
+}
+
+.linhas {
+    margin-top: 10px;
+}
+
+.linha {
+    border-bottom: 1px solid #000;
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+.footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer div {
+    width: 45%;
+    text-align: center;
+}
+
+.btn-print {
+    margin: 20px auto;
+    display: block;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+@page {
+    size: A4;
+    margin: 10mm;
+}
+@media print {
+    body {
+        background: none;
+        margin: 0;
+    }
+
+    .btn-print {
+        display: none;
+    }
+
+    .container {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir</button>
+
+<div class="container">
+<br>
+<h1>FICHA DE VISITA</h1>
+
+<div class="section">
+    <div class="label">Dados do Cliente:</div>
+    <input type="text" placeholder="Nome do cliente">
+    <input type="text" placeholder="Telefone do cliente">
+    <input type="text" placeholder="E-mail">
+</div>
+
+<div class="section">
+    <div class="label">Dados do Corretor:</div>
+    <div class="static">Roberto Fettuccia</div>
+    <div class="static">CRECI 83599-F</div>
+</div>
+
+<div class="section">
+    <div class="label">Dados do Imóvel:</div>
+
+<div style="margin-top:10px;">
+    <select>
+        <option value="">Selecione o tipo de imóvel</option>
+        <option>Apartamento</option>
+        <option>Área</option>
+        <option>Armazém</option>
+        <option>Casa</option>
+        <option>Casa em condomínio</option>
+        <option>Galpão</option>
+        <option>Lote urbano</option>
+        <option>Lote rural</option>
+        <option>Loja</option>
+        <option>Sala</option>
+        <option>Prédio</option>
+        
+    </select>
+</div>
+
+    <input type="text" placeholder="Detalhes">
+    <input type="text" placeholder="Endereço">
+    <input type="text" placeholder="Código do imóvel">
+</div>
+
+<div class="texto">
+Declaro, na qualidade de possível comprador/locador, ter tomado conhecimento "In loco" do(s) imóvel(eis)
+listados acima, e obtive os esclarecimentos referente a preços e condições de pagamento destes com o
+corretor(a). O texto acima simplifica e resume o objetivo do termo de visita e assegura ao cliente que se trata apenas de um
+registro da visita, e informa que o imóvel em referência é apresentado em total conformidade com o contrato
+acordado com o proprietário e que, caso se venha a efetuar um contrato de compra,
+independentemente deste se concluir com a nossa direta intervenção, será reconhecido nossa intermediação.
+</div>
+<br>
+<div class="section">
+    <div class="label">Observações do cliente :</div>
+    <div class="linhas">
+        <div class="linha"></div>
+        <div class="linha"></div>
+        <div class="linha"></div>
+        <div class="linha"></div>
+    </div>
+</div>
+<br>
+<div class="section">
+    <div class="label">Observações do corretor :</div>
+    <div class="linhas">
+        <div class="linha"></div>
+        <div class="linha"></div>
+        <div class="linha"></div>
+        <div class="linha"></div>
+    </div>
+</div>
+
+<div class="footer">
+    <div>
+        ___/___/______ <br>
+        Data da visita
+    </div>
+    <div>
+        ___________________________<br>
+        Assinatura do cliente
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
