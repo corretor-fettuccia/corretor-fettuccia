@@ -294,6 +294,7 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		<SubItem name="↳ 🏠 Porto alegre">
 			<SubSubItem name="↳  📡 itbi" link="https://servicos.procempa.com.br/servicedesk/customer/portal/12/user/login?destination=portal%2F12" target="_blank" />
 			<SubSubItem name="↳  🆗 Negativa itbi" link="https://siat.procempa.com.br/siat/ItbEmitirDeclaracaoOnline_Internet.do" target="_blank" />
+			<SubSubItem name="↳  🆗 CADASTRO IMOBILIÁRIO" link="https://prefeitura.poa.br/certidao_imobiliario" target="_blank" />			
 			<SubSubItem name="↳" />
 			<SubSubItem name="↳  📚 Registro de imóveis">
 				<SubSubSubItem name="↳   🟥 1 zona" link="https://www.1ripoa.com.br/" target="_blank" />
