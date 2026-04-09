@@ -8,6 +8,8 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 <Menu>
 	<Item name="📐 Calculadora OBRA" link="./calcObra" target="_blank" />
 	<Item name="🧰 Ferramentas">
+		
+		<SubItem name="↳👤 BCI ORACULO - CANOAS" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwpcontribuinteimobiliario" target="_blank" />
 		<SubItem name="↳🗒️ Ficha imobiliária de Visita " link="https://corretor-fettuccia.github.io/corretor-fettuccia/fichavisita/" target="_blank" />
 		<SubItem name="↳💾 Comprimir Picture/Downdoad" link="https://corretor-fettuccia.github.io/picture/" target="_blank" />
 		<SubItem name="↳💾 Comprimir Imagens e converter webp" link="./comprimr-img-webp" target="_blank" />
