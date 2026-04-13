@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <modelos>
+<modelo nome="0.0 - Prompt - Video I.A - Photo-Video" tipo="texto">
+• tipo de cena: interior residencial de alto padrão
+• objetivo: transformar imagem estática em vídeo com movimento cinematográfico suave
+• estilo: realista, sofisticado, padrão imobiliário premium
 
+• movimento de câmera: leve (micro dolly-in ou dolly lateral)
+• parallax sutil entre primeiro plano e fundo
+• sensação de profundidade e perspectiva real
+• movimento contínuo, fluido e sem cortes
+
+• leve oscilação de cortinas ou tecidos (se houver)
+• variação suave de luz natural entrando pelas janelas
+• micro mudança de sombras (como nuvens passando)
+• reflexos discretos em vidro, piso e metais
+• iluminação com leve “respiração” (extremamente sutil)
+
+• iluminação natural difusa (daylight soft)
+• balanço de branco neutro e elegante
+• contraste equilibrado (nível profissional)
+• atmosfera viva e acolhedora
+
+• ultra realista
+• qualidade 4K ou superior
+• alta nitidez sem exagero
+• sem distorção de lente
+• linhas arquitetônicas perfeitamente retas
+
+• manter fidelidade total à imagem original
+• não alterar móveis, objetos ou layout
+• não adicionar elementos inexistentes
+• evitar efeitos artificiais ou exagerados
+
+• duração entre 5 e 8 segundos
+• ritmo calmo, elegante e contemplativo
+• loop suave e imperceptível (opcional)
+
+• cinematic subtle motion
+• parallax depth
+• photorealistic animation
+• luxury real estate
+• soft camera movement
+• ambient life
+</modelo>
+
+	
 <modelo nome="1.0 - Prompt - Postagem com CEO" tipo="texto">
 Transforme o texto que vai ser usado em postagem, para ficar indexável e melhorar integração de busca.
 texto linear sem separação. pode usar no cabeçalho de acordo com o contexto o caracter |
