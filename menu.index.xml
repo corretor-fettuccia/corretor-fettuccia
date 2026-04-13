@@ -8,7 +8,18 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 <Menu>
 	<Item name="📐 Calculadora OBRA" link="./calcObra" target="_blank" />
 	<Item name="🧰 Ferramentas">
-		
+		<SubItem name="🤖 IA">
+			<SubSubItem name="↳   🤖 CHAT GPT" link="https://chat.openai.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 Meta IA" link="https://www.meta.ai/create" target="_blank" />
+			<SubSubItem name="↳   🤖 Wan IA" link="https://wan.video/" target="_blank" />
+			<SubSubItem name="↳   🤖 Pika ART" link="https://www.seaart.ai/pt/create/video" target="_blank" />
+			<SubSubItem name="↳   🤖 GROK" link="https://chat.openai.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 QWEN CHAT" link="https://chat.qwen.ai/" target="_blank" />
+			<SubSubItem name="↳   🤖 DEEP SEEK" link="https://chat.deepseek.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 COMPILOT" link="https://copilot.microsoft.com/" target="_blank" />
+			<SubSubItem name="↳   🤖 ADOBE" link="https://podcast.adobe.com/enhance" target="_blank" />
+			<SubSubItem name="↳   🤖 SPACIO AI" link="https://app.spacio.ai/" target="_blank" />
+		</SubItem>
 		<SubItem name="↳👤 BCI ORACULO - CANOAS" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwpcontribuinteimobiliario" target="_blank" />
 		<SubItem name="↳👤 PESSOA ORACULO - CANOAS" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwpcontribuintefisica" target="_blank" />
 		<SubItem name="↳🗒️ Ficha imobiliária de Visita " link="https://corretor-fettuccia.github.io/corretor-fettuccia/fichavisita/" target="_blank" />
@@ -28,16 +39,6 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 			<SubSubItem name="↳  📈 MEDIA RENDA" link="./media" target="_blank" />
 		</SubItem>
 		<SubItem name="↳🗒️ Gerador Prompt" link="https://corretor-fettuccia.github.io/corretor-fettuccia/prompt/" target="_blank" />
-		
-		<SubItem name="🤖 IA">
-			<SubSubItem name="↳   🤖 CHAT GPT" link="https://chat.openai.com/" target="_blank" />
-			<SubSubItem name="↳   🤖 GROK" link="https://chat.openai.com/" target="_blank" />
-			<SubSubItem name="↳   🤖 QWEN CHAT" link="https://chat.qwen.ai/" target="_blank" />
-			<SubSubItem name="↳   🤖 DEEP SEEK" link="https://chat.deepseek.com/" target="_blank" />
-			<SubSubItem name="↳   🤖 COMPILOT" link="https://copilot.microsoft.com/" target="_blank" />
-			<SubSubItem name="↳   🤖 ADOBE" link="https://podcast.adobe.com/enhance" target="_blank" />
-			<SubSubItem name="↳   🤖 SPACIO AI" link="https://app.spacio.ai/" target="_blank" />
-		</SubItem>
 	</Item>
 	<Item name="🖋️ Assinadores" target="_self" alt="Sistemas">
         	<SubItem name="↳ ✒️ Assinador Registradores" link="https://assinador.registrodeimoveis.org.br/private" target="_blank" alt="assinador" />
