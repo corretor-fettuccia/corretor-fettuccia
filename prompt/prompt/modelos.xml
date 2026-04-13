@@ -45,6 +45,41 @@
 • ambient life
 </modelo>
 
+<modelo nome="0.1 - Prompt - Video I.A - Photo-Video-Pan" tipo="texto">
+• tipo de cena: interior residencial de alto padrão
+• objetivo: transformar imagem estática em vídeo com movimento cinematográfico suave
+• estilo: realista, sofisticado, padrão imobiliário premium
+
+[movimento]
+• Pan Micro-pan	
+• sensação de profundidade e perspectiva real
+• movimento contínuo, fluido e sem cortes
+
+[nitidez]
+• ultra realista
+• qualidade 4K ou superior
+• alta nitidez sem exagero
+• sem distorção de lente
+• linhas arquitetônicas perfeitamente retas
+</modelo>
+
+<modelo nome="0.2 - Prompt - Video I.A - Photo-Video-Dolly/Tracking" tipo="texto">
+• tipo de cena: interior residencial de alto padrão
+• objetivo: transformar imagem estática em vídeo com movimento cinematográfico suave
+• estilo: realista, sofisticado, padrão imobiliário premium
+
+[movimento]
+• Dolly/Tracking movimento leve
+• sensação de profundidade e perspectiva real
+• movimento contínuo, fluido e sem cortes
+
+[nitidez]
+• ultra realista
+• qualidade 4K ou superior
+• alta nitidez sem exagero
+• sem distorção de lente
+• linhas arquitetônicas perfeitamente retas
+</modelo>
 	
 <modelo nome="1.0 - Prompt - Postagem com CEO" tipo="texto">
 Transforme o texto que vai ser usado em postagem, para ficar indexável e melhorar integração de busca.
