@@ -202,7 +202,8 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		<SubSubItem name="↳  💾 DRIVE" link="https://drive.google.com/drive/folders/1pnmODOa0sQ3ujJeIwzhn3LcqAsz40nBe" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
 		</SubItem>
 		<SubItem name="↳[F] 🏢 FLEX - Canoas">
-		  <SubSubItem name="↳  📆 VARANDAS - Agenda" link="https://docs.google.com/spreadsheets/d/1TQ0jYFUftwKqyXlKuO6ojz0j_SlmVzvGUsfQassQw0g/edit?usp=sharing" target="_blank" alt="Agenda" />
+		  <SubSubItem name="↳  📆 VARANDAS - Agenda" link="https://forms.gle/CPz2KMNguWhbgEeq7" target="_blank" alt="Agenda" />
+			
 			<SubSubItem name="↳  💾 VARANDAS - Materiais e Tabela" link="https://drive.google.com/drive/folders/1rhtR-FFQPky-9mTadGrRHAj0vZfEB0N1" target="_blank" alt="Portifólio, plantas, material apoio, etc." />
 			<SubSubItem name="↳  💾 VARANDAS - Ficha Proposta" link="https://docs.google.com/file/d/1FIUdi-ydWY4rA7lcwhrcK38-w7h54qqA/edit" target="_blank" alt="Ficha proposta" />
 		</SubItem>
