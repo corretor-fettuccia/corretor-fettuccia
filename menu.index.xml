@@ -23,6 +23,7 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 		<SubItem name="↳👤 BCI ORACULO - CANOAS" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwpcontribuinteimobiliario" target="_blank" />
 		<SubItem name="↳👤 PESSOA ORACULO - CANOAS" link="http://sistemas.canoas.rs.gov.br/e-agata/servlet/hwpcontribuintefisica" target="_blank" />
 		<SubItem name="↳🗒️ Ficha imobiliária de Visita " link="https://corretor-fettuccia.github.io/corretor-fettuccia/fichavisita/" target="_blank" />
+		<SubItem name="↳👤 SELLER - Apartamento" link="https://corretor-fettuccia.github.io/seller/apto/" target="_blank" />
 		<SubItem name="↳💾 Comprimir Picture/Downdoad" link="https://corretor-fettuccia.github.io/picture/" target="_blank" />
 		<SubItem name="↳💾 Comprimir Imagens e converter webp" link="./comprimr-img-webp" target="_blank" />
 		<SubItem name="↳💾 Comprimir imagens Lote" link="./compressIMG" target="_blank" />
@@ -98,7 +99,10 @@ NAS URLS QUE CONTIVEREM "&" UTILIZAR O "&amp" PARA NÃO OCORRER ERRO DE CHARCODE
 
 	<Item name="📔 CERTIDÕES" target="_self" alt="Certidões necessárias">
 
-	
+		<SubItem name="↳ 👤 CADIN">
+			<SubSubItem name="↳ 👤 CADIN. FEDERAL" link="https://cadin.pgfn.gov.br" target="_blank" alt="CADIN - FEDERAL" />
+			<SubSubItem name="↳ 👤 CADIN - RS" link="https://cadin.sefaz.rs.gov.br" target="_blank" alt="CADIN-RS" />
+		</SubItem>
 		<SubItem name="↳ 📔 CERT. FAZENDA - RS" link="https://www.sefaz.rs.gov.br/sat/CertidaoSitFiscalSolic.aspx" target="_blank" alt="Certidão neg. da fazenda" />
 		<SubItem name="↳ 📔 CERT. CRIMINAL RS" link="https://www.tjrs.jus.br/novo/processos-e-servicos/servicos-processuais/emissao-de-antecedentes-e-certidoes" target="_blank" alt="Gestão de clientes e imóveis" />
 		<SubItem name="↳ 📔 CERT. JUSTIÇA FEDERAL" link="https://www2.trf4.jus.br/trf4/processos/certidao/index.php" target="_blank" alt="Certidão neg. da Justiça federal" />
