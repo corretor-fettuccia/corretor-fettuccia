@@ -158,7 +158,26 @@ sendo o
 gancho = 
 Conteúdo =
 </modelo>
+	
+<modelo nome="2.3 - Postagem-terreno" tipo="imagem">
+Utilize a fotografia do terreno como referência para desenvolver um estudo arquitetônico.
 
+Dimensões do terreno:
+• Frente: _metros
+• Profundidade: _metros
+• Área total: _m²
+Tipo de apresentação:
+[Corte Longitudinal | Corte Transversal | Corte Diagonal | Corte Axonométrico | Corte Isométrico]
+
+Instruções:
+-A implantação da edificação deve respeitar visualmente as dimensões do terreno, mantendo proporções realistas, recuos compatíveis e um projeto arquitetônico funcional.
+-Caso seja solicitado um corte, o modelo deve remover apenas parte da construção, preservando a leitura volumétrica da edificação e permitindo visualizar simultaneamente a fachada, a volumetria externa e os ambientes internos.
+-O corte deve possuir aparência de maquete eletrônica arquitetônica profissional, sem aspecto de uma casa simplesmente "fatiada".
+-A arquitetura deve ser contemporânea, elegante e construtivamente viável, utilizando materiais modernos, grandes esquadrias, concreto aparente, madeira, iluminação natural abundante e paisagismo integrado.
+-Manter a perspectiva, topografia e limites do terreno conforme a fotografia apresentada.
+-Produzir uma renderização hiper-realista, com qualidade de apresentação para escritório de arquitetura.
+</modelo>
+	
 <modelo nome="3.0 - Prompt pro-Foto" tipo="imagem">
 - melhore a iluminação difusa interna e externa (equilibrio nível profissional)
 - melhore saturação e constraste (nivel pro)
