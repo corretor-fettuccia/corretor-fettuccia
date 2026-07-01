@@ -619,6 +619,10 @@
                             <input type="text" id="cpf1" placeholder="000.000.000-00" maxlength="14" />
                         </div>
                         <div class="field-group">
+                            <label for="nascimento1">Data de Nascimento</label>
+                            <input type="text" id="nascimento1" placeholder="dd/mm/aaaa" maxlength="10" />
+                        </div>
+                        <div class="field-group">
                             <label for="pais1">Nacionalidade</label>
                             <input type="text" id="pais1" placeholder="Ex: brasileiro" />
                         </div>
@@ -666,6 +670,10 @@
                         <div class="field-group">
                             <label for="cpf2">CPF</label>
                             <input type="text" id="cpf2" placeholder="000.000.000-00" maxlength="14" />
+                        </div>
+                        <div class="field-group">
+                            <label for="nascimento2">Data de Nascimento</label>
+                            <input type="text" id="nascimento2" placeholder="dd/mm/aaaa" maxlength="10" />
                         </div>
                         <div class="field-group">
                             <label for="pais2">Nacionalidade</label>
@@ -776,6 +784,7 @@
             const fields = {
                 nome1: $('#nome1'),
                 cpf1: $('#cpf1'),
+                nascimento1: $('#nascimento1'),
                 pais1: $('#pais1'),
                 cidade1: $('#cidade1'),
                 prof1: $('#profissao1'),
@@ -784,6 +793,7 @@
                 tel1: $('#telefone1'),
                 nome2: $('#nome2'),
                 cpf2: $('#cpf2'),
+                nascimento2: $('#nascimento2'),
                 pais2: $('#pais2'),
                 cidade2: $('#cidade2'),
                 prof2: $('#profissao2'),
@@ -837,7 +847,7 @@
                 return str.replace(/\b\w/g, (c) => c.toUpperCase());
             }
 
-            // ─── CPF mask ─────────────────────────────────────────────
+            // ─── Masks ──────────────────────────────────────────────
 
             function applyCpfMask(input) {
                 let val = input.value.replace(/\D/g, '');
@@ -851,7 +861,6 @@
                 input.value = formatted;
             }
 
-            // Phone mask (simple)
             function applyPhoneMask(input) {
                 let val = input.value.replace(/\D/g, '');
                 if (val.length > 11) val = val.slice(0, 11);
@@ -867,6 +876,17 @@
                 input.value = formatted;
             }
 
+            function applyDateMask(input) {
+                let val = input.value.replace(/\D/g, '');
+                if (val.length > 8) val = val.slice(0, 8);
+                let formatted = '';
+                for (let i = 0; i < val.length; i++) {
+                    if (i === 2 || i === 4) formatted += '/';
+                    formatted += val[i];
+                }
+                input.value = formatted;
+            }
+
             // ─── Build qualification text ─────────────────────────────
 
             function buildQualification() {
@@ -876,13 +896,15 @@
                 const n1 = capitalizeWords(getVal('nome1'));
                 const cid1 = capitalizeWords(getVal('cidade1'));
                 const prof1 = capitalizeWords(getVal('prof1'));
+                const nasc1 = getVal('nascimento1');
 
                 const n2 = capitalizeWords(getVal('nome2'));
                 const cid2 = capitalizeWords(getVal('cidade2'));
                 const prof2 = capitalizeWords(getVal('prof2'));
+                const nasc2 = getVal('nascimento2');
 
                 const cpf1 = getVal('cpf1');
-                const p1 = getVal('pais1'); // gentílico digitado pelo usuário
+                const p1 = getVal('pais1');
                 const ec1Label = getSelectText('ec1');
                 const email1 = getVal('email1');
                 const tel1 = getVal('tel1');
@@ -903,10 +925,18 @@
                     return parts.join(', ');
                 };
 
+                // Helper: nascimento
+                const nascimento = (data) => {
+                    if (!data) return '';
+                    return `nascido(a) em ${data}`;
+                };
+
                 // Person 1 line
                 const p1Parts = [];
                 if (n1) p1Parts.push(n1);
                 if (cpf1) p1Parts.push(cpf1);
+                const nasc1Str = nascimento(nasc1);
+                if (nasc1Str) p1Parts.push(nasc1Str);
                 const nat1 = natural(p1, cid1);
                 if (nat1) p1Parts.push(nat1);
                 if (prof1) p1Parts.push(prof1);
@@ -927,6 +957,8 @@
                 const p2Parts = [];
                 if (n2) p2Parts.push(n2);
                 if (cpf2) p2Parts.push(cpf2);
+                const nasc2Str = nascimento(nasc2);
+                if (nasc2Str) p2Parts.push(nasc2Str);
                 const nat2 = natural(p2, cid2);
                 if (nat2) p2Parts.push(nat2);
                 if (prof2) p2Parts.push(prof2);
@@ -1038,6 +1070,7 @@
                     person1: {
                         name: getVal('nome1'),
                         cpf: getVal('cpf1'),
+                        birth: getVal('nascimento1'),
                         country: getVal('pais1'),
                         city: getVal('cidade1'),
                         profession: getVal('prof1'),
@@ -1048,6 +1081,7 @@
                     person2: {
                         name: getVal('nome2'),
                         cpf: getVal('cpf2'),
+                        birth: getVal('nascimento2'),
                         country: getVal('pais2'),
                         city: getVal('cidade2'),
                         profession: getVal('prof2'),
@@ -1067,6 +1101,7 @@
 
                 setVal('nome1', p1.name || '');
                 setVal('cpf1', p1.cpf || '');
+                setVal('nascimento1', p1.birth || '');
                 setVal('pais1', p1.country || '');
                 setVal('cidade1', p1.city || '');
                 setVal('prof1', p1.profession || '');
@@ -1076,6 +1111,7 @@
 
                 setVal('nome2', p2.name || '');
                 setVal('cpf2', p2.cpf || '');
+                setVal('nascimento2', p2.birth || '');
                 setVal('pais2', p2.country || '');
                 setVal('cidade2', p2.city || '');
                 setVal('prof2', p2.profession || '');
@@ -1155,6 +1191,9 @@
                 // Phone mask
                 fields.tel1.addEventListener('input', function() { applyPhoneMask(this); });
                 fields.tel2.addEventListener('input', function() { applyPhoneMask(this); });
+                // Date mask
+                fields.nascimento1.addEventListener('input', function() { applyDateMask(this); });
+                fields.nascimento2.addEventListener('input', function() { applyDateMask(this); });
             }
 
             // ─── Init ──────────────────────────────────────────────────
