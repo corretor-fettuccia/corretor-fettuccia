@@ -931,10 +931,17 @@
                     return `nascido(a) em ${data}`;
                 };
 
+                // Helper: CPF
+                const cpfFormat = (cpf) => {
+                    if (!cpf) return '';
+                    return `com CPF nº ${cpf}`;
+                };
+
                 // Person 1 line
                 const p1Parts = [];
                 if (n1) p1Parts.push(n1);
-                if (cpf1) p1Parts.push(cpf1);
+                const cpf1Str = cpfFormat(cpf1);
+                if (cpf1Str) p1Parts.push(cpf1Str);
                 const nasc1Str = nascimento(nasc1);
                 if (nasc1Str) p1Parts.push(nasc1Str);
                 const nat1 = natural(p1, cid1);
@@ -956,7 +963,8 @@
                 // Married
                 const p2Parts = [];
                 if (n2) p2Parts.push(n2);
-                if (cpf2) p2Parts.push(cpf2);
+                const cpf2Str = cpfFormat(cpf2);
+                if (cpf2Str) p2Parts.push(cpf2Str);
                 const nasc2Str = nascimento(nasc2);
                 if (nasc2Str) p2Parts.push(nasc2Str);
                 const nat2 = natural(p2, cid2);
