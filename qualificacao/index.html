@@ -401,131 +401,6 @@
             text-align: center;
         }
 
-        .preview-content .parte-header {
-            font-weight: 600;
-            color: #0b1e33;
-            font-size: 15px;
-            margin-bottom: 4px;
-        }
-
-        .preview-content .qualification-text {
-            margin-top: 2px;
-        }
-
-        /* ── JSON Modal ── */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(2px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.2s ease;
-        }
-
-        .modal-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-box {
-            background: #ffffff;
-            border-radius: 24px;
-            max-width: 720px;
-            width: 100%;
-            padding: 28px 32px 32px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
-            transform: translateY(12px);
-            transition: 0.2s ease;
-        }
-
-        .modal-overlay.open .modal-box {
-            transform: translateY(0);
-        }
-
-        .modal-box h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: #0b1e33;
-            margin-bottom: 6px;
-        }
-
-        .modal-box .sub {
-            font-size: 14px;
-            color: #5b6f87;
-            margin-bottom: 18px;
-        }
-
-        .modal-box textarea {
-            width: 100%;
-            min-height: 220px;
-            padding: 14px 16px;
-            border: 1px solid #dce2eb;
-            border-radius: 12px;
-            font-size: 13px;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            resize: vertical;
-            outline: none;
-            transition: 0.15s ease;
-            background: #fafcff;
-            color: #1e293b;
-        }
-
-        .modal-box textarea:focus {
-            border-color: #6d8bb0;
-            box-shadow: 0 0 0 3px rgba(13, 56, 97, 0.06);
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 18px;
-        }
-
-        .modal-actions button {
-            padding: 10px 28px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: inherit;
-            cursor: pointer;
-            border: none;
-            transition: 0.15s ease;
-        }
-
-        .modal-actions .btn-secondary {
-            background: #f1f5f9;
-            color: #1e293b;
-        }
-
-        .modal-actions .btn-secondary:hover {
-            background: #e2e8f0;
-        }
-
-        .modal-actions .btn-primary {
-            background: #0b1e33;
-            color: #fff;
-        }
-
-        .modal-actions .btn-primary:hover {
-            background: #1a3450;
-        }
-
-        .modal-actions .btn-danger {
-            background: #dc2626;
-            color: #fff;
-        }
-
-        .modal-actions .btn-danger:hover {
-            background: #b91c1c;
-        }
-
         /* ── Toast ── */
         .toast {
             position: fixed;
@@ -551,14 +426,6 @@
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
-        }
-
-        /* ── Utilities ── */
-        .gap-8 {
-            gap: 8px;
-        }
-        .mt-8 {
-            margin-top: 8px;
         }
 
         /* scroll */
@@ -588,8 +455,8 @@
                 <small>padronização automática</small>
             </h1>
             <div class="header-actions">
-                <button id="importJsonBtn" title="Importar dados de um arquivo JSON">📂 Importar JSON</button>
-                <button id="exportJsonBtn" class="primary" title="Exportar dados atuais para JSON">⬇ Exportar JSON</button>
+                <button id="importJsonBtn" title="Carregar dados de um arquivo JSON">📂 Importar JSON</button>
+                <button id="exportJsonBtn" class="primary" title="Baixar dados atuais em arquivo JSON">⬇ Exportar JSON</button>
             </div>
         </header>
 
@@ -739,20 +606,6 @@
         </div>
     </div>
 
-    <!-- JSON Modal -->
-    <div class="modal-overlay" id="jsonModal">
-        <div class="modal-box">
-            <h3>📄 Importar / Exportar JSON</h3>
-            <p class="sub">Cole ou edite os dados no formato JSON abaixo.</p>
-            <textarea id="jsonEditor" spellcheck="false"></textarea>
-            <div class="modal-actions">
-                <button class="btn-secondary" id="modalCancel">Cancelar</button>
-                <button class="btn-danger" id="modalClear">Limpar</button>
-                <button class="btn-primary" id="modalApply">Aplicar</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
@@ -773,11 +626,6 @@
             const copyBtn = $('#copyBtn');
             const importBtn = $('#importJsonBtn');
             const exportBtn = $('#exportJsonBtn');
-            const modal = $('#jsonModal');
-            const jsonEditor = $('#jsonEditor');
-            const modalCancel = $('#modalCancel');
-            const modalApply = $('#modalApply');
-            const modalClear = $('#modalClear');
             const toast = $('#toast');
 
             // All input fields
@@ -995,7 +843,7 @@
                     preview.innerHTML = text.replace(/\n/g, '<br>');
                 } else {
                     preview.innerHTML =
-                    `<div class="empty-state">Preencha os campos ao lado para gerar a qualificação.</div>`;
+                        `<div class="empty-state">Preencha os campos ao lado para gerar a qualificação.</div>`;
                 }
                 updateBadges();
             }
@@ -1133,33 +981,24 @@
                 updatePreview();
             }
 
-            function exportJson() {
+            // ─── Export: download file ──────────────────────────────
+
+            function downloadJson() {
                 const data = getData();
-                return JSON.stringify(data, null, 2);
+                const json = JSON.stringify(data, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'qualificacao.json';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                showToast('✅ Arquivo JSON baixado!');
             }
 
-            function importJson(jsonStr) {
-                try {
-                    const data = JSON.parse(jsonStr);
-                    setData(data);
-                    showToast('✅ Dados importados com sucesso!');
-                    return true;
-                } catch (e) {
-                    showToast('❌ JSON inválido: ' + e.message);
-                    return false;
-                }
-            }
-
-            function openModal(initialJson) {
-                jsonEditor.value = initialJson || exportJson();
-                modal.classList.add('open');
-            }
-
-            function closeModal() {
-                modal.classList.remove('open');
-            }
-
-            // ─── File import ──────────────────────────────────────────
+            // ─── Import: upload file ────────────────────────────────
 
             function importFromFile() {
                 const input = document.createElement('input');
@@ -1216,27 +1055,7 @@
 
                 // Import / Export
                 importBtn.addEventListener('click', importFromFile);
-                exportBtn.addEventListener('click', () => {
-                    openModal(exportJson());
-                });
-
-                // Modal
-                modalCancel.addEventListener('click', closeModal);
-                modalApply.addEventListener('click', () => {
-                    const ok = importJson(jsonEditor.value);
-                    if (ok) closeModal();
-                });
-                modalClear.addEventListener('click', () => {
-                    jsonEditor.value = '';
-                });
-                // Close modal on backdrop click
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) closeModal();
-                });
-                // Escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') closeModal();
-                });
+                exportBtn.addEventListener('click', downloadJson);
 
                 // Auto-update
                 setupAutoUpdate();
