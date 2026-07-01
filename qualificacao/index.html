@@ -981,21 +981,30 @@
                 updatePreview();
             }
 
-            // ─── Export: download file ──────────────────────────────
+            // ─── Export: download file (fix) ─────────────────────────
 
             function downloadJson() {
-                const data = getData();
-                const json = JSON.stringify(data, null, 2);
-                const blob = new Blob([json], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'qualificacao.json';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(url);
-                showToast('✅ Arquivo JSON baixado!');
+                try {
+                    const data = getData();
+                    const json = JSON.stringify(data, null, 2);
+                    const blob = new Blob([json], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+
+                    // Cria um link e dispara o download
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'qualificacao.json';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    // Revoga a URL após um breve delay para garantir o download
+                    setTimeout(() => URL.revokeObjectURL(url), 500);
+
+                    showToast('✅ Arquivo JSON baixado!');
+                } catch (e) {
+                    showToast('❌ Erro ao exportar: ' + e.message);
+                }
             }
 
             // ─── Import: upload file ────────────────────────────────
