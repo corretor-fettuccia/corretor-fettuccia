@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor com Watermark – Arraste e Solte</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js">
+    </script>
+    <style>
+        /* ===== ESTILOS ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .left-panel {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .right-panel {
+            flex: 2;
+            min-width: 400px;
+            padding: 20px;
+            border-left: 1px solid #eee;
+        }
+
+        /* ÁREA DE UPLOAD – DESTAQUE PARA DRAG */
+        .upload-area {
+            border: 3px dashed #4b6cb7;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+            position: relative;
+        }
+
+        .upload-area.dragover {
+            border-color: #182848;
+            background-color: #e6eeff;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            color: #4b6cb7;
+            margin-bottom: 15px;
+        }
+
+        .upload-progress {
+            font-size: 0.95rem;
+            color: #2d3748;
+            margin-top: 10px;
+            font-weight: 600;
+            min-height: 1.5em;
+        }
+
+        .settings {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .settings h2 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        input[type="range"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+
+        .format-options {
+            margin-bottom: 15px;
+        }
+
+        .format-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-option input {
+            margin-right: 5px;
+        }
+
+        .watermark-upload-area {
+            border: 2px dashed #a0aec0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: white;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 15px;
+        }
+
+        .watermark-upload-area:hover {
+            border-color: #4b6cb7;
+            background: #f7fafc;
+        }
+
+        .watermark-upload-area img {
+            max-height: 80px;
+            max-width: 100%;
+            margin-top: 8px;
+            border-radius: 4px;
+        }
+
+        .watermark-upload-area .placeholder {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 15px;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            color: #718096;
+            cursor: pointer;
+            transition: 0.2s;
+            border-bottom: 3px solid transparent;
+            font-size: 1rem;
+        }
+
+        .tab-btn.active {
+            color: #4b6cb7;
+            border-bottom-color: #4b6cb7;
+            background: #f0f4ff;
+        }
+
+        .tab-btn:hover {
+            background: #edf2f7;
+        }
+
+        .tab-content {
+            display: none;
+            padding-top: 10px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .inline-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .inline-controls .form-group {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-weight: bold;
+            color: #4b6cb7;
+            margin-top: 5px;
+        }
+
+        button {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .preview-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .preview-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        #image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .image-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #f8fafc;
+        }
+
+        .image-list-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .image-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .image-list-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .image-list-info {
+            flex-grow: 1;
+        }
+
+        .image-list-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .image-list-size {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .image-list-remove {
+            color: #e53e3e;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1.2rem;
+        }
+
+        .status {
+            text-align: center;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+        }
+
+        .status.success {
+            background-color: #f0fff4;
+            color: #2f855a;
+            border: 1px solid #c6f6d5;
+        }
+
+        .status.error {
+            background-color: #fed7d7;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+
+        .status.info {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            border: 1px solid #bee3f8;
+        }
+
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        .download-all {
+            background: linear-gradient(90deg, #38a169 0%, #2f855a 100%);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .right-panel {
+                border-left: none;
+                border-top: 1px solid #eee;
+            }
+            .radio-group {
+                gap: 10px;
+            }
+            .inline-controls {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Conversor com Watermark</h1>
+            <p class="description">Arraste e solte imagens ou clique para selecionar – com marca d'água Single ou Mosaico</p>
+        </header>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <!-- ÁREA DE UPLOAD -->
+                <div class="upload-area" id="drop-area">
+                    <div class="upload-icon">📁</div>
+                    <p><strong>Arraste e solte imagens aqui</strong></p>
+                    <p><small>ou clique para selecionar</small></p>
+                    <p><small>(JPG, PNG, GIF, BMP, WEBP, HEIC)</small></p>
+                    <div class="upload-progress" id="upload-progress">Aguardando arquivos...</div>
+                    <input type="file" id="file-input" accept="image/*,.heic,.HEIC" multiple style="display: none;">
+                </div>
+
+                <div class="settings">
+                    <h2>Configurações</h2>
+                    <div class="form-group format-options">
+                        <div class="format-title">Formato de Saída:</div>
+                        <div class="radio-group" id="format-options">
+                            <div class="radio-option">
+                                <input type="radio" id="format-webp" name="output-format" value="webp" checked>
+                                <label for="format-webp">WebP</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="format-png" name="output-format" value="png">
+                                <label for="format-png">PNG</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="format-jpeg" name="output-format" value="jpeg">
+                                <label for="format-jpeg">JPEG</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="format-jpg" name="output-format" value="jpg">
+                                <label for="format-jpg">JPG</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="webp-quality">Qualidade:</label>
+                        <input type="range" id="webp-quality" min="1" max="100" value="80">
+                        <div class="slider-value" id="quality-value">80%</div>
+                    </div>
+                </div>
+
+                <div class="settings">
+                    <h2>Marca d'água</h2>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="add-watermark" checked>
+                        <label for="add-watermark">Ativar Watermark</label>
+                    </div>
+
+                    <div class="watermark-upload-area" id="watermark-drop">
+                        <div class="placeholder" id="watermark-placeholder">
+                            <span style="font-size:2rem;">🖼️</span><br>
+                            Clique para enviar o logotipo (PNG, SVG, JPG, WEBP)
+                        </div>
+                        <img id="watermark-preview-img" style="display:none;" alt="Logo">
+                        <input type="file" id="watermark-input" accept="image/png,image/svg+xml,image/jpeg,image/webp" style="display:none;">
+                    </div>
+
+                    <div class="tabs" id="tab-container">
+                        <button class="tab-btn active" data-tab="single">Única (Single)</button>
+                        <button class="tab-btn" data-tab="mosaic">Mosaico (Pattern)</button>
+                    </div>
+
+                    <div class="tab-content active" id="tab-single">
+                        <div class="inline-controls">
+                            <div class="form-group">
+                                <label for="single-scale">Escala (px):</label>
+                                <input type="range" id="single-scale" min="20" max="500" value="200">
+                                <div class="slider-value" id="single-scale-value">200px</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="single-opacity">Opacidade:</label>
+                                <input type="range" id="single-opacity" min="1" max="100" value="70">
+                                <div class="slider-value" id="single-opacity-value">70%</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="single-rotation">Rotação (°):</label>
+                                <input type="range" id="single-rotation" min="0" max="360" value="0">
+                                <div class="slider-value" id="single-rotation-value">0°</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="single-align">Posicionamento:</label>
+                            <select id="single-align">
+                                <option value="center">Centralizado</option>
+                                <option value="top-left">Canto Superior Esquerdo</option>
+                                <option value="top-right">Canto Superior Direito</option>
+                                <option value="bottom-left">Canto Inferior Esquerdo</option>
+                                <option value="bottom-right">Canto Inferior Direito</option>
+                            </select>
+                        </div>
+                        <div class="inline-controls">
+                            <div class="form-group">
+                                <label for="single-offset-x">Offset X:</label>
+                                <input type="range" id="single-offset-x" min="-300" max="300" value="0">
+                                <div class="slider-value" id="single-offset-x-value">0px</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="single-offset-y">Offset Y:</label>
+                                <input type="range" id="single-offset-y" min="-300" max="300" value="0">
+                                <div class="slider-value" id="single-offset-y-value">0px</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-mosaic">
+                        <div class="inline-controls">
+                            <div class="form-group">
+                                <label for="mosaic-scale">Escala (px):</label>
+                                <input type="range" id="mosaic-scale" min="20" max="400" value="120">
+                                <div class="slider-value" id="mosaic-scale-value">120px</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mosaic-opacity">Opacidade:</label>
+                                <input type="range" id="mosaic-opacity" min="1" max="100" value="60">
+                                <div class="slider-value" id="mosaic-opacity-value">60%</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mosaic-rotation">Rotação (°):</label>
+                                <input type="range" id="mosaic-rotation" min="0" max="360" value="0">
+                                <div class="slider-value" id="mosaic-rotation-value">0°</div>
+                            </div>
+                        </div>
+                        <div class="inline-controls">
+                            <div class="form-group">
+                                <label for="mosaic-gap-x">Espaçamento H:</label>
+                                <input type="range" id="mosaic-gap-x" min="0" max="200" value="40">
+                                <div class="slider-value" id="mosaic-gap-x-value">40px</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mosaic-gap-y">Espaçamento V:</label>
+                                <input type="range" id="mosaic-gap-y" min="0" max="200" value="40">
+                                <div class="slider-value" id="mosaic-gap-y-value">40px</div>
+                            </div>
+                        </div>
+                        <div class="inline-controls">
+                            <div class="form-group">
+                                <label for="mosaic-offset-x">Offset X:</label>
+                                <input type="range" id="mosaic-offset-x" min="-200" max="200" value="0">
+                                <div class="slider-value" id="mosaic-offset-x-value">0px</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mosaic-offset-y">Offset Y:</label>
+                                <input type="range" id="mosaic-offset-y" min="-200" max="200" value="0">
+                                <div class="slider-value" id="mosaic-offset-y-value">0px</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mosaic-align">Alinhamento do Grid:</label>
+                            <select id="mosaic-align">
+                                <option value="top-left">Canto Superior Esquerdo</option>
+                                <option value="center" selected>Centralizado</option>
+                                <option value="top-right">Canto Superior Direito</option>
+                                <option value="bottom-left">Canto Inferior Esquerdo</option>
+                                <option value="bottom-right">Canto Inferior Direito</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="process-btn" disabled>Processar Imagens</button>
+                <button id="download-all-btn" class="download-all" disabled>Download em ZIP</button>
+
+                <div class="status info" id="status-message">
+                    Arraste e solte imagens ou clique para selecionar
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="preview-container">
+                    <div class="preview-title">Pré-visualização</div>
+                    <img id="image-preview" alt="Pré-visualização da imagem">
+                </div>
+
+                <div class="image-list-container">
+                    <div class="preview-title">Imagens (<span id="image-count">0</span>)</div>
+                    <div class="image-list" id="image-list">
+                        <div class="status info">Nenhuma imagem carregada</div>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="preview-title">Progresso</div>
+                    <div class="progress-bar">
+                        <div class="progress" id="conversion-progress">0%</div>
+                    </div>
+                    <div id="progress-text">Aguardando...</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Conversor com Watermark – Arraste e solte com confiança &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================================
+        // 1. ELEMENTOS
+        // ============================================================
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('file-input');
+        const imagePreview = document.getElementById('image-preview');
+        const processBtn = document.getElementById('process-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const watermarkCheckbox = document.getElementById('add-watermark');
+        const statusMsg = document.getElementById('status-message');
+        const qualitySlider = document.getElementById('webp-quality');
+        const qualityValue = document.getElementById('quality-value');
+        const imageList = document.getElementById('image-list');
+        const imageCount = document.getElementById('image-count');
+        const convProgress = document.getElementById('conversion-progress');
+        const progressText = document.getElementById('progress-text');
+        const uploadProgress = document.getElementById('upload-progress');
+
+        // Watermark upload
+        const wmDrop = document.getElementById('watermark-drop');
+        const wmInput = document.getElementById('watermark-input');
+        const wmPreview = document.getElementById('watermark-preview-img');
+        const wmPlaceholder = document.getElementById('watermark-placeholder');
+
+        // Abas
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = {
+            single: document.getElementById('tab-single'),
+            mosaic: document.getElementById('tab-mosaic')
+        };
+        let currentMode = 'single';
+
+        // Controles Single
+        const singleScale = document.getElementById('single-scale');
+        const singleScaleVal = document.getElementById('single-scale-value');
+        const singleOpacity = document.getElementById('single-opacity');
+        const singleOpacityVal = document.getElementById('single-opacity-value');
+        const singleRotation = document.getElementById('single-rotation');
+        const singleRotationVal = document.getElementById('single-rotation-value');
+        const singleAlign = document.getElementById('single-align');
+        const singleOffsetX = document.getElementById('single-offset-x');
+        const singleOffsetXVal = document.getElementById('single-offset-x-value');
+        const singleOffsetY = document.getElementById('single-offset-y');
+        const singleOffsetYVal = document.getElementById('single-offset-y-value');
+
+        // Controles Mosaico
+        const mosaicScale = document.getElementById('mosaic-scale');
+        const mosaicScaleVal = document.getElementById('mosaic-scale-value');
+        const mosaicOpacity = document.getElementById('mosaic-opacity');
+        const mosaicOpacityVal = document.getElementById('mosaic-opacity-value');
+        const mosaicRotation = document.getElementById('mosaic-rotation');
+        const mosaicRotationVal = document.getElementById('mosaic-rotation-value');
+        const mosaicGapX = document.getElementById('mosaic-gap-x');
+        const mosaicGapXVal = document.getElementById('mosaic-gap-x-value');
+        const mosaicGapY = document.getElementById('mosaic-gap-y');
+        const mosaicGapYVal = document.getElementById('mosaic-gap-y-value');
+        const mosaicOffsetX = document.getElementById('mosaic-offset-x');
+        const mosaicOffsetXVal = document.getElementById('mosaic-offset-x-value');
+        const mosaicOffsetY = document.getElementById('mosaic-offset-y');
+        const mosaicOffsetYVal = document.getElementById('mosaic-offset-y-value');
+        const mosaicAlign = document.getElementById('mosaic-align');
+
+        // ============================================================
+        // 2. ESTADO GLOBAL
+        // ============================================================
+        let images = [];
+        let processedImages = [];
+        let watermarkImage = null;
+
+        // ============================================================
+        // 3. CONFIGURAÇÃO DE SLIDERS E ABAS
+        // ============================================================
+        function setupSlider(slider, display, suffix = '') {
+            slider.addEventListener('input', () => {
+                display.textContent = slider.value + suffix;
+                updatePreview();
+            });
+        }
+        setupSlider(qualitySlider, qualityValue, '%');
+        setupSlider(singleScale, singleScaleVal, 'px');
+        setupSlider(singleOpacity, singleOpacityVal, '%');
+        setupSlider(singleRotation, singleRotationVal, '°');
+        setupSlider(singleOffsetX, singleOffsetXVal, 'px');
+        setupSlider(singleOffsetY, singleOffsetYVal, 'px');
+        setupSlider(mosaicScale, mosaicScaleVal, 'px');
+        setupSlider(mosaicOpacity, mosaicOpacityVal, '%');
+        setupSlider(mosaicRotation, mosaicRotationVal, '°');
+        setupSlider(mosaicGapX, mosaicGapXVal, 'px');
+        setupSlider(mosaicGapY, mosaicGapYVal, 'px');
+        setupSlider(mosaicOffsetX, mosaicOffsetXVal, 'px');
+        setupSlider(mosaicOffsetY, mosaicOffsetYVal, 'px');
+
+        singleAlign.addEventListener('change', updatePreview);
+        mosaicAlign.addEventListener('change', updatePreview);
+
+        // Abas
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                Object.values(tabContents).forEach(el => el.classList.remove('active'));
+                const id = btn.dataset.tab;
+                tabContents[id].classList.add('active');
+                currentMode = id;
+                updatePreview();
+            });
+        });
+
+        // ============================================================
+        // 4. WATERMARK – CARREGAR (com fallback)
+        // ============================================================
+        wmDrop.addEventListener('click', () => wmInput.click());
+        wmInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        const img = new Image();
+                        img.onload = function() {
+                            watermarkImage = img;
+                            wmPreview.src = ev.target.result;
+                            wmPreview.style.display = 'block';
+                            wmPlaceholder.style.display = 'none';
+                            updatePreview();
+                        };
+                        img.src = ev.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Selecione uma imagem (PNG, SVG, JPG, WEBP)');
+                }
+            }
+        });
+
+        function loadDefaultWatermark() {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.onload = function() {
+                    watermarkImage = img;
+                    wmPreview.src = img.src;
+                    wmPreview.style.display = 'block';
+                    wmPlaceholder.style.display = 'none';
+                    resolve(img);
+                };
+                img.onerror = function() {
+                    // Fallback com texto
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 300;
+                    canvas.height = 300;
+                    const ctx = canvas.getContext('2d');
+                    ctx.clearRect(0, 0, 300, 300);
+                    ctx.fillStyle = 'rgba(0,0,0,0.1)';
+                    ctx.fillRect(0, 0, 300, 300);
+                    ctx.fillStyle = 'rgba(0,0,0,0.3)';
+                    ctx.font = 'bold 24px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('WATERMARK', 150, 150);
+                    const fallback = new Image();
+                    fallback.onload = function() {
+                        watermarkImage = fallback;
+                        wmPreview.src = canvas.toDataURL();
+                        wmPreview.style.display = 'block';
+                        wmPlaceholder.style.display = 'none';
+                        resolve(fallback);
+                    };
+                    fallback.src = canvas.toDataURL();
+                };
+                img.src = './lg.png';
+            });
+        }
+
+        watermarkCheckbox.addEventListener('change', () => {
+            if (watermarkCheckbox.checked && !watermarkImage) {
+                loadDefaultWatermark();
+            }
+            updatePreview();
+        });
+
+        // ============================================================
+        // 5. UPLOADER REAL — CLIQUE + DROP + CTRL+V + BOTÃO COLAR
+        // ============================================================
+        // IMPORTANTE:
+        // - DROP de arquivo funciona com arquivos arrastados do sistema.
+        // - CTRL+V funciona quando o clipboard contém uma imagem/blob.
+        // - Em Linux, copiar um arquivo no gerenciador de arquivos e dar Ctrl+V no navegador
+        //   nem sempre entrega o arquivo por segurança do navegador. Para isso, use DROP.
+        // - O botão "Colar do clipboard" usa navigator.clipboard.read(), que exige HTTPS ou localhost.
+
+        function UploaderLog(msg, tipo = 'info') {
+            console.log('[UPLOADER]', msg);
+            updateStatus(msg, tipo);
+            uploadProgress.textContent = msg;
+        }
+
+        function isImagemAceita(file) {
+            if (!file) return false;
+            const type = (file.type || '').toLowerCase();
+            const name = (file.name || '').toLowerCase();
+            return type.startsWith('image/') || /\.(jpg|jpeg|png|webp|gif|bmp|svg|heic|heif)$/i.test(name);
+        }
+
+        function nomeArquivoSeguro(file, prefixo = 'imagem') {
+            if (file.name && file.name.trim()) return file;
+            let ext = 'png';
+            const type = (file.type || '').toLowerCase();
+            if (type.includes('jpeg')) ext = 'jpg';
+            else if (type.includes('webp')) ext = 'webp';
+            else if (type.includes('gif')) ext = 'gif';
+            else if (type.includes('svg')) ext = 'svg';
+            else if (type.includes('bmp')) ext = 'bmp';
+            return new File([file], `${prefixo}-${Date.now()}.${ext}`, {
+                type: file.type || 'image/png',
+                lastModified: Date.now()
+            });
+        }
+
+        function normalizarArquivos(lista, origem = 'upload') {
+            const arquivos = [];
+            const vistos = new Set();
+
+            for (const item of Array.from(lista || [])) {
+                if (!item) continue;
+                let file = item;
+                if (!(file instanceof File) && item instanceof Blob) {
+                    file = new File([item], `${origem}-${Date.now()}.png`, { type: item.type || 'image/png' });
+                }
+                if (!isImagemAceita(file)) continue;
+                file = nomeArquivoSeguro(file, origem);
+                const chave = `${file.name}|${file.size}|${file.type}|${file.lastModified}`;
+                if (vistos.has(chave)) continue;
+                vistos.add(chave);
+                arquivos.push(file);
+            }
+            return arquivos;
+        }
+
+        function importarArquivosReais(lista, origem = 'upload') {
+            const arquivos = normalizarArquivos(lista, origem);
+
+            if (!arquivos.length) {
+                UploaderLog('Nenhuma imagem válida recebida.', 'error');
+                return;
+            }
+
+            UploaderLog(`${arquivos.length} imagem(ns) recebida(s) por ${origem}.`, 'success');
+            handleFiles(arquivos);
+        }
+
+        function arquivosDoDrop(evento) {
+            const dt = evento.dataTransfer;
+            const arquivos = [];
+            if (!dt) return arquivos;
+
+            // Caminho principal: arquivo arrastado do sistema.
+            if (dt.files && dt.files.length) {
+                arquivos.push(...Array.from(dt.files));
+            }
+
+            // Caminho alternativo: alguns navegadores/apps entregam em dataTransfer.items.
+            if (dt.items && dt.items.length) {
+                for (const item of Array.from(dt.items)) {
+                    if (item.kind === 'file') {
+                        const file = item.getAsFile();
+                        if (file) arquivos.push(file);
+                    }
+                }
+            }
+
+            return arquivos;
+        }
+
+        function arquivosDoPaste(evento) {
+            const cd = evento.clipboardData || window.clipboardData;
+            const arquivos = [];
+            if (!cd) return arquivos;
+
+            // PrintScreen / captura / imagem copiada.
+            if (cd.files && cd.files.length) {
+                arquivos.push(...Array.from(cd.files));
+            }
+
+            // Imagem copiada do navegador/editor.
+            if (cd.items && cd.items.length) {
+                for (const item of Array.from(cd.items)) {
+                    if (item.kind === 'file') {
+                        const file = item.getAsFile();
+                        if (file) arquivos.push(file);
+                    }
+                }
+            }
+
+            return arquivos;
+        }
+
+        function bloquearNavegadorAbrirArquivo(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Faz a página inteira aceitar DROP, não apenas a caixa.
+        ['dragenter', 'dragover'].forEach(nomeEvento => {
+            window.addEventListener(nomeEvento, (e) => {
+                bloquearNavegadorAbrirArquivo(e);
+                if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+                dropArea.classList.add('dragover');
+                uploadProgress.textContent = 'Solte a imagem agora...';
+            }, true);
+        });
+
+        ['dragleave', 'dragend'].forEach(nomeEvento => {
+            window.addEventListener(nomeEvento, (e) => {
+                bloquearNavegadorAbrirArquivo(e);
+                if (nomeEvento === 'dragend' || e.clientX <= 0 || e.clientY <= 0 || e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+                    dropArea.classList.remove('dragover');
+                    uploadProgress.textContent = images.length ? `${images.length} imagem(ns) carregada(s).` : 'Aguardando arquivos...';
+                }
+            }, true);
+        });
+
+        window.addEventListener('drop', (e) => {
+            bloquearNavegadorAbrirArquivo(e);
+            dropArea.classList.remove('dragover');
+            importarArquivosReais(arquivosDoDrop(e), 'drop');
+        }, true);
+
+        // Clique normal para selecionar arquivo.
+        dropArea.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            fileInput.value = '';
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            importarArquivosReais(e.target.files, 'clique');
+            fileInput.value = '';
+        });
+
+        // CTRL+V / CMD+V.
+        window.addEventListener('paste', (e) => {
+            const arquivos = arquivosDoPaste(e);
+            if (arquivos.length) {
+                e.preventDefault();
+                e.stopPropagation();
+                importarArquivosReais(arquivos, 'clipboard');
+            } else {
+                UploaderLog('Clipboard recebido, mas não veio imagem. Use PrintScreen/copiar imagem, ou arraste o arquivo por drop.', 'info');
+            }
+        }, true);
+
+        // Botão extra para ler clipboard moderno. Ajuda quando Ctrl+V não entrega arquivo.
+        const botaoColar = document.createElement('button');
+        botaoColar.type = 'button';
+        botaoColar.textContent = 'Colar imagem do clipboard';
+        botaoColar.style.marginTop = '10px';
+        dropArea.insertAdjacentElement('afterend', botaoColar);
+
+        botaoColar.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (!navigator.clipboard || !navigator.clipboard.read) {
+                UploaderLog('Este navegador não permite leitura direta do clipboard. Use Ctrl+V com imagem copiada ou arraste por drop.', 'error');
+                return;
+            }
+
+            try {
+                const itens = await navigator.clipboard.read();
+                const arquivos = [];
+
+                for (const item of itens) {
+                    for (const type of item.types) {
+                        if (type.startsWith('image/')) {
+                            const blob = await item.getType(type);
+                            const ext = type.includes('jpeg') ? 'jpg' : type.split('/')[1].replace('svg+xml', 'svg');
+                            arquivos.push(new File([blob], `clipboard-${Date.now()}.${ext}`, { type }));
+                        }
+                    }
+                }
+
+                importarArquivosReais(arquivos, 'clipboard');
+            } catch (err) {
+                console.error(err);
+                UploaderLog('Não consegui ler o clipboard. Em arquivo local, o navegador pode bloquear. Teste em localhost/HTTPS ou use Ctrl+V/Drop.', 'error');
+            }
+        });
+
+        // ============================================================
+        // 8. HANDLE FILES – processa os arquivos recebidos
+        // ============================================================
+        function handleFiles(files) {
+            const valid = [];
+            for (let file of files) {
+                const isImage = file.type.startsWith('image/');
+                const isHeic = file.name.toLowerCase().endsWith('.heic') ||
+                    file.name.toLowerCase().endsWith('.HEIC') ||
+                    file.type === 'image/heic' ||
+                    file.type === 'image/HEIC';
+                if (isImage || isHeic) {
+                    valid.push(file);
+                }
+            }
+            if (valid.length === 0) {
+                uploadProgress.textContent = 'Nenhuma imagem válida.';
+                updateStatus('Use apenas imagens (JPG, PNG, GIF, WEBP, HEIC).', 'error');
+                return;
+            }
+
+            let loaded = 0;
+            const total = valid.length;
+            uploadProgress.textContent = `Carregando 0 de ${total}...`;
+
+            valid.forEach((file) => {
+                processarArquivo(file).then(() => {
+                    loaded++;
+                    uploadProgress.textContent = `Carregando ${loaded} de ${total}...`;
+                    if (loaded === total) {
+                        uploadProgress.textContent = `Pronto! ${images.length} imagens carregadas.`;
+                    }
+                }).catch(err => {
+                    console.error('Erro em', file.name, err);
+                    loaded++;
+                    uploadProgress.textContent = `Carregando ${loaded} de ${total}... (erro em ${file.name})`;
+                });
+            });
+        }
+
+        function processarArquivo(file) {
+            return new Promise((resolve, reject) => {
+                const isHeic = file.name.toLowerCase().endsWith('.heic') ||
+                    file.name.toLowerCase().endsWith('.HEIC') ||
+                    file.type === 'image/heic' ||
+                    file.type === 'image/HEIC';
+
+                if (images.some(img => img.file.name === file.name && img.file.size === file.size)) {
+                    resolve();
+                    return;
+                }
+
+                const imageObj = { file, dataUrl: null, preview: null, isHeic };
+
+                if (isHeic) {
+                    convertHeicToJpeg(file)
+                        .then(blob => {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                imageObj.dataUrl = e.target.result;
+                                const img = new Image();
+                                img.onload = function() {
+                                    imageObj.preview = img;
+                                    images.push(imageObj);
+                                    updateImageList();
+                                    if (images.length === 1) showPreview(imageObj);
+                                    updateStatus(`HEIC "${file.name}" convertido.`, 'success');
+                                    resolve();
+                                };
+                                img.onerror = () => reject(new Error('Falha ao carregar HEIC'));
+                                img.src = e.target.result;
+                            };
+                            reader.onerror = () => reject(new Error('Falha ao ler blob HEIC'));
+                            reader.readAsDataURL(blob);
+                        })
+                        .catch(err => reject(err));
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imageObj.dataUrl = e.target.result;
+                        const img = new Image();
+                        img.onload = function() {
+                            imageObj.preview = img;
+                            images.push(imageObj);
+                            updateImageList();
+                            if (images.length === 1) showPreview(imageObj);
+                            updateStatus(`"${file.name}" carregada.`, 'success');
+                            resolve();
+                        };
+                        img.onerror = () => reject(new Error('Falha ao carregar imagem'));
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = () => reject(new Error('Falha ao ler arquivo'));
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function convertHeicToJpeg(heicFile) {
+            return new Promise((resolve, reject) => {
+                try {
+                    heic2any({ blob: heicFile, toType: 'image/jpeg', quality: 0.8 })
+                        .then(resolve)
+                        .catch(reject);
+                } catch (e) { reject(e); }
+            });
+        }
+
+        // ============================================================
+        // 9. ATUALIZAR LISTA E PREVIEW
+        // ============================================================
+        function updateImageList() {
+            imageList.innerHTML = '';
+            imageCount.textContent = images.length;
+            if (images.length === 0) {
+                imageList.innerHTML = '<div class="status info">Nenhuma imagem carregada</div>';
+                processBtn.disabled = true;
+                return;
+            }
+            processBtn.disabled = false;
+
+            images.forEach((image, index) => {
+                const item = document.createElement('div');
+                item.className = 'image-list-item';
+                const fmt = image.isHeic ? '<span style="color:#4b6cb7;font-weight:bold;margin-right:5px;">[HEIC]</span>' : '';
+                item.innerHTML = `
+                    <img src="${image.dataUrl}" class="image-list-thumb" alt="${image.file.name}">
+                    <div class="image-list-info">
+                        <div class="image-list-name">${fmt}${image.file.name}</div>
+                        <div class="image-list-size">${formatFileSize(image.file.size)} • ${image.preview.width}x${image.preview.height}</div>
+                    </div>
+                    <div class="image-list-remove" data-index="${index}">✖</div>
+                `;
+                imageList.appendChild(item);
+                item.addEventListener('click', (e) => {
+                    if (!e.target.classList.contains('image-list-remove')) showPreview(image);
+                });
+            });
+
+            document.querySelectorAll('.image-list-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = parseInt(e.target.dataset.index);
+                    const removed = images[idx];
+                    images.splice(idx, 1);
+                    updateImageList();
+                    updateStatus(`"${removed.file.name}" removida.`, 'info');
+                    if (images.length === 0) {
+                        imagePreview.style.display = 'none';
+                        uploadProgress.textContent = 'Aguardando arquivos...';
+                    } else {
+                        showPreview(images[0]);
+                    }
+                });
+            });
+        }
+
+        // ============================================================
+        // 10. APLICAR WATERMARK E PREVIEW
+        // ============================================================
+        function applyWatermarkSingle(ctx, w, h) {
+            if (!watermarkImage) return;
+            const scale = parseInt(singleScale.value);
+            const opacity = parseInt(singleOpacity.value) / 100;
+            const rotation = parseInt(singleRotation.value) * Math.PI / 180;
+            const align = singleAlign.value;
+            const ox = parseInt(singleOffsetX.value);
+            const oy = parseInt(singleOffsetY.value);
+            const aspect = watermarkImage.width / watermarkImage.height;
+            let dw = scale,
+                dh = scale / aspect;
+            if (dh > scale) { dh = scale;
+                dw = scale * aspect; }
+            let x, y;
+            switch (align) {
+                case 'center':
+                    x = (w - dw) / 2;
+                    y = (h - dh) / 2;
+                    break;
+                case 'top-left':
+                    x = 0;
+                    y = 0;
+                    break;
+                case 'top-right':
+                    x = w - dw;
+                    y = 0;
+                    break;
+                case 'bottom-left':
+                    x = 0;
+                    y = h - dh;
+                    break;
+                case 'bottom-right':
+                    x = w - dw;
+                    y = h - dh;
+                    break;
+                default:
+                    x = (w - dw) / 2;
+                    y = (h - dh) / 2;
+            }
+            x += ox;
+            y += oy;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+            ctx.translate(x + dw / 2, y + dh / 2);
+            ctx.rotate(rotation);
+            ctx.drawImage(watermarkImage, -dw / 2, -dh / 2, dw, dh);
+            ctx.restore();
+        }
+
+        function applyWatermarkPattern(ctx, w, h) {
+            if (!watermarkImage) return;
+            const scale = parseInt(mosaicScale.value);
+            const opacity = parseInt(mosaicOpacity.value) / 100;
+            const rotation = parseInt(mosaicRotation.value) * Math.PI / 180;
+            const gapX = parseInt(mosaicGapX.value);
+            const gapY = parseInt(mosaicGapY.value);
+            const ox = parseInt(mosaicOffsetX.value);
+            const oy = parseInt(mosaicOffsetY.value);
+            const align = mosaicAlign.value;
+            const aspect = watermarkImage.width / watermarkImage.height;
+            let dw = scale,
+                dh = scale / aspect;
+            if (dh > scale) { dh = scale;
+                dw = scale * aspect; }
+            const stepX = dw + gapX;
+            const stepY = dh + gapY;
+            let startX, startY;
+            const totalW = w,
+                totalH = h;
+            switch (align) {
+                case 'top-left':
+                    startX = 0;
+                    startY = 0;
+                    break;
+                case 'center':
+                    startX = (totalW - (stepX * Math.floor(totalW / stepX))) / 2;
+                    startY = (totalH - (stepY * Math.floor(totalH / stepY))) / 2;
+                    break;
+                case 'top-right':
+                    startX = totalW - (stepX * Math.floor(totalW / stepX));
+                    startY = 0;
+                    break;
+                case 'bottom-left':
+                    startX = 0;
+                    startY = totalH - (stepY * Math.floor(totalH / stepY));
+                    break;
+                case 'bottom-right':
+                    startX = totalW - (stepX * Math.floor(totalW / stepX));
+                    startY = totalH - (stepY * Math.floor(totalH / stepY));
+                    break;
+                default:
+                    startX = 0;
+                    startY = 0;
+            }
+            startX += ox;
+            startY += oy;
+            ctx.save();
+            ctx.globalAlpha = opacity;
+            for (let y = startY; y < totalH; y += stepY) {
+                for (let x = startX; x < totalW; x += stepX) {
+                    ctx.save();
+                    ctx.translate(x + dw / 2, y + dh / 2);
+                    ctx.rotate(rotation);
+                    ctx.drawImage(watermarkImage, -dw / 2, -dh / 2, dw, dh);
+                    ctx.restore();
+                }
+            }
+            ctx.restore();
+        }
+
+        function showPreview(image) {
+            const canvas = document.createElement('canvas');
+            canvas.width = image.preview.width;
+            canvas.height = image.preview.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(image.preview, 0, 0);
+            if (watermarkCheckbox.checked && watermarkImage) {
+                if (currentMode === 'single') applyWatermarkSingle(ctx, canvas.width, canvas.height);
+                else applyWatermarkPattern(ctx, canvas.width, canvas.height);
+            }
+            imagePreview.src = canvas.toDataURL();
+            imagePreview.style.display = 'block';
+        }
+
+        function updatePreview() {
+            if (images.length > 0) showPreview(images[0]);
+        }
+
+        // ============================================================
+        // 11. PROCESSAMENTO E DOWNLOAD
+        // ============================================================
+        async function processAllImages() {
+            if (images.length === 0) return;
+            try {
+                processBtn.disabled = true;
+                downloadAllBtn.disabled = true;
+                processBtn.textContent = 'Processando...';
+                if (watermarkCheckbox.checked && !watermarkImage) {
+                    await loadDefaultWatermark();
+                }
+                processedImages = [];
+                for (let i = 0; i < images.length; i++) {
+                    const img = images[i];
+                    updateStatus(`Processando ${i+1}/${images.length}: ${img.file.name}`, 'info');
+                    const progress = Math.round((i / images.length) * 100);
+                    convProgress.style.width = progress + '%';
+                    convProgress.textContent = progress + '%';
+                    progressText.textContent = `Processando ${i+1}/${images.length} (${progress}%)`;
+                    const result = await processImage(img);
+                    processedImages.push(result);
+                    await new Promise(r => setTimeout(r, 10));
+                }
+                convProgress.style.width = '100%';
+                convProgress.textContent = '100%';
+                progressText.textContent = `Concluído! ${processedImages.length} imagens.`;
+                updateStatus('Pronto! Clique em "Download em ZIP".', 'success');
+                const fmt = document.querySelector('input[name="output-format"]:checked').value;
+                processBtn.textContent = `Processar para ${fmt.toUpperCase()}`;
+                downloadAllBtn.disabled = false;
+            } catch (err) {
+                console.error(err);
+                updateStatus('Erro: ' + err.message, 'error');
+                const fmt = document.querySelector('input[name="output-format"]:checked').value;
+                processBtn.textContent = `Processar para ${fmt.toUpperCase()}`;
+                processBtn.disabled = false;
+            }
+        }
+
+        function processImage(image) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = image.preview.width;
+                canvas.height = image.preview.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(image.preview, 0, 0);
+                if (watermarkCheckbox.checked && watermarkImage) {
+                    if (currentMode === 'single') applyWatermarkSingle(ctx, canvas.width, canvas.height);
+                    else applyWatermarkPattern(ctx, canvas.width, canvas.height);
+                }
+                const fmt = document.querySelector('input[name="output-format"]:checked').value;
+                const quality = parseFloat(qualitySlider.value) / 100;
+                canvas.toBlob((blob) => {
+                    resolve({
+                        originalName: image.file.name,
+                        blob: blob,
+                        url: URL.createObjectURL(blob)
+                    });
+                }, `image/${fmt === 'jpg' ? 'jpeg' : fmt}`, quality);
+            });
+        }
+
+        async function downloadAllAsZip() {
+            if (processedImages.length === 0) return;
+            try {
+                downloadAllBtn.disabled = true;
+                downloadAllBtn.textContent = 'Criando ZIP...';
+                updateStatus('Criando ZIP...', 'info');
+                const zip = new JSZip();
+                const fmt = document.querySelector('input[name="output-format"]:checked').value;
+                processedImages.forEach(img => {
+                    const name = img.originalName.replace(/\.[^/.]+$/, '') + '.' + fmt;
+                    zip.file(name, img.blob);
+                });
+                const zipBlob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+                saveAs(zipBlob, `imagens_${fmt}.zip`);
+                updateStatus(`Download iniciado (${processedImages.length} arquivos).`, 'success');
+                downloadAllBtn.textContent = 'Download em ZIP';
+                downloadAllBtn.disabled = false;
+            } catch (err) {
+                console.error(err);
+                updateStatus('Erro ao criar ZIP: ' + err.message, 'error');
+                downloadAllBtn.textContent = 'Download em ZIP';
+                downloadAllBtn.disabled = false;
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function updateStatus(msg, type) {
+            statusMsg.textContent = msg;
+            statusMsg.className = 'status ' + type;
+        }
+
+        // ============================================================
+        // 12. INICIALIZAÇÃO
+        // ============================================================
+        async function init() {
+            document.getElementById('format-webp').checked = true;
+            processBtn.textContent = 'Processar para WEBP';
+            // Garantir aba Single ativa
+            document.querySelector('.tab-btn[data-tab="single"]').classList.add('active');
+            document.getElementById('tab-single').classList.add('active');
+            document.getElementById('tab-mosaic').classList.remove('active');
+            currentMode = 'single';
+            if (watermarkCheckbox.checked) {
+                await loadDefaultWatermark();
+            }
+            uploadProgress.textContent = 'Aguardando arquivos...';
+        }
+
+        processBtn.addEventListener('click', processAllImages);
+        downloadAllBtn.addEventListener('click', downloadAllAsZip);
+
+        init();
+    </script>
+</body>
+</html>
