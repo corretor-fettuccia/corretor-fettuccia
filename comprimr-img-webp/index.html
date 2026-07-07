@@ -11,641 +11,702 @@
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js">
     </script>
     <style>
-        /* ===== ESTILOS ===== */
+        /* ===== RESET E BASE ===== */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
+        html,
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 100%;
             overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #1e293b;
         }
-
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.08);
+        }
+        /* ===== HEADER ===== */
         header {
             background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .main-content {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
-
-        .left-panel {
-            flex: 1;
-            min-width: 300px;
-            padding: 20px;
-        }
-
-        .right-panel {
-            flex: 2;
-            min-width: 400px;
-            padding: 20px;
-            border-left: 1px solid #eee;
-        }
-
-        /* ÁREA DE UPLOAD – DESTAQUE PARA DRAG */
-        .upload-area {
-            border: 3px dashed #4b6cb7;
-            border-radius: 10px;
-            padding: 40px 20px;
-            text-align: center;
-            margin-bottom: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background-color: #f8fafc;
-            position: relative;
-        }
-
-        .upload-area.dragover {
-            border-color: #182848;
-            background-color: #e6eeff;
-            transform: scale(1.02);
-        }
-
-        .upload-icon {
-            font-size: 60px;
-            color: #4b6cb7;
-            margin-bottom: 15px;
-        }
-
-        .upload-progress {
-            font-size: 0.95rem;
-            color: #2d3748;
-            margin-top: 10px;
-            font-weight: 600;
-            min-height: 1.5em;
-        }
-
-        .settings {
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .settings h2 {
-            color: #2d3748;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        input[type="range"],
-        select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #cbd5e0;
-            border-radius: 5px;
-            background-color: white;
-        }
-
-        .checkbox-group {
+            color: #fff;
+            padding: 14px 24px;
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            flex-shrink: 0;
         }
-
-        .checkbox-group input {
-            margin-right: 10px;
-        }
-
-        .format-options {
-            margin-bottom: 15px;
-        }
-
-        .format-title {
+        header h1 {
+            font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: #2d3748;
+            letter-spacing: 0.5px;
         }
-
+        header .description {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+        /* ===== CORPO ===== */
+        .main {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+        }
+        /* ===== PAINEL ESQUERDO (CONTROLES) ===== */
+        .left-panel {
+            width: 370px;
+            flex-shrink: 0;
+            padding: 14px 18px;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .left-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+        .left-panel::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+        }
+        /* ===== ÁREA DE UPLOAD ===== */
+        .upload-area {
+            border: 2px dashed #4b6cb7;
+            border-radius: 8px;
+            padding: 16px 10px;
+            text-align: center;
+            cursor: pointer;
+            background: #f1f5f9;
+            transition: 0.2s;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .upload-area.dragover {
+            border-color: #182848;
+            background: #e6eeff;
+            transform: scale(1.01);
+        }
+        .upload-area .icon {
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+        .upload-area p {
+            font-size: 0.85rem;
+            margin: 2px 0;
+        }
+        .upload-area small {
+            font-size: 0.7rem;
+            color: #64748b;
+        }
+        .upload-progress {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+            min-height: 1.2em;
+            margin-top: 2px;
+        }
+        /* ===== CONFIGURAÇÕES ===== */
+        .settings {
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            flex-shrink: 0;
+        }
+        .settings h2 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 6px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #e9edf2;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 12px;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .form-row .form-group {
+            flex: 1 0 auto;
+            min-width: 80px;
+        }
+        .form-group label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #334155;
+            display: block;
+            margin-bottom: 0;
+        }
+        .form-group input[type="range"] {
+            width: 100%;
+            height: 4px;
+            padding: 0;
+            margin: 2px 0;
+            accent-color: #4b6cb7;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 2px 4px;
+            font-size: 0.75rem;
+            border: 1px solid #d1d9e6;
+            border-radius: 4px;
+            background: #fff;
+        }
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 2px 4px;
+            font-size: 0.75rem;
+            border: 1px solid #d1d9e6;
+            border-radius: 4px;
+        }
+        .slider-value {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #4b6cb7;
+            text-align: center;
+            margin-top: -2px;
+        }
         .radio-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 5px;
+            gap: 6px 12px;
+            margin: 2px 0;
         }
-
         .radio-option {
             display: flex;
             align-items: center;
+            font-size: 0.8rem;
+            gap: 4px;
         }
-
         .radio-option input {
-            margin-right: 5px;
+            margin: 0;
         }
-
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            margin: 2px 0;
+        }
+        .checkbox-group input {
+            margin: 0;
+        }
         .watermark-upload-area {
-            border: 2px dashed #a0aec0;
-            border-radius: 8px;
-            padding: 20px;
+            border: 1px dashed #b3c2d1;
+            border-radius: 6px;
+            padding: 8px 10px;
             text-align: center;
-            background: white;
+            background: #fff;
             cursor: pointer;
             transition: 0.2s;
-            margin-bottom: 15px;
+            margin: 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-
         .watermark-upload-area:hover {
             border-color: #4b6cb7;
             background: #f7fafc;
         }
-
+        .watermark-upload-area .placeholder {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
         .watermark-upload-area img {
-            max-height: 80px;
-            max-width: 100%;
-            margin-top: 8px;
+            max-height: 40px;
+            max-width: 60px;
             border-radius: 4px;
         }
-
-        .watermark-upload-area .placeholder {
-            color: #718096;
-            font-size: 0.9rem;
-        }
-
+        /* ===== ABAS ===== */
         .tabs {
             display: flex;
-            border-bottom: 2px solid #e2e8f0;
-            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            margin: 4px 0 6px;
         }
-
         .tab-btn {
             flex: 1;
-            padding: 10px 15px;
+            padding: 4px 0;
             background: transparent;
             border: none;
             font-weight: 600;
+            font-size: 0.75rem;
             color: #718096;
             cursor: pointer;
-            transition: 0.2s;
-            border-bottom: 3px solid transparent;
-            font-size: 1rem;
+            border-bottom: 2px solid transparent;
+            transition: 0.15s;
         }
-
         .tab-btn.active {
             color: #4b6cb7;
             border-bottom-color: #4b6cb7;
             background: #f0f4ff;
         }
-
         .tab-btn:hover {
             background: #edf2f7;
         }
-
         .tab-content {
             display: none;
-            padding-top: 10px;
+            padding-top: 4px;
         }
-
         .tab-content.active {
             display: block;
         }
-
-        .inline-controls {
+        /* ===== BOTÕES ===== */
+        .btn-group {
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 8px;
+            flex-shrink: 0;
         }
-
-        .inline-controls .form-group {
+        .btn-group button {
             flex: 1;
-            min-width: 100px;
-        }
-
-        .slider-value {
-            text-align: center;
-            font-weight: bold;
-            color: #4b6cb7;
-            margin-top: 5px;
-        }
-
-        button {
-            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-            color: white;
+            padding: 8px 0;
             border: none;
-            padding: 14px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
+            border-radius: 6px;
             font-weight: 600;
-            transition: all 0.3s;
-            width: 100%;
-            margin-top: 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #4b6cb7;
+            color: #fff;
         }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .btn-group button:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(75, 108, 183, 0.3);
         }
-
-        button:disabled {
+        .btn-group button:disabled {
             background: #cbd5e0;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
-
-        .preview-container {
-            text-align: center;
-            margin-bottom: 20px;
+        .btn-group .download-all {
+            background: #38a169;
         }
-
-        .preview-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #2d3748;
+        .btn-group .download-all:hover:not(:disabled) {
+            background: #2f855a;
+            box-shadow: 0 4px 10px rgba(56, 161, 105, 0.3);
         }
-
-        #image-preview {
-            max-width: 100%;
-            max-height: 300px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .image-list {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-top: 20px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 10px;
-            background-color: #f8fafc;
-        }
-
-        .image-list-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .image-list-item:last-child {
-            border-bottom: none;
-        }
-
-        .image-list-thumb {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-right: 15px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .image-list-info {
-            flex-grow: 1;
-        }
-
-        .image-list-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 200px;
-        }
-
-        .image-list-size {
-            color: #718096;
-            font-size: 0.9rem;
-        }
-
-        .image-list-remove {
-            color: #e53e3e;
-            cursor: pointer;
-            padding: 5px;
-            font-size: 1.2rem;
-        }
-
+        /* ===== STATUS ===== */
         .status {
-            text-align: center;
-            padding: 10px;
-            margin-top: 15px;
+            padding: 6px 10px;
             border-radius: 6px;
+            font-size: 0.8rem;
+            text-align: center;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
-
         .status.success {
-            background-color: #f0fff4;
+            background: #f0fff4;
             color: #2f855a;
             border: 1px solid #c6f6d5;
         }
-
         .status.error {
-            background-color: #fed7d7;
+            background: #fed7d7;
             color: #c53030;
             border: 1px solid #feb2b2;
         }
-
         .status.info {
-            background-color: #ebf8ff;
+            background: #ebf8ff;
             color: #2b6cb0;
             border: 1px solid #bee3f8;
         }
-
-        .progress-container {
-            margin-top: 20px;
+        /* ===== PAINEL DIREITO (PREVIEW + LISTA) ===== */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            min-height: 0;
+            padding: 12px 16px;
+            gap: 16px;
+            background: #fff;
         }
-
-        .progress-bar {
-            height: 20px;
-            background-color: #e2e8f0;
-            border-radius: 10px;
+        .preview-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .preview-box .title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+        .preview-box .preview-image {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            min-height: 200px;
             overflow: hidden;
-            margin-bottom: 10px;
+            position: relative;
         }
-
-        .progress {
+        .preview-box .preview-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+        .preview-box .preview-image img[src] {
+            display: block;
+        }
+        .list-box {
+            width: 280px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .list-box .title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1e293b;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .list-box .image-list {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 6px 8px;
+            background: #f8fafc;
+            min-height: 0;
+        }
+        .list-box .image-list::-webkit-scrollbar {
+            width: 5px;
+        }
+        .list-box .image-list::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+        }
+        .image-list-item {
+            display: flex;
+            align-items: center;
+            padding: 6px 4px;
+            border-bottom: 1px solid #edf2f7;
+            gap: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        .image-list-item:hover {
+            background: #f1f5f9;
+        }
+        .image-list-item.selected {
+            background: #dbeafe;
+            border-left: 3px solid #4b6cb7;
+        }
+        .image-list-item:last-child {
+            border-bottom: none;
+        }
+        .image-list-item .thumb {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+        .image-list-item .info {
+            flex: 1;
+            min-width: 0;
+        }
+        .image-list-item .info .name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .image-list-item .info .size {
+            font-size: 0.65rem;
+            color: #64748b;
+        }
+        .image-list-item .remove {
+            color: #e53e3e;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0 4px;
+            flex-shrink: 0;
+        }
+        .image-list-item .remove:hover {
+            color: #c53030;
+        }
+        /* ===== PROGRESSO ===== */
+        .progress-wrap {
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        .progress-wrap .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress-wrap .progress-bar .fill {
             height: 100%;
-            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
             width: 0%;
-            transition: width 0.3s;
-            border-radius: 10px;
-            text-align: center;
-            color: white;
-            font-size: 12px;
-            line-height: 20px;
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            border-radius: 6px;
+            transition: width 0.25s;
         }
-
-        .download-all {
-            background: linear-gradient(90deg, #38a169 0%, #2f855a 100%);
+        .progress-wrap .progress-text {
+            font-size: 0.7rem;
+            color: #475569;
+            margin-top: 2px;
         }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #718096;
-            font-size: 0.9rem;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 900px) {
+            .main {
                 flex-direction: column;
+            }
+            .left-panel {
+                width: 100%;
+                max-height: 45vh;
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+                overflow-y: auto;
             }
             .right-panel {
-                border-left: none;
-                border-top: 1px solid #eee;
+                flex-direction: column;
+                flex: 1;
+                min-height: 0;
             }
-            .radio-group {
+            .list-box {
+                width: 100%;
+                max-height: 40vh;
+            }
+            .preview-box .preview-image {
+                min-height: 120px;
+            }
+        }
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.2rem;
+            }
+            .left-panel {
+                padding: 10px;
+            }
+            .right-panel {
+                padding: 10px;
                 gap: 10px;
             }
-            .inline-controls {
-                flex-direction: column;
-                gap: 5px;
+            .list-box {
+                width: 100%;
             }
+        }
+        /* ===== BOTÃO DE COLAR EXTRA ===== */
+        .paste-helper {
+            font-size: 0.7rem;
+            text-align: right;
+            margin-top: -4px;
+        }
+        .paste-helper button {
+            background: none;
+            border: none;
+            color: #4b6cb7;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.7rem;
+            padding: 0;
+        }
+        .paste-helper button:hover {
+            color: #182848;
+        }
+        /* ===== CHECKBOX ALINHADO ===== */
+        .inline-check {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+        }
+        .inline-check input {
+            margin: 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="app">
         <header>
-            <h1>Conversor com Watermark</h1>
-            <p class="description">Arraste e solte imagens ou clique para selecionar – com marca d'água Single ou Mosaico</p>
+            <h1>🖼️ Watermark Converter</h1>
+            <span class="description">Arraste, cole ou clique – com marca d'água</span>
         </header>
 
-        <div class="main-content">
+        <div class="main">
+            <!-- PAINEL ESQUERDO -->
             <div class="left-panel">
-                <!-- ÁREA DE UPLOAD -->
+                <!-- UPLOAD -->
                 <div class="upload-area" id="drop-area">
-                    <div class="upload-icon">📁</div>
-                    <p><strong>Arraste e solte imagens aqui</strong></p>
-                    <p><small>ou clique para selecionar</small></p>
-                    <p><small>(JPG, PNG, GIF, BMP, WEBP, HEIC)</small></p>
-                    <div class="upload-progress" id="upload-progress">Aguardando arquivos...</div>
-                    <input type="file" id="file-input" accept="image/*,.heic,.HEIC" multiple style="display: none;">
+                    <div class="icon">📁</div>
+                    <p><strong>Arraste imagens</strong> ou <strong>clique</strong></p>
+                    <small>JPG, PNG, GIF, WEBP, HEIC</small>
+                    <div class="upload-progress" id="upload-progress">Aguardando...</div>
+                    <input type="file" id="file-input" accept="image/*,.heic,.HEIC" multiple style="display:none;">
+                </div>
+                <div class="paste-helper">
+                    <button id="paste-btn">📋 Colar do clipboard</button>
                 </div>
 
+                <!-- CONFIGURAÇÕES -->
                 <div class="settings">
-                    <h2>Configurações</h2>
-                    <div class="form-group format-options">
-                        <div class="format-title">Formato de Saída:</div>
-                        <div class="radio-group" id="format-options">
-                            <div class="radio-option">
-                                <input type="radio" id="format-webp" name="output-format" value="webp" checked>
-                                <label for="format-webp">WebP</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="format-png" name="output-format" value="png">
-                                <label for="format-png">PNG</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="format-jpeg" name="output-format" value="jpeg">
-                                <label for="format-jpeg">JPEG</label>
-                            </div>
-                            <div class="radio-option">
-                                <input type="radio" id="format-jpg" name="output-format" value="jpg">
-                                <label for="format-jpg">JPG</label>
+                    <h2>Formato &amp; Qualidade</h2>
+                    <div class="form-row">
+                        <div class="form-group" style="flex:2;">
+                            <label>Formato</label>
+                            <div class="radio-group" id="format-options">
+                                <div class="radio-option"><input type="radio" name="output-format" value="webp" checked><label>WebP</label></div>
+                                <div class="radio-option"><input type="radio" name="output-format" value="png"><label>PNG</label></div>
+                                <div class="radio-option"><input type="radio" name="output-format" value="jpeg"><label>JPEG</label></div>
+                                <div class="radio-option"><input type="radio" name="output-format" value="jpg"><label>JPG</label></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="webp-quality">Qualidade:</label>
-                        <input type="range" id="webp-quality" min="1" max="100" value="80">
-                        <div class="slider-value" id="quality-value">80%</div>
+                        <div class="form-group" style="flex:1;">
+                            <label>Qualidade</label>
+                            <input type="range" id="webp-quality" min="1" max="100" value="80">
+                            <div class="slider-value" id="quality-value">80%</div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- WATERMARK -->
                 <div class="settings">
                     <h2>Marca d'água</h2>
                     <div class="checkbox-group">
                         <input type="checkbox" id="add-watermark" checked>
-                        <label for="add-watermark">Ativar Watermark</label>
+                        <label for="add-watermark">Ativar</label>
                     </div>
-
                     <div class="watermark-upload-area" id="watermark-drop">
-                        <div class="placeholder" id="watermark-placeholder">
-                            <span style="font-size:2rem;">🖼️</span><br>
-                            Clique para enviar o logotipo (PNG, SVG, JPG, WEBP)
-                        </div>
+                        <span class="placeholder" id="watermark-placeholder">🖼️ Clique para logotipo</span>
                         <img id="watermark-preview-img" style="display:none;" alt="Logo">
                         <input type="file" id="watermark-input" accept="image/png,image/svg+xml,image/jpeg,image/webp" style="display:none;">
                     </div>
-
                     <div class="tabs" id="tab-container">
-                        <button class="tab-btn active" data-tab="single">Única (Single)</button>
-                        <button class="tab-btn" data-tab="mosaic">Mosaico (Pattern)</button>
+                        <button class="tab-btn active" data-tab="single">Única</button>
+                        <button class="tab-btn" data-tab="mosaic">Mosaico</button>
                     </div>
 
+                    <!-- SINGLE -->
                     <div class="tab-content active" id="tab-single">
-                        <div class="inline-controls">
-                            <div class="form-group">
-                                <label for="single-scale">Escala (px):</label>
-                                <input type="range" id="single-scale" min="20" max="500" value="200">
-                                <div class="slider-value" id="single-scale-value">200px</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="single-opacity">Opacidade:</label>
-                                <input type="range" id="single-opacity" min="1" max="100" value="70">
-                                <div class="slider-value" id="single-opacity-value">70%</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="single-rotation">Rotação (°):</label>
-                                <input type="range" id="single-rotation" min="0" max="360" value="0">
-                                <div class="slider-value" id="single-rotation-value">0°</div>
-                            </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Escala</label><input type="range" id="single-scale" min="20" max="500" value="200"><div class="slider-value" id="single-scale-value">200px</div></div>
+                            <div class="form-group"><label>Opacidade</label><input type="range" id="single-opacity" min="1" max="100" value="70"><div class="slider-value" id="single-opacity-value">70%</div></div>
+                            <div class="form-group"><label>Rotação</label><input type="range" id="single-rotation" min="0" max="360" value="0"><div class="slider-value" id="single-rotation-value">0°</div></div>
                         </div>
-                        <div class="form-group">
-                            <label for="single-align">Posicionamento:</label>
-                            <select id="single-align">
-                                <option value="center">Centralizado</option>
-                                <option value="top-left">Canto Superior Esquerdo</option>
-                                <option value="top-right">Canto Superior Direito</option>
-                                <option value="bottom-left">Canto Inferior Esquerdo</option>
-                                <option value="bottom-right">Canto Inferior Direito</option>
-                            </select>
-                        </div>
-                        <div class="inline-controls">
-                            <div class="form-group">
-                                <label for="single-offset-x">Offset X:</label>
-                                <input type="range" id="single-offset-x" min="-300" max="300" value="0">
-                                <div class="slider-value" id="single-offset-x-value">0px</div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Alinhamento</label>
+                                <select id="single-align">
+                                    <option value="center">Centro</option>
+                                    <option value="top-left">Topo Esq</option>
+                                    <option value="top-right">Topo Dir</option>
+                                    <option value="bottom-left">Base Esq</option>
+                                    <option value="bottom-right">Base Dir</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="single-offset-y">Offset Y:</label>
-                                <input type="range" id="single-offset-y" min="-300" max="300" value="0">
-                                <div class="slider-value" id="single-offset-y-value">0px</div>
-                            </div>
+                            <div class="form-group"><label>Offset X</label><input type="range" id="single-offset-x" min="-300" max="300" value="0"><div class="slider-value" id="single-offset-x-value">0px</div></div>
+                            <div class="form-group"><label>Offset Y</label><input type="range" id="single-offset-y" min="-300" max="300" value="0"><div class="slider-value" id="single-offset-y-value">0px</div></div>
                         </div>
                     </div>
 
+                    <!-- MOSAIC -->
                     <div class="tab-content" id="tab-mosaic">
-                        <div class="inline-controls">
-                            <div class="form-group">
-                                <label for="mosaic-scale">Escala (px):</label>
-                                <input type="range" id="mosaic-scale" min="20" max="400" value="120">
-                                <div class="slider-value" id="mosaic-scale-value">120px</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mosaic-opacity">Opacidade:</label>
-                                <input type="range" id="mosaic-opacity" min="1" max="100" value="60">
-                                <div class="slider-value" id="mosaic-opacity-value">60%</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mosaic-rotation">Rotação (°):</label>
-                                <input type="range" id="mosaic-rotation" min="0" max="360" value="0">
-                                <div class="slider-value" id="mosaic-rotation-value">0°</div>
-                            </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Escala</label><input type="range" id="mosaic-scale" min="20" max="400" value="120"><div class="slider-value" id="mosaic-scale-value">120px</div></div>
+                            <div class="form-group"><label>Opacidade</label><input type="range" id="mosaic-opacity" min="1" max="100" value="60"><div class="slider-value" id="mosaic-opacity-value">60%</div></div>
+                            <div class="form-group"><label>Rotação</label><input type="range" id="mosaic-rotation" min="0" max="360" value="0"><div class="slider-value" id="mosaic-rotation-value">0°</div></div>
                         </div>
-                        <div class="inline-controls">
-                            <div class="form-group">
-                                <label for="mosaic-gap-x">Espaçamento H:</label>
-                                <input type="range" id="mosaic-gap-x" min="0" max="200" value="40">
-                                <div class="slider-value" id="mosaic-gap-x-value">40px</div>
-                            </div>
-                            <div class="form-group">
-                                <label for="mosaic-gap-y">Espaçamento V:</label>
-                                <input type="range" id="mosaic-gap-y" min="0" max="200" value="40">
-                                <div class="slider-value" id="mosaic-gap-y-value">40px</div>
-                            </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Espaç.H</label><input type="range" id="mosaic-gap-x" min="0" max="200" value="40"><div class="slider-value" id="mosaic-gap-x-value">40px</div></div>
+                            <div class="form-group"><label>Espaç.V</label><input type="range" id="mosaic-gap-y" min="0" max="200" value="40"><div class="slider-value" id="mosaic-gap-y-value">40px</div></div>
+                            <div class="form-group"><label>Offset X</label><input type="range" id="mosaic-offset-x" min="-200" max="200" value="0"><div class="slider-value" id="mosaic-offset-x-value">0px</div></div>
+                            <div class="form-group"><label>Offset Y</label><input type="range" id="mosaic-offset-y" min="-200" max="200" value="0"><div class="slider-value" id="mosaic-offset-y-value">0px</div></div>
                         </div>
-                        <div class="inline-controls">
-                            <div class="form-group">
-                                <label for="mosaic-offset-x">Offset X:</label>
-                                <input type="range" id="mosaic-offset-x" min="-200" max="200" value="0">
-                                <div class="slider-value" id="mosaic-offset-x-value">0px</div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Alinhamento Grid</label>
+                                <select id="mosaic-align">
+                                    <option value="top-left">Topo Esq</option>
+                                    <option value="center" selected>Centro</option>
+                                    <option value="top-right">Topo Dir</option>
+                                    <option value="bottom-left">Base Esq</option>
+                                    <option value="bottom-right">Base Dir</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="mosaic-offset-y">Offset Y:</label>
-                                <input type="range" id="mosaic-offset-y" min="-200" max="200" value="0">
-                                <div class="slider-value" id="mosaic-offset-y-value">0px</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="mosaic-align">Alinhamento do Grid:</label>
-                            <select id="mosaic-align">
-                                <option value="top-left">Canto Superior Esquerdo</option>
-                                <option value="center" selected>Centralizado</option>
-                                <option value="top-right">Canto Superior Direito</option>
-                                <option value="bottom-left">Canto Inferior Esquerdo</option>
-                                <option value="bottom-right">Canto Inferior Direito</option>
-                            </select>
                         </div>
                     </div>
                 </div>
 
-                <button id="process-btn" disabled>Processar Imagens</button>
-                <button id="download-all-btn" class="download-all" disabled>Download em ZIP</button>
-
-                <div class="status info" id="status-message">
-                    Arraste e solte imagens ou clique para selecionar
+                <!-- NOMEAÇÃO NO ZIP -->
+                <div class="settings">
+                    <h2>Nomeação no ZIP</h2>
+                    <div class="form-row">
+                        <div class="form-group" style="flex:1;">
+                            <label>Nome base</label>
+                            <input type="text" id="base-name" value="imagem">
+                        </div>
+                        <div class="form-group" style="flex:0 0 auto;">
+                            <div class="inline-check">
+                                <input type="checkbox" id="number-files" checked>
+                                <label for="number-files">Numerar</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- BOTÕES -->
+                <div class="btn-group">
+                    <button id="process-btn" disabled>Processar</button>
+                    <button id="download-all-btn" class="download-all" disabled>ZIP</button>
+                </div>
+                <div class="status info" id="status-message">Carregue imagens para começar</div>
             </div>
 
+            <!-- PAINEL DIREITO -->
             <div class="right-panel">
-                <div class="preview-container">
-                    <div class="preview-title">Pré-visualização</div>
-                    <img id="image-preview" alt="Pré-visualização da imagem">
+                <div class="preview-box">
+                    <div class="title">Pré-visualização</div>
+                    <div class="preview-image">
+                        <img id="image-preview" alt="Preview">
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-bar"><div class="fill" id="conversion-progress"></div></div>
+                        <div class="progress-text" id="progress-text">Aguardando...</div>
+                    </div>
                 </div>
 
-                <div class="image-list-container">
-                    <div class="preview-title">Imagens (<span id="image-count">0</span>)</div>
+                <div class="list-box">
+                    <div class="title">
+                        <span>Imagens (<span id="image-count">0</span>)</span>
+                    </div>
                     <div class="image-list" id="image-list">
-                        <div class="status info">Nenhuma imagem carregada</div>
+                        <div class="status info" style="margin:0;">Nenhuma imagem</div>
                     </div>
-                </div>
-
-                <div class="progress-container">
-                    <div class="preview-title">Progresso</div>
-                    <div class="progress-bar">
-                        <div class="progress" id="conversion-progress">0%</div>
-                    </div>
-                    <div id="progress-text">Aguardando...</div>
                 </div>
             </div>
         </div>
-
-        <footer>
-            <p>Conversor com Watermark – Arraste e solte com confiança &copy; 2023</p>
-        </footer>
     </div>
 
     <script>
-        // ============================================================
+        // ================================================================
         // 1. ELEMENTOS
-        // ============================================================
+        // ================================================================
         const dropArea = document.getElementById('drop-area');
         const fileInput = document.getElementById('file-input');
         const imagePreview = document.getElementById('image-preview');
@@ -660,14 +721,19 @@
         const convProgress = document.getElementById('conversion-progress');
         const progressText = document.getElementById('progress-text');
         const uploadProgress = document.getElementById('upload-progress');
+        const pasteBtn = document.getElementById('paste-btn');
 
-        // Watermark upload
+        // Nomeação
+        const baseNameInput = document.getElementById('base-name');
+        const numberFilesCheck = document.getElementById('number-files');
+
+        // Watermark
         const wmDrop = document.getElementById('watermark-drop');
         const wmInput = document.getElementById('watermark-input');
         const wmPreview = document.getElementById('watermark-preview-img');
         const wmPlaceholder = document.getElementById('watermark-placeholder');
 
-        // Abas
+        // Tabs
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = {
             single: document.getElementById('tab-single'),
@@ -705,16 +771,18 @@
         const mosaicOffsetYVal = document.getElementById('mosaic-offset-y-value');
         const mosaicAlign = document.getElementById('mosaic-align');
 
-        // ============================================================
+        // ================================================================
         // 2. ESTADO GLOBAL
-        // ============================================================
+        // ================================================================
         let images = [];
         let processedImages = [];
         let watermarkImage = null;
+        const loadedDataUrls = new Set();
+        let selectedIndex = -1; // índice da imagem em preview
 
-        // ============================================================
+        // ================================================================
         // 3. CONFIGURAÇÃO DE SLIDERS E ABAS
-        // ============================================================
+        // ================================================================
         function setupSlider(slider, display, suffix = '') {
             slider.addEventListener('input', () => {
                 display.textContent = slider.value + suffix;
@@ -738,7 +806,6 @@
         singleAlign.addEventListener('change', updatePreview);
         mosaicAlign.addEventListener('change', updatePreview);
 
-        // Abas
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 tabBtns.forEach(b => b.classList.remove('active'));
@@ -751,9 +818,9 @@
             });
         });
 
-        // ============================================================
-        // 4. WATERMARK – CARREGAR (com fallback)
-        // ============================================================
+        // ================================================================
+        // 4. WATERMARK
+        // ================================================================
         wmDrop.addEventListener('click', () => wmInput.click());
         wmInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
@@ -790,7 +857,6 @@
                     resolve(img);
                 };
                 img.onerror = function() {
-                    // Fallback com texto
                     const canvas = document.createElement('canvas');
                     canvas.width = 300;
                     canvas.height = 300;
@@ -824,22 +890,9 @@
             updatePreview();
         });
 
-        // ============================================================
-        // 5. UPLOADER REAL — CLIQUE + DROP + CTRL+V + BOTÃO COLAR
-        // ============================================================
-        // IMPORTANTE:
-        // - DROP de arquivo funciona com arquivos arrastados do sistema.
-        // - CTRL+V funciona quando o clipboard contém uma imagem/blob.
-        // - Em Linux, copiar um arquivo no gerenciador de arquivos e dar Ctrl+V no navegador
-        //   nem sempre entrega o arquivo por segurança do navegador. Para isso, use DROP.
-        // - O botão "Colar do clipboard" usa navigator.clipboard.read(), que exige HTTPS ou localhost.
-
-        function UploaderLog(msg, tipo = 'info') {
-            console.log('[UPLOADER]', msg);
-            updateStatus(msg, tipo);
-            uploadProgress.textContent = msg;
-        }
-
+        // ================================================================
+        // 5. UPLOAD – DROP, CLIQUE, PASTE (com deduplicação)
+        // ================================================================
         function isImagemAceita(file) {
             if (!file) return false;
             const type = (file.type || '').toLowerCase();
@@ -862,105 +915,116 @@
             });
         }
 
-        function normalizarArquivos(lista, origem = 'upload') {
-            const arquivos = [];
-            const vistos = new Set();
+        function lerArquivoParaDataUrl(file) {
+            return new Promise((resolve, reject) => {
+                const isHeic = file.name.toLowerCase().endsWith('.heic') ||
+                    file.name.toLowerCase().endsWith('.HEIC') ||
+                    file.type === 'image/heic' ||
+                    file.type === 'image/HEIC';
 
-            for (const item of Array.from(lista || [])) {
-                if (!item) continue;
-                let file = item;
-                if (!(file instanceof File) && item instanceof Blob) {
-                    file = new File([item], `${origem}-${Date.now()}.png`, { type: item.type || 'image/png' });
+                if (isHeic) {
+                    heic2any({ blob: file, toType: 'image/jpeg', quality: 0.8 })
+                        .then(blob => {
+                            const reader = new FileReader();
+                            reader.onload = e => resolve({ dataUrl: e.target.result, isHeic: true });
+                            reader.onerror = reject;
+                            reader.readAsDataURL(blob);
+                        })
+                        .catch(reject);
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = e => resolve({ dataUrl: e.target.result, isHeic: false });
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
                 }
-                if (!isImagemAceita(file)) continue;
-                file = nomeArquivoSeguro(file, origem);
-                const chave = `${file.name}|${file.size}|${file.type}|${file.lastModified}`;
-                if (vistos.has(chave)) continue;
-                vistos.add(chave);
-                arquivos.push(file);
-            }
-            return arquivos;
+            });
         }
 
-        function importarArquivosReais(lista, origem = 'upload') {
-            const arquivos = normalizarArquivos(lista, origem);
-
-            if (!arquivos.length) {
-                UploaderLog('Nenhuma imagem válida recebida.', 'error');
+        async function adicionarImagens(files, origem = 'upload') {
+            const validFiles = files.filter(f => isImagemAceita(f)).map(f => nomeArquivoSeguro(f, origem));
+            if (validFiles.length === 0) {
+                updateStatus('Nenhuma imagem válida recebida.', 'error');
+                uploadProgress.textContent = 'Nenhuma imagem válida.';
                 return;
             }
 
-            UploaderLog(`${arquivos.length} imagem(ns) recebida(s) por ${origem}.`, 'success');
-            handleFiles(arquivos);
-        }
+            uploadProgress.textContent = `Lendo ${validFiles.length} arquivo(s)...`;
+            const resultados = await Promise.allSettled(validFiles.map(f => lerArquivoParaDataUrl(f)));
 
-        function arquivosDoDrop(evento) {
-            const dt = evento.dataTransfer;
-            const arquivos = [];
-            if (!dt) return arquivos;
-
-            // Caminho principal: arquivo arrastado do sistema.
-            if (dt.files && dt.files.length) {
-                arquivos.push(...Array.from(dt.files));
-            }
-
-            // Caminho alternativo: alguns navegadores/apps entregam em dataTransfer.items.
-            if (dt.items && dt.items.length) {
-                for (const item of Array.from(dt.items)) {
-                    if (item.kind === 'file') {
-                        const file = item.getAsFile();
-                        if (file) arquivos.push(file);
-                    }
+            let adicionados = 0;
+            for (let i = 0; i < resultados.length; i++) {
+                const result = resultados[i];
+                if (result.status === 'rejected') {
+                    console.warn('Erro ao ler', validFiles[i].name, result.reason);
+                    continue;
                 }
-            }
-
-            return arquivos;
-        }
-
-        function arquivosDoPaste(evento) {
-            const cd = evento.clipboardData || window.clipboardData;
-            const arquivos = [];
-            if (!cd) return arquivos;
-
-            // PrintScreen / captura / imagem copiada.
-            if (cd.files && cd.files.length) {
-                arquivos.push(...Array.from(cd.files));
-            }
-
-            // Imagem copiada do navegador/editor.
-            if (cd.items && cd.items.length) {
-                for (const item of Array.from(cd.items)) {
-                    if (item.kind === 'file') {
-                        const file = item.getAsFile();
-                        if (file) arquivos.push(file);
-                    }
+                const { dataUrl, isHeic } = result.value;
+                if (loadedDataUrls.has(dataUrl)) {
+                    continue;
                 }
+                loadedDataUrls.add(dataUrl);
+                const img = new Image();
+                img.onload = () => {
+                    images.push({
+                        file: validFiles[i],
+                        dataUrl: dataUrl,
+                        preview: img,
+                        isHeic: isHeic
+                    });
+                    adicionados++;
+                    // Se for a primeira imagem, seleciona
+                    if (images.length === 1) {
+                        selectedIndex = 0;
+                        showPreview(images[0]);
+                    } else {
+                        // Atualiza lista sem mudar preview
+                        updateImageList();
+                    }
+                    uploadProgress.textContent = `${adicionados} imagem(ns) adicionada(s).`;
+                    updateStatus(`"${validFiles[i].name}" carregada.`, 'success');
+                };
+                img.onerror = () => {
+                    updateStatus(`Erro ao carregar "${validFiles[i].name}"`, 'error');
+                };
+                img.src = dataUrl;
             }
 
-            return arquivos;
+            if (adicionados === 0) {
+                uploadProgress.textContent = 'Nenhuma imagem nova (duplicadas ignoradas).';
+                updateStatus('Todas as imagens já estão na lista.', 'info');
+            } else {
+                uploadProgress.textContent = `Pronto! ${images.length} imagens carregadas.`;
+                // Se não havia nenhuma e adicionamos, já selecionamos a primeira
+                if (images.length > 0 && selectedIndex === -1) {
+                    selectedIndex = 0;
+                    showPreview(images[0]);
+                }
+                updateImageList();
+            }
         }
 
+        // ================================================================
+        // 6. EVENTOS DE UPLOAD
+        // ================================================================
         function bloquearNavegadorAbrirArquivo(e) {
             e.preventDefault();
             e.stopPropagation();
         }
 
-        // Faz a página inteira aceitar DROP, não apenas a caixa.
-        ['dragenter', 'dragover'].forEach(nomeEvento => {
-            window.addEventListener(nomeEvento, (e) => {
+        ['dragenter', 'dragover'].forEach(evt => {
+            window.addEventListener(evt, (e) => {
                 bloquearNavegadorAbrirArquivo(e);
                 if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
                 dropArea.classList.add('dragover');
-                uploadProgress.textContent = 'Solte a imagem agora...';
             }, true);
         });
 
-        ['dragleave', 'dragend'].forEach(nomeEvento => {
-            window.addEventListener(nomeEvento, (e) => {
+        ['dragleave', 'dragend'].forEach(evt => {
+            window.addEventListener(evt, (e) => {
                 bloquearNavegadorAbrirArquivo(e);
-                if (nomeEvento === 'dragend' || e.clientX <= 0 || e.clientY <= 0 || e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+                if (evt === 'dragend' || e.clientX <= 0 || e.clientY <= 0 ||
+                    e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
                     dropArea.classList.remove('dragover');
-                    uploadProgress.textContent = images.length ? `${images.length} imagem(ns) carregada(s).` : 'Aguardando arquivos...';
                 }
             }, true);
         });
@@ -968,188 +1032,104 @@
         window.addEventListener('drop', (e) => {
             bloquearNavegadorAbrirArquivo(e);
             dropArea.classList.remove('dragover');
-            importarArquivosReais(arquivosDoDrop(e), 'drop');
+            let files = [];
+            if (e.dataTransfer.files && e.dataTransfer.files.length) {
+                files = Array.from(e.dataTransfer.files);
+            } else if (e.dataTransfer.items && e.dataTransfer.items.length) {
+                for (const item of e.dataTransfer.items) {
+                    if (item.kind === 'file') {
+                        const f = item.getAsFile();
+                        if (f) files.push(f);
+                    }
+                }
+            }
+            if (files.length) adicionarImagens(files, 'drop');
         }, true);
 
-        // Clique normal para selecionar arquivo.
-        dropArea.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+        dropArea.addEventListener('click', () => {
             fileInput.value = '';
             fileInput.click();
         });
-
         fileInput.addEventListener('change', (e) => {
-            importarArquivosReais(e.target.files, 'clique');
+            if (e.target.files.length) {
+                adicionarImagens(Array.from(e.target.files), 'clique');
+            }
             fileInput.value = '';
         });
 
-        // CTRL+V / CMD+V.
         window.addEventListener('paste', (e) => {
-            const arquivos = arquivosDoPaste(e);
-            if (arquivos.length) {
+            const cd = e.clipboardData || window.clipboardData;
+            const files = [];
+            if (cd) {
+                if (cd.files && cd.files.length) {
+                    files.push(...Array.from(cd.files));
+                }
+                if (cd.items && cd.items.length) {
+                    for (const item of cd.items) {
+                        if (item.kind === 'file') {
+                            const f = item.getAsFile();
+                            if (f) files.push(f);
+                        }
+                    }
+                }
+            }
+            if (files.length) {
                 e.preventDefault();
                 e.stopPropagation();
-                importarArquivosReais(arquivos, 'clipboard');
-            } else {
-                UploaderLog('Clipboard recebido, mas não veio imagem. Use PrintScreen/copiar imagem, ou arraste o arquivo por drop.', 'info');
+                adicionarImagens(files, 'clipboard');
             }
         }, true);
 
-        // Botão extra para ler clipboard moderno. Ajuda quando Ctrl+V não entrega arquivo.
-        const botaoColar = document.createElement('button');
-        botaoColar.type = 'button';
-        botaoColar.textContent = 'Colar imagem do clipboard';
-        botaoColar.style.marginTop = '10px';
-        dropArea.insertAdjacentElement('afterend', botaoColar);
-
-        botaoColar.addEventListener('click', async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-
+        pasteBtn.addEventListener('click', async () => {
             if (!navigator.clipboard || !navigator.clipboard.read) {
-                UploaderLog('Este navegador não permite leitura direta do clipboard. Use Ctrl+V com imagem copiada ou arraste por drop.', 'error');
+                updateStatus('Clipboard API não suportada. Use Ctrl+V.', 'error');
                 return;
             }
-
             try {
                 const itens = await navigator.clipboard.read();
-                const arquivos = [];
-
+                const files = [];
                 for (const item of itens) {
                     for (const type of item.types) {
                         if (type.startsWith('image/')) {
                             const blob = await item.getType(type);
                             const ext = type.includes('jpeg') ? 'jpg' : type.split('/')[1].replace('svg+xml', 'svg');
-                            arquivos.push(new File([blob], `clipboard-${Date.now()}.${ext}`, { type }));
+                            files.push(new File([blob], `clipboard-${Date.now()}.${ext}`, { type }));
                         }
                     }
                 }
-
-                importarArquivosReais(arquivos, 'clipboard');
+                if (files.length) adicionarImagens(files, 'clipboard');
+                else updateStatus('Clipboard não contém imagem.', 'info');
             } catch (err) {
                 console.error(err);
-                UploaderLog('Não consegui ler o clipboard. Em arquivo local, o navegador pode bloquear. Teste em localhost/HTTPS ou use Ctrl+V/Drop.', 'error');
+                updateStatus('Erro ao ler clipboard: ' + err.message, 'error');
             }
         });
 
-        // ============================================================
-        // 8. HANDLE FILES – processa os arquivos recebidos
-        // ============================================================
-        function handleFiles(files) {
-            const valid = [];
-            for (let file of files) {
-                const isImage = file.type.startsWith('image/');
-                const isHeic = file.name.toLowerCase().endsWith('.heic') ||
-                    file.name.toLowerCase().endsWith('.HEIC') ||
-                    file.type === 'image/heic' ||
-                    file.type === 'image/HEIC';
-                if (isImage || isHeic) {
-                    valid.push(file);
-                }
+        // ================================================================
+        // 7. NOMEAÇÃO E LISTA
+        // ================================================================
+        function getDisplayName(index) {
+            const base = baseNameInput.value.trim() || 'imagem';
+            const numerar = numberFilesCheck.checked;
+            if (numerar) {
+                return `${base}_${index + 1}`;
+            } else {
+                // Usa o nome original sem extensão
+                const original = images[index]?.file?.name || `imagem_${index+1}`;
+                return original.replace(/\.[^/.]+$/, '');
             }
-            if (valid.length === 0) {
-                uploadProgress.textContent = 'Nenhuma imagem válida.';
-                updateStatus('Use apenas imagens (JPG, PNG, GIF, WEBP, HEIC).', 'error');
-                return;
-            }
-
-            let loaded = 0;
-            const total = valid.length;
-            uploadProgress.textContent = `Carregando 0 de ${total}...`;
-
-            valid.forEach((file) => {
-                processarArquivo(file).then(() => {
-                    loaded++;
-                    uploadProgress.textContent = `Carregando ${loaded} de ${total}...`;
-                    if (loaded === total) {
-                        uploadProgress.textContent = `Pronto! ${images.length} imagens carregadas.`;
-                    }
-                }).catch(err => {
-                    console.error('Erro em', file.name, err);
-                    loaded++;
-                    uploadProgress.textContent = `Carregando ${loaded} de ${total}... (erro em ${file.name})`;
-                });
-            });
         }
 
-        function processarArquivo(file) {
-            return new Promise((resolve, reject) => {
-                const isHeic = file.name.toLowerCase().endsWith('.heic') ||
-                    file.name.toLowerCase().endsWith('.HEIC') ||
-                    file.type === 'image/heic' ||
-                    file.type === 'image/HEIC';
-
-                if (images.some(img => img.file.name === file.name && img.file.size === file.size)) {
-                    resolve();
-                    return;
-                }
-
-                const imageObj = { file, dataUrl: null, preview: null, isHeic };
-
-                if (isHeic) {
-                    convertHeicToJpeg(file)
-                        .then(blob => {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                imageObj.dataUrl = e.target.result;
-                                const img = new Image();
-                                img.onload = function() {
-                                    imageObj.preview = img;
-                                    images.push(imageObj);
-                                    updateImageList();
-                                    if (images.length === 1) showPreview(imageObj);
-                                    updateStatus(`HEIC "${file.name}" convertido.`, 'success');
-                                    resolve();
-                                };
-                                img.onerror = () => reject(new Error('Falha ao carregar HEIC'));
-                                img.src = e.target.result;
-                            };
-                            reader.onerror = () => reject(new Error('Falha ao ler blob HEIC'));
-                            reader.readAsDataURL(blob);
-                        })
-                        .catch(err => reject(err));
-                } else {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        imageObj.dataUrl = e.target.result;
-                        const img = new Image();
-                        img.onload = function() {
-                            imageObj.preview = img;
-                            images.push(imageObj);
-                            updateImageList();
-                            if (images.length === 1) showPreview(imageObj);
-                            updateStatus(`"${file.name}" carregada.`, 'success');
-                            resolve();
-                        };
-                        img.onerror = () => reject(new Error('Falha ao carregar imagem'));
-                        img.src = e.target.result;
-                    };
-                    reader.onerror = () => reject(new Error('Falha ao ler arquivo'));
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-
-        function convertHeicToJpeg(heicFile) {
-            return new Promise((resolve, reject) => {
-                try {
-                    heic2any({ blob: heicFile, toType: 'image/jpeg', quality: 0.8 })
-                        .then(resolve)
-                        .catch(reject);
-                } catch (e) { reject(e); }
-            });
-        }
-
-        // ============================================================
-        // 9. ATUALIZAR LISTA E PREVIEW
-        // ============================================================
         function updateImageList() {
             imageList.innerHTML = '';
             imageCount.textContent = images.length;
             if (images.length === 0) {
-                imageList.innerHTML = '<div class="status info">Nenhuma imagem carregada</div>';
+                imageList.innerHTML = '<div class="status info" style="margin:0;">Nenhuma imagem</div>';
                 processBtn.disabled = true;
+                downloadAllBtn.disabled = true;
+                selectedIndex = -1;
+                imagePreview.style.display = 'none';
+                imagePreview.src = '';
                 return;
             }
             processBtn.disabled = false;
@@ -1157,42 +1137,65 @@
             images.forEach((image, index) => {
                 const item = document.createElement('div');
                 item.className = 'image-list-item';
-                const fmt = image.isHeic ? '<span style="color:#4b6cb7;font-weight:bold;margin-right:5px;">[HEIC]</span>' : '';
+                if (index === selectedIndex) {
+                    item.classList.add('selected');
+                }
+                const fmt = image.isHeic ? '<span style="color:#4b6cb7;font-weight:bold;margin-right:4px;">HEIC</span>' : '';
+                const displayName = getDisplayName(index);
+                const ext = image.file.name.split('.').pop() || '';
                 item.innerHTML = `
-                    <img src="${image.dataUrl}" class="image-list-thumb" alt="${image.file.name}">
-                    <div class="image-list-info">
-                        <div class="image-list-name">${fmt}${image.file.name}</div>
-                        <div class="image-list-size">${formatFileSize(image.file.size)} • ${image.preview.width}x${image.preview.height}</div>
+                    <img src="${image.dataUrl}" class="thumb" alt="${image.file.name}">
+                    <div class="info">
+                        <div class="name">${fmt}${displayName}</div>
+                        <div class="size">${formatFileSize(image.file.size)} • ${image.preview.width}x${image.preview.height}</div>
                     </div>
-                    <div class="image-list-remove" data-index="${index}">✖</div>
+                    <div class="remove" data-index="${index}">✖</div>
                 `;
                 imageList.appendChild(item);
                 item.addEventListener('click', (e) => {
-                    if (!e.target.classList.contains('image-list-remove')) showPreview(image);
+                    if (!e.target.classList.contains('remove')) {
+                        selectedIndex = index;
+                        showPreview(image);
+                    }
                 });
             });
 
-            document.querySelectorAll('.image-list-remove').forEach(btn => {
+            document.querySelectorAll('.remove').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const idx = parseInt(e.target.dataset.index);
                     const removed = images[idx];
+                    loadedDataUrls.delete(removed.dataUrl);
                     images.splice(idx, 1);
+                    // Ajusta selectedIndex
+                    if (selectedIndex === idx) {
+                        selectedIndex = images.length > 0 ? Math.min(idx, images.length - 1) : -1;
+                    } else if (selectedIndex > idx) {
+                        selectedIndex--;
+                    }
                     updateImageList();
                     updateStatus(`"${removed.file.name}" removida.`, 'info');
                     if (images.length === 0) {
                         imagePreview.style.display = 'none';
+                        imagePreview.src = '';
                         uploadProgress.textContent = 'Aguardando arquivos...';
                     } else {
-                        showPreview(images[0]);
+                        showPreview(images[selectedIndex >= 0 ? selectedIndex : 0]);
                     }
                 });
             });
+
+            // Se selectedIndex for inválido, ajusta
+            if (selectedIndex >= images.length) selectedIndex = images.length - 1;
+            if (selectedIndex < 0 && images.length > 0) {
+                selectedIndex = 0;
+                showPreview(images[0]);
+            }
         }
 
-        // ============================================================
-        // 10. APLICAR WATERMARK E PREVIEW
-        // ============================================================
+        // ================================================================
+        // 8. APLICAR WATERMARK E PREVIEW
+        // ================================================================
         function applyWatermarkSingle(ctx, w, h) {
             if (!watermarkImage) return;
             const scale = parseInt(singleScale.value);
@@ -1304,6 +1307,7 @@
         }
 
         function showPreview(image) {
+            if (!image) return;
             const canvas = document.createElement('canvas');
             canvas.width = image.preview.width;
             canvas.height = image.preview.height;
@@ -1315,15 +1319,22 @@
             }
             imagePreview.src = canvas.toDataURL();
             imagePreview.style.display = 'block';
+            // Atualiza o destaque na lista
+            updateImageList();
         }
 
         function updatePreview() {
-            if (images.length > 0) showPreview(images[0]);
+            if (images.length > 0 && selectedIndex >= 0 && selectedIndex < images.length) {
+                showPreview(images[selectedIndex]);
+            } else if (images.length > 0) {
+                selectedIndex = 0;
+                showPreview(images[0]);
+            }
         }
 
-        // ============================================================
-        // 11. PROCESSAMENTO E DOWNLOAD
-        // ============================================================
+        // ================================================================
+        // 9. PROCESSAMENTO E DOWNLOAD COM NOMEAÇÃO
+        // ================================================================
         async function processAllImages() {
             if (images.length === 0) return;
             try {
@@ -1339,24 +1350,22 @@
                     updateStatus(`Processando ${i+1}/${images.length}: ${img.file.name}`, 'info');
                     const progress = Math.round((i / images.length) * 100);
                     convProgress.style.width = progress + '%';
-                    convProgress.textContent = progress + '%';
                     progressText.textContent = `Processando ${i+1}/${images.length} (${progress}%)`;
                     const result = await processImage(img);
                     processedImages.push(result);
                     await new Promise(r => setTimeout(r, 10));
                 }
                 convProgress.style.width = '100%';
-                convProgress.textContent = '100%';
                 progressText.textContent = `Concluído! ${processedImages.length} imagens.`;
-                updateStatus('Pronto! Clique em "Download em ZIP".', 'success');
+                updateStatus('Pronto! Clique em "ZIP".', 'success');
                 const fmt = document.querySelector('input[name="output-format"]:checked').value;
-                processBtn.textContent = `Processar para ${fmt.toUpperCase()}`;
+                processBtn.textContent = `Processar (${fmt.toUpperCase()})`;
                 downloadAllBtn.disabled = false;
             } catch (err) {
                 console.error(err);
                 updateStatus('Erro: ' + err.message, 'error');
                 const fmt = document.querySelector('input[name="output-format"]:checked').value;
-                processBtn.textContent = `Processar para ${fmt.toUpperCase()}`;
+                processBtn.textContent = `Processar (${fmt.toUpperCase()})`;
                 processBtn.disabled = false;
             }
         }
@@ -1388,23 +1397,44 @@
             if (processedImages.length === 0) return;
             try {
                 downloadAllBtn.disabled = true;
-                downloadAllBtn.textContent = 'Criando ZIP...';
+                downloadAllBtn.textContent = 'ZIP...';
                 updateStatus('Criando ZIP...', 'info');
                 const zip = new JSZip();
                 const fmt = document.querySelector('input[name="output-format"]:checked').value;
-                processedImages.forEach(img => {
-                    const name = img.originalName.replace(/\.[^/.]+$/, '') + '.' + fmt;
-                    zip.file(name, img.blob);
+                const baseName = baseNameInput.value.trim() || 'imagem';
+                const numerar = numberFilesCheck.checked;
+
+                const usedNames = new Map();
+
+                processedImages.forEach((img, index) => {
+                    let fileName;
+                    const ext = fmt;
+                    if (numerar) {
+                        fileName = `${baseName}_${index + 1}.${ext}`;
+                    } else {
+                        const originalBase = img.originalName.replace(/\.[^/.]+$/, '');
+                        let candidate = `${originalBase}.${ext}`;
+                        if (usedNames.has(candidate)) {
+                            let count = usedNames.get(candidate) + 1;
+                            usedNames.set(candidate, count);
+                            candidate = `${originalBase}_${count}.${ext}`;
+                        } else {
+                            usedNames.set(candidate, 1);
+                        }
+                        fileName = candidate;
+                    }
+                    zip.file(fileName, img.blob);
                 });
+
                 const zipBlob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
                 saveAs(zipBlob, `imagens_${fmt}.zip`);
                 updateStatus(`Download iniciado (${processedImages.length} arquivos).`, 'success');
-                downloadAllBtn.textContent = 'Download em ZIP';
+                downloadAllBtn.textContent = 'ZIP';
                 downloadAllBtn.disabled = false;
             } catch (err) {
                 console.error(err);
                 updateStatus('Erro ao criar ZIP: ' + err.message, 'error');
-                downloadAllBtn.textContent = 'Download em ZIP';
+                downloadAllBtn.textContent = 'ZIP';
                 downloadAllBtn.disabled = false;
             }
         }
@@ -1422,13 +1452,12 @@
             statusMsg.className = 'status ' + type;
         }
 
-        // ============================================================
-        // 12. INICIALIZAÇÃO
-        // ============================================================
+        // ================================================================
+        // 10. INICIALIZAÇÃO
+        // ================================================================
         async function init() {
             document.getElementById('format-webp').checked = true;
-            processBtn.textContent = 'Processar para WEBP';
-            // Garantir aba Single ativa
+            processBtn.textContent = 'Processar (WEBP)';
             document.querySelector('.tab-btn[data-tab="single"]').classList.add('active');
             document.getElementById('tab-single').classList.add('active');
             document.getElementById('tab-mosaic').classList.remove('active');
@@ -1437,6 +1466,11 @@
                 await loadDefaultWatermark();
             }
             uploadProgress.textContent = 'Aguardando arquivos...';
+            updateImageList();
+
+            // Atualiza a lista quando os controles de nomeação mudarem
+            baseNameInput.addEventListener('input', updateImageList);
+            numberFilesCheck.addEventListener('change', updateImageList);
         }
 
         processBtn.addEventListener('click', processAllImages);
