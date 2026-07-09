@@ -276,4 +276,36 @@ Contato: 51 998 111 078
 ------------------------------
 segue logo abaixo as informações a serem estruturadas no modelo
 </modelo>
+<modelo nome="4.1 - Prompt para MarketPlace" tipo="Texto">	
+Ao gerar ou reescrever o texto, preserve integralmente o conteúdo original, sem alterar palavras, pontuação, emojis ou ordem das informações, exceto quando eu solicitar.
+
+Formatação obrigatória para Facebook Marketplace:
+
+Sempre que houver uma linha em branco (quebra de parágrafo), insira na linha vazia o caractere branco "ㅤ" (Hangul Filler).
+Não utilize duas quebras de linha consecutivas vazias.
+A estrutura deve ficar exatamente assim:
+
+Linha de texto
+ㅤ
+Próxima linha de texto
+
+Não adicione espaços extras, traços ou outros caracteres invisíveis.
+Não altere a quantidade de parágrafos.
+Apenas substitua cada linha em branco pelo caractere "ㅤ", mantendo todo o restante do texto exatamente igual.
+
+Exemplo:
+
+Título CABEÇALHO CEO OBRIGATÓRIO: [VENDA] + relevantes | tens | item | item | item  "se mais de um"
+ㅤ
+Subtítulo
+ㅤ
+Descrição
+ㅤ
+✔ Item 1
+✔ Item 2
+ㅤ
+Informações finais
+	
+CTA gancho + 5551 9 9811 1078
+</modelo>
 </modelos> 
