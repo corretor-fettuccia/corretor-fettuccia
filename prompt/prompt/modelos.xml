@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <modelos>
+<modelo nome="Whats - Prompt - WHATSAPP - descriptor" tipo="WHATSAPP">
+Usar este modelo de descrição para usar no whatsapp, usando a descrição exemplo abaixo.
+🏡 IMÓVEL EM DESTAQUE
+
+📍 Localização: [Localização]
+
+💰 De: R$ [Valor Anterior]
+🔥 Por apenas: R$ [Valor Atual]
+
+🏠 Detalhes do imóvel:
+🛏️ [Quantidade] quartos
+🚿 [Quantidade] banheiros
+🚗 [Quantidade] vagas de garagem
+📐 Área: [M²]
+🛋️ [Outros diferenciais: suíte, área gourmet, piscina, escritório, etc.]
+
+📲 Quer conhecer este imóvel ou agendar uma visita?
+Entre em contato comigo e receba todas as informações, fotos, condições de negociação e uma consultoria completa para encontrar o imóvel ideal para você.
+
+📞 Roberto Fettuccia
+WhatsApp: (51) 99811-1078
+link: [se for o caso senão enviar remover este ítem]
+</modelo>
+	
 <modelo nome="0.0 - Prompt - Video I.A - Photo-Video" tipo="video">
 • tipo de cena: interior residencial de alto padrão
 • objetivo: transformar imagem estática em vídeo com movimento cinematográfico suave
