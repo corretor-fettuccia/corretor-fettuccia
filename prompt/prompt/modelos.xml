@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <modelos>
+<modelo nome="Prompt Master" tipo="Parametros IA">
+<tarefa>
+	1. Execute...
+</tarefa>
+<regras>
+	- Não invente informações.
+</regras>
+<criterios_de_sucesso>
+	- O resultado deve conter...
+</criterios_de_sucesso>
+<formato_de_saida>
+	- Formato: texto simples.
+</formato_de_saida>
+<dados_de_entrada>
+	Cole aqui os textos, números, documentos ou informações que serão utilizados.
+</dados_de_entrada>
+</modelo>
+	
 <modelo nome="Whats - Prompt - WHATSAPP - descriptor" tipo="WHATSAPP">
 Usar este modelo de descrição para usar no whatsapp, usando a descrição exemplo abaixo.
 🏡 IMÓVEL EM DESTAQUE
